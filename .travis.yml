@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - node
+  - lts/*
+notifications:
+  email: false
+script:
+  - npm run build
+deploy:
+  local_dir: build
+  skip_cleanup: true
+  on:
+    node: lts/*
+  provider: s3
+  bucket: com.shepherdjerred.better-skill-capped

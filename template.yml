@@ -1,0 +1,14 @@
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: "com.shepherdjerred.better-skill-capped"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+# IAM user
+# RecordSet
+# CloudFormation Distribution
