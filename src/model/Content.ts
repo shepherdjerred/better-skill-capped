@@ -1,6 +1,6 @@
-import {Video} from "./Video";
-import {Course} from "./Course";
-import {Commentary} from "./Commentary";
+import { Video } from "./Video";
+import { Course } from "./Course";
+import { Commentary } from "./Commentary";
 
 export interface Content {
   videos: Video[];

@@ -1,5 +1,5 @@
-import {Role} from "./Role";
-import {CourseVideo} from "./CourseVideo";
+import { Role } from "./Role";
+import { CourseVideo } from "./CourseVideo";
 
 export interface Course {
   title: string;

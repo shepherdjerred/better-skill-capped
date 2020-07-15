@@ -51,7 +51,7 @@ export interface DumpStaff {
   name: string;
   summonerName: string;
   profileImage: string;
-  profileImageWithRank: string
+  profileImageWithRank: string;
 }
 
 export interface DumpCourse {
@@ -84,8 +84,8 @@ export interface DumpCourseChapters {
             uuid: string;
             altTitle?: string;
           }
-        ]
+        ];
       }
-    ]
+    ];
   };
 }

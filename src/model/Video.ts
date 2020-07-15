@@ -1,4 +1,4 @@
-import {Role} from "./Role";
+import { Role } from "./Role";
 
 export interface Video {
   role: Role;
@@ -7,4 +7,5 @@ export interface Video {
   releaseDate: Date;
   durationInSeconds: number;
   uuid: string;
+  imageUrl: string;
 }
