@@ -4,7 +4,7 @@ import {Video} from "../model/Video";
 const BASE_URL = "https://www.skill-capped.com/lol/course/";
 
 export function rawTitleToUrlTitle(rawTitle: string) {
-  return rawTitle.toLowerCase().replace(/ /g, "-").replace(/\$/g, "").replace(/!:/g, "");
+  return rawTitle.toLowerCase().replace(/ /g, "-").replace(/\$/g, "").replace(/[!|:]/g, "");
 }
 
 export function getCourseUrl(course: Course): string {
