@@ -1,5 +1,5 @@
 {
-  "timeStamp": 1594725092233,
+  "timeStamp": 1594887505090,
   "patch": {
     "patchVal": "10.14",
     "releaseDate": 1594098000000,
@@ -509,11 +509,21 @@
     {
       "role": "adc",
       "title": "Laning Mistakes YOU and EVERYONE Else Makes as ADC!",
-      "desc": "",
+      "desc": "Video link: https://www.skill-capped.com/lol/course/special-guides-that-every-role-should-watch/z9hfvgp83p/8-super-advanced-wave-control-techniques-you-dont-know/rvxfh126zm",
       "rDate": 1594724052662,
       "durSec": 608,
       "uuid": "v60s8qknfg",
       "tId": 18,
+      "tSS": ""
+    },
+    {
+      "role": "jungle",
+      "title": "How to Actually WIN Once You Get Ahead ",
+      "desc": "",
+      "rDate": 1594816969513,
+      "durSec": 655,
+      "uuid": "88fyfjwl2h",
+      "tId": 22,
       "tSS": ""
     },
     {
@@ -11386,6 +11396,25 @@
       "gameTime": "27m27s",
       "carry": "Medium",
       "type": "Smurf"
+    },
+    {
+      "role": "adc",
+      "title": "ADC Commentary by Cookie on Aphelios | 19/5/6 | 29m09s",
+      "rDate": 1594789200000,
+      "durSec": 2033,
+      "uuid": "jdp3rq2vhy",
+      "tId": 19,
+      "tSS": "",
+      "staff": "Cookie",
+      "matchLink": "https://www.leagueofgraphs.com/match/euw/4635689961#participant8",
+      "yourChampion": "Aphelios",
+      "theirChampion": "Kai'Sa",
+      "k": 19,
+      "d": 5,
+      "a": 6,
+      "gameTime": "29m09s",
+      "carry": "Medium",
+      "type": "Smurf"
     }
   ],
   "staff": [
@@ -11442,6 +11471,12 @@
       "summonerName": "Skillshot",
       "profileImage": "https://ik.imagekit.io/skillcapped/Staff-Mother-Mango_tRe0O2eze.svg",
       "profileImageWithRank": "https://d20k8dfo6rtj2t.cloudfront.net/jpg-images/50755z13x1.png"
+    },
+    {
+      "name": "Japanese Import",
+      "summonerName": "Japanese Import",
+      "profileImage": "https://ik.imagekit.io/skillcapped/Staff-Mother-Mango_tRe0O2eze.svg",
+      "profileImageWithRank": "https://d20k8dfo6rtj2t.cloudfront.net/jpg-images/f7f13zw6hk.png"
     }
   ],
   "courses": [
@@ -18887,13 +18922,12 @@
     {
       "year": 2020,
       "weekNum": 29,
-      "release": 1594875600000,
+      "release": 1594789200000,
       "role": "jungle",
       "type": "new",
       "vidTitle": "How to Actually WIN Once You Get Ahead ",
       "order": 2,
-      "courseName": "WHAT TO DO AFTER $LANING PHASE ENDS$ AS A $JUNGLER$",
-      "ssURL": "https://skillcappedzencoder.s3.amazonaws.com/k349vyfmkt/thumbnails/thumbnail_medium_1.jpg"
+      "courseName": "WHAT TO DO AFTER $LANING PHASE ENDS$ AS A $JUNGLER$"
     },
     {
       "year": 2020,
@@ -18921,10 +18955,9 @@
       "release": 1594789200000,
       "role": "adc",
       "type": "new",
-      "vidTitle": "Smurf Commentary",
+      "vidTitle": "ADC Commentary by Cookie on Aphelios | 19/5/6 | 29m09s",
       "order": 2,
-      "courseName": "$SPECIAL GUIDES$ THAT $EVERY ROLE$ SHOULD $WATCH!$",
-      "ssURL": "https://skillcappedzencoder.s3.amazonaws.com/k349vyfmkt/thumbnails/thumbnail_medium_1.jpg"
+      "courseName": null
     },
     {
       "year": 2020,
@@ -19404,6 +19437,7 @@
         {
           "title": "Course Content",
           "vids": [
+            { "uuid": "88fyfjwl2h" },
             { "uuid": "70z31jf2gp", "altTitle": "How to Close Out Games in Low Elo" },
             { "uuid": "gyfc3jgvht" },
             {
