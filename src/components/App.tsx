@@ -8,6 +8,7 @@ import { Hero } from "./Hero";
 import { FilterBar } from "./FilterBar";
 import { Course } from "../model/Course";
 import Fuse from "fuse.js";
+import { Footer } from "./Footer";
 
 export interface AppState {
   data: Content;
@@ -66,6 +67,7 @@ export default class App extends React.Component<unknown, AppState> {
           <FilterBar onUpdate={this.onFilter.bind(this)} />
           <CourseList courses={courses} />
         </Container>
+        <Footer />
       </React.Fragment>
     );
   }
