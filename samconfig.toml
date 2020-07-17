@@ -1,0 +1,9 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "better-skill-capped"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1m3ncqlcvoj7u"
+s3_prefix = "better-skill-capped"
+region = "us-east-1"
+capabilities = "CAPABILITY_NAMED_IAM"

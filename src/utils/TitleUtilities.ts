@@ -1,5 +1,3 @@
-
-
 export function rawTitleToDisplayTitle(rawTitle: string) {
   const title = rawTitle.replace(/\$/g, "");
   return toTitleCase(title);

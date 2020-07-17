@@ -3,7 +3,7 @@ import { DumpCommentary, DumpCourse, DumpCourseChapters, DumpSchema, DumpVideo }
 import { Video } from "../model/Video";
 import { Course } from "../model/Course";
 import { Commentary } from "../model/Commentary";
-import {roleFromString} from "../model/Role";
+import { roleFromString } from "../model/Role";
 
 export class Parser {
   parse(input: string): Content {
@@ -35,7 +35,7 @@ export class Parser {
           releaseDate,
           durationInSeconds: video.durSec,
           uuid: video.uuid,
-          imageUrl
+          imageUrl,
         };
       }
     );
@@ -43,9 +43,12 @@ export class Parser {
 
   getImageUrl(input: DumpVideo): string {
     if (input.tSS !== "") {
-      return input.tSS.replace("https://d20k8dfo6rtj2t.cloudfront.net/jpg-images/", "https://ik.imagekit.io/skillcapped/customss/jpg-images/")
+      return input.tSS.replace(
+        "https://d20k8dfo6rtj2t.cloudfront.net/jpg-images/",
+        "https://ik.imagekit.io/skillcapped/customss/jpg-images/"
+      );
     } else {
-      return `https://ik.imagekit.io/skillcapped/thumbnails/${input.uuid}/thumbnails/thumbnail_${input.tId}.jpg`
+      return `https://ik.imagekit.io/skillcapped/thumbnails/${input.uuid}/thumbnails/thumbnail_${input.tId}.jpg`;
     }
   }
 

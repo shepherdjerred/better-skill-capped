@@ -5,10 +5,10 @@ import * as serviceWorker from "./serviceWorker";
 import "bulma/bulma.sass";
 
 ReactDOM.render(
-    <React.StrictMode>
-      <App/>
-    </React.StrictMode>,
-    document.getElementById("root")
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
 );
 
 serviceWorker.register();

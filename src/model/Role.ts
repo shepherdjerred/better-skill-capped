@@ -4,7 +4,7 @@ export enum Role {
   MID,
   ADC,
   SUPPORT,
-  ALL
+  ALL,
 }
 
 export function roleFromString(input: string): Role {
@@ -29,16 +29,16 @@ export function roleFromString(input: string): Role {
 export function roleToString(role: Role): string {
   switch (role) {
     case Role.TOP:
-      return "Top"
+      return "Top";
     case Role.JUNGLE:
-      return "Jungle"
+      return "Jungle";
     case Role.MID:
-      return "Mid"
+      return "Mid";
     case Role.ADC:
-      return "ADC"
+      return "ADC";
     case Role.SUPPORT:
-      return "Support"
+      return "Support";
     case Role.ALL:
-      return "All"
+      return "All";
   }
 }

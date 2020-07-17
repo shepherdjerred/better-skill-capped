@@ -1,5 +1,5 @@
-import {Course} from "../model/Course";
-import {Video} from "../model/Video";
+import { Course } from "../model/Course";
+import { Video } from "../model/Video";
 
 const BASE_URL = "https://www.skill-capped.com/lol/course/";
 
