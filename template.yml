@@ -36,7 +36,7 @@ Resources:
     Properties:
       DistributionConfig:
         Aliases:
-          - "skill-capped.shepherdjerred.com"
+          - "better-skill-capped.shepherdjerred.com"
         Comment: "better-skill-capped"
         DefaultCacheBehavior:
           DefaultTTL: 500
