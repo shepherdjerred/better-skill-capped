@@ -37,9 +37,6 @@ export default class VideoComponent extends React.Component<VideoComponentProps,
                 <a className="button is-small is-link" href={getVideoUrl(video, this.props.baseUrl)}>
                   Watch
                 </a>
-                <a className="button is-small is-warning" href="">
-                  Bookmark
-                </a>
               </div>
             </div>
           </div>
