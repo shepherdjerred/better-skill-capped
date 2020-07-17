@@ -67,7 +67,6 @@ export default class App extends React.Component<unknown, AppState> {
           <FilterBar onUpdate={this.onFilter.bind(this)} />
           <CourseList courses={courses} />
         </Container>
-        <Footer />
       </React.Fragment>
     );
   }
