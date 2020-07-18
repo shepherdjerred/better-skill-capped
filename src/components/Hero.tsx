@@ -14,8 +14,11 @@ export enum Color {
 }
 
 export enum Size {
-  NORMAL,
+  SMALL,
+  MEDIUM,
+  LARGE,
   FULL,
+  FULL_WITH_NAVBAR,
 }
 
 export class Hero extends React.PureComponent<HeroProps, unknown> {
@@ -30,9 +33,15 @@ export class Hero extends React.PureComponent<HeroProps, unknown> {
 
   getClassNameForSize(size: Size): string {
     switch (size) {
-      case Size.NORMAL:
+      case Size.SMALL:
         return "";
+      case Size.MEDIUM:
+        return "is-medium";
+      case Size.LARGE:
+        return "is-large";
       case Size.FULL:
+        return "is-fullheight";
+      case Size.FULL_WITH_NAVBAR:
         return "is-fullheight-with-navbar";
     }
   }
@@ -41,7 +50,7 @@ export class Hero extends React.PureComponent<HeroProps, unknown> {
     const sectionClasses: string = classNames({
       hero: true,
       [this.getClassNameForColor(this.props.color || Color.TEAL)]: true,
-      [this.getClassNameForSize(this.props.size || Size.NORMAL)]: true,
+      [this.getClassNameForSize(this.props.size || Size.SMALL)]: true,
     });
 
     return (

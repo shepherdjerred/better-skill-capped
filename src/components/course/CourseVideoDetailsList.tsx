@@ -2,13 +2,13 @@ import React from "react";
 import { Course } from "../../model/Course";
 import { rawTitleToDisplayTitle } from "../../utils/TitleUtilities";
 import { getCourseUrl } from "../../utils/UrlUtilities";
-import { VideoList } from "../video/VideoList";
+import { VideoDetailsList } from "../video/VideoDetailsList";
 
-export interface CourseComponentProps {
+export interface CourseVideoDetailsListProps {
   course: Course;
 }
 
-export default class _CourseVideoComponent extends React.PureComponent<CourseComponentProps, unknown> {
+export default class _CourseVideoComponent extends React.PureComponent<CourseVideoDetailsListProps, unknown> {
   render() {
     let videos = this.props.course.videos.map((video) => video.video);
     let displayTitle = this.props.course.title;
@@ -17,7 +17,7 @@ export default class _CourseVideoComponent extends React.PureComponent<CourseCom
     return (
       <div>
         <h1 className="title">{displayTitle}</h1>
-        <VideoList videos={videos} baseUrl={getCourseUrl(this.props.course)} />
+        <VideoDetailsList videos={videos} baseUrl={getCourseUrl(this.props.course)} />
       </div>
     );
   }

@@ -2,14 +2,14 @@ import React from "react";
 import { Video } from "../../model/Video";
 import { getVideoUrl } from "../../utils/UrlUtilities";
 import { roleToString } from "../../model/Role";
-import "./VideoComponent.css";
+import "./VideoDetails.css";
 
-export interface VideoComponentProps {
+export interface VideoDetailsProps {
   video: Video;
   baseUrl: string;
 }
 
-export default class VideoComponent extends React.PureComponent<VideoComponentProps, unknown> {
+export default class VideoDetails extends React.PureComponent<VideoDetailsProps, unknown> {
   render() {
     const video = this.props.video;
     const displayDate = video.releaseDate.toDateString();

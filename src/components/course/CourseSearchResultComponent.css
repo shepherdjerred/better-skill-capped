@@ -1,0 +1,11 @@
+.box-content {
+  margin: 30px
+}
+
+.box-content p {
+  margin-bottom: 10px;
+}
+
+.box-content ol {
+  margin-left: 20px;
+}

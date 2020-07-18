@@ -4,6 +4,7 @@ import { Video } from "../model/Video";
 import { Course } from "../model/Course";
 import { Commentary } from "../model/Commentary";
 import { roleFromString } from "../model/Role";
+import { rawTitleToDisplayTitle } from "../utils/TitleUtilities";
 
 export class Parser {
   parse(input: string): Content {
@@ -27,10 +28,11 @@ export class Parser {
         const releaseDate = this.parseDate(video.rDate);
         const role = roleFromString(video.role);
         const imageUrl = this.getImageUrl(video);
+        const title = rawTitleToDisplayTitle(video.title);
 
         return {
           role,
-          title: video.title,
+          title,
           description: video.desc,
           releaseDate,
           durationInSeconds: video.durSec,
@@ -59,10 +61,12 @@ export class Parser {
       (course): Course => {
         const releaseDate = this.parseDate(course.rDate);
         const role = roleFromString(course.role);
+        const title = rawTitleToDisplayTitle(course.title);
 
         const courseVideos = dumpCourseChapters[course.title].chapters[0].vids
           .map((video) => {
             const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
+            const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
 
             if (videoInfo === undefined) {
               throw new Error(`Couldn't find video ${video}`);
@@ -70,7 +74,7 @@ export class Parser {
 
             return {
               video: videoInfo,
-              altTitle: video.altTitle || undefined,
+              altTitle,
             };
           })
           .map((video) => {
@@ -81,7 +85,7 @@ export class Parser {
           });
 
         return {
-          title: course.title,
+          title,
           uuid: course.uuid,
           description: course.desc || undefined,
           releaseDate: releaseDate,

@@ -28,7 +28,7 @@ export class ErrorBoundary extends React.Component<ErrorPageProps, ErrorPageStat
 
   render() {
     if (this.state.hasError) {
-      return <Hero title="Something went wrong" color={Color.RED} size={Size.FULL} />;
+      return <Hero title="Something went wrong" color={Color.RED} size={Size.FULL_WITH_NAVBAR} />;
     } else {
       return this.props.children;
     }

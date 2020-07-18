@@ -1,10 +1,11 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { CourseHome } from "./course/CourseHome";
+import { CourseSearch } from "./course/CourseSearch";
 import React from "react";
 import { Course } from "../model/Course";
 import { Home } from "./Home";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
+import "./Wrapper.css";
 
 export interface RouterProps {
   courses: Course[];
@@ -14,20 +15,24 @@ export class Router extends React.Component<RouterProps, unknown> {
   render() {
     return (
       <React.Fragment>
-        <BrowserRouter>
-          <Navbar />
-          <div>
-            <Switch>
-              <Route path="/courses">
-                <CourseHome courses={this.props.courses} />
-              </Route>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Switch>
+        <div className="page-wrapper">
+          <div className="content-wrapper">
+            <BrowserRouter>
+              <Navbar />
+              <div>
+                <Switch>
+                  <Route path="/courses">
+                    <CourseSearch courses={this.props.courses} />
+                  </Route>
+                  <Route path="/">
+                    <Home />
+                  </Route>
+                </Switch>
+              </div>
+            </BrowserRouter>
           </div>
-        </BrowserRouter>
-        <Footer />
+          <Footer />
+        </div>
       </React.Fragment>
     );
   }

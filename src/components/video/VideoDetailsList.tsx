@@ -1,18 +1,18 @@
 import React from "react";
-import VideoComponent from "./VideoComponent";
+import VideoDetails from "./VideoDetails";
 import { Video } from "../../model/Video";
 
-export interface VideoListProps {
+export interface VideoDetailsListProps {
   videos: Video[];
   baseUrl: string;
 }
 
-export class VideoList extends React.PureComponent<VideoListProps, unknown> {
+export class VideoDetailsList extends React.PureComponent<VideoDetailsListProps, unknown> {
   renderCourses() {
     return this.props.videos.map((video) => {
       return (
         <div key={video.uuid}>
-          <VideoComponent video={video} baseUrl={this.props.baseUrl} />
+          <VideoDetails video={video} baseUrl={this.props.baseUrl} />
         </div>
       );
     });
