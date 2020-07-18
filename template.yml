@@ -49,14 +49,12 @@ Resources:
         DefaultRootObject: "index.html"
         Enabled: true
         IPV6Enabled: true
-        CustomErrorResponse:
-          -
-            ResponsePagePath: "index.html"
+        CustomErrorResponses:
+          - ResponsePagePath: "index.html"
             ResponseCode: 404
             ErrorCachingMinTTL: 3600
             ErrorCode: 200
-          -
-            ResponsePagePath: "index.html"
+          - ResponsePagePath: "index.html"
             ResponseCode: 403
             ErrorCachingMinTTL: 3600
             ErrorCode: 200

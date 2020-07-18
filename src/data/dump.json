@@ -1,5 +1,5 @@
 {
-  "timeStamp": 1594887505090,
+  "timeStamp": 1594976038316,
   "patch": {
     "patchVal": "10.14",
     "releaseDate": 1594098000000,
@@ -171,7 +171,7 @@
       "title": "Challenger Earpiece: Could You Carry This Game?",
       "desc": "",
       "rDate": 1592283600000,
-      "durSec": 1200,
+      "durSec": 1195,
       "uuid": "msb9jjscfk",
       "tId": 37,
       "tSS": ""
