@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, { ChangeEvent } from "react";
 
 export interface FilterBarProps {
   onUpdate: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -26,12 +26,17 @@ export class Searchbar extends React.Component<FilterBarProps, FilterBarState> {
 
   render() {
     return (
-        <div className="field">
-          <div className="control">
-            <input className="input" type="text" value={this.state.value} placeholder="Search Courses"
-                   onChange={this.onUpdate.bind(this)}/>
-          </div>
+      <div className="field">
+        <div className="control">
+          <input
+            className="input"
+            type="text"
+            value={this.state.value}
+            placeholder="Search Courses"
+            onChange={this.onUpdate.bind(this)}
+          />
         </div>
+      </div>
     );
   }
 }

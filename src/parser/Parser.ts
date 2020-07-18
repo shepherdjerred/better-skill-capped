@@ -60,23 +60,25 @@ export class Parser {
         const releaseDate = this.parseDate(course.rDate);
         const role = roleFromString(course.role);
 
-        const courseVideos = dumpCourseChapters[course.title].chapters[0].vids.map((video) => {
-          const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
+        const courseVideos = dumpCourseChapters[course.title].chapters[0].vids
+          .map((video) => {
+            const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
 
-          if (videoInfo === undefined) {
-            throw new Error(`Couldn't find video ${video}`);
-          }
+            if (videoInfo === undefined) {
+              throw new Error(`Couldn't find video ${video}`);
+            }
 
-          return {
-            video: videoInfo,
-            altTitle: video.altTitle || undefined,
-          };
-        }).map((video) => {
-          return {
-            ...video,
-            course: course
-          }
-        });
+            return {
+              video: videoInfo,
+              altTitle: video.altTitle || undefined,
+            };
+          })
+          .map((video) => {
+            return {
+              ...video,
+              course: course,
+            };
+          });
 
         return {
           title: course.title,
@@ -85,7 +87,7 @@ export class Parser {
           releaseDate: releaseDate,
           role: role,
           image: course.courseImage,
-          videos: courseVideos
+          videos: courseVideos,
         };
       }
     );

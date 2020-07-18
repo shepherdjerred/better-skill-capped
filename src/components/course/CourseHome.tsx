@@ -1,13 +1,13 @@
-import React, {ChangeEvent} from "react";
-import {Searchbar} from "../Searchbar";
-import {CourseList} from "./CourseList";
-import {Course} from "../../model/Course";
+import React, { ChangeEvent } from "react";
+import { Searchbar } from "../Searchbar";
+import { CourseList } from "./CourseList";
+import { Course } from "../../model/Course";
 import Fuse from "fuse.js";
-import {Hero} from "../Hero";
-import {Container} from "../Container";
+import { Hero } from "../Hero";
+import { Container } from "../Container";
 
 export interface CourseHomeProps {
-  courses: Course[]
+  courses: Course[];
 }
 
 export interface CourseHomeState {
@@ -30,7 +30,7 @@ export class CourseHome extends React.Component<CourseHomeProps, CourseHomeState
     this.state = {
       fuse: new Fuse<Course, Fuse.IFuseOptions<Course>>(courses, options, index),
       search: "",
-    }
+    };
   }
 
   onFilter(event: ChangeEvent<HTMLInputElement>) {
@@ -55,14 +55,13 @@ export class CourseHome extends React.Component<CourseHomeProps, CourseHomeState
   render() {
     const courses = this.findCourses();
     return (
-        <React.Fragment>
-          <Hero title="Courses" subtitle=""/>
-          <Container>
-            <Searchbar onUpdate={this.onFilter.bind(this)}/>
-            <CourseList courses={courses}/>
-          </Container>
-        </React.Fragment>
-    )
-
+      <React.Fragment>
+        <Hero title="Courses" subtitle="" />
+        <Container>
+          <Searchbar onUpdate={this.onFilter.bind(this)} />
+          <CourseList courses={courses} />
+        </Container>
+      </React.Fragment>
+    );
   }
 }

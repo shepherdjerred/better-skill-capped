@@ -1,8 +1,8 @@
 import React from "react";
-import {Course} from "../../model/Course";
+import { Course } from "../../model/Course";
 import CourseVideoComponent from "./CourseVideoComponent";
-import {rawTitleToDisplayTitle} from "../../utils/TitleUtilities";
-import {getCourseUrl, getVideoUrl} from "../../utils/UrlUtilities";
+import { rawTitleToDisplayTitle } from "../../utils/TitleUtilities";
+import { getCourseUrl, getVideoUrl } from "../../utils/UrlUtilities";
 
 export interface CoursesListProps {
   courses: Course[];
@@ -18,26 +18,24 @@ export class CourseList extends React.Component<CoursesListProps, any> {
         return {
           name: rawTitleToDisplayTitle(video.video.title),
           uuid: video.video.uuid,
-          link: getVideoUrl(video.video, getCourseUrl(course))
-        }
-      })
+          link: getVideoUrl(video.video, getCourseUrl(course)),
+        };
+      });
 
       let videoList = videos.map((video) => {
         return (
-            <li key={video.uuid}>
-              <a href={video.link}>{video.name}</a>
-            </li>
-        )
-      })
+          <li key={video.uuid}>
+            <a href={video.link}>{video.name}</a>
+          </li>
+        );
+      });
 
       return (
-          <div key={course.uuid}>
-            <h1 className="title">{displayTitle}</h1>
-            {course.description}
-            <ol>
-              {videoList}
-            </ol>
-          </div>
+        <div key={course.uuid}>
+          <h1 className="title">{displayTitle}</h1>
+          {course.description}
+          <ol>{videoList}</ol>
+        </div>
       );
     });
   }
