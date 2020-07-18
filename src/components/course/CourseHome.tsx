@@ -3,7 +3,7 @@ import { Searchbar } from "../Searchbar";
 import { CourseList } from "./CourseList";
 import { Course } from "../../model/Course";
 import Fuse from "fuse.js";
-import { Hero } from "../Hero";
+import { Color, Hero } from "../Hero";
 import { Container } from "../Container";
 
 export interface CourseHomeProps {
@@ -56,7 +56,7 @@ export class CourseHome extends React.Component<CourseHomeProps, CourseHomeState
     const courses = this.findCourses();
     return (
       <React.Fragment>
-        <Hero title="Courses" subtitle="" />
+        <Hero title="Courses" color={Color.TEAL} />
         <Container>
           <Searchbar onUpdate={this.onFilter.bind(this)} />
           <CourseList courses={courses} />

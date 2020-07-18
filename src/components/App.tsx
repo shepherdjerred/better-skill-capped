@@ -2,12 +2,11 @@ import React from "react";
 import data from "../data/dump.json";
 import { Parser } from "../parser/Parser";
 import { Content } from "../model/Content";
-import { Footer } from "./Footer";
-import { Navbar } from "./Navbar";
-import { CourseHome } from "./course/CourseHome";
+import { ErrorBoundary } from "./ErrorBoundary";
+import { Router } from "./Router";
 
 export interface AppState {
-  data: Content;
+  content: Content;
 }
 
 export default class App extends React.Component<unknown, AppState> {
@@ -20,16 +19,16 @@ export default class App extends React.Component<unknown, AppState> {
     console.log(content);
 
     this.state = {
-      data: content,
+      content: content,
     };
   }
 
   render() {
     return (
       <React.Fragment>
-        <Navbar />
-        <CourseHome courses={this.state.data.courses} />
-        <Footer />
+        <ErrorBoundary>
+          <Router courses={this.state.content.courses} />
+        </ErrorBoundary>
       </React.Fragment>
     );
   }

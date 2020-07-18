@@ -7,7 +7,7 @@ export interface CoursesListProps {
   courses: Course[];
 }
 
-export class CourseList extends React.Component<CoursesListProps, unknown> {
+export class CourseList extends React.PureComponent<CoursesListProps, unknown> {
   renderCourses() {
     return this.props.courses.map((course) => {
       let displayTitle = course.title;

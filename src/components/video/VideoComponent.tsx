@@ -9,7 +9,7 @@ export interface VideoComponentProps {
   baseUrl: string;
 }
 
-export default class VideoComponent extends React.Component<VideoComponentProps, unknown> {
+export default class VideoComponent extends React.PureComponent<VideoComponentProps, unknown> {
   render() {
     const video = this.props.video;
     const displayDate = video.releaseDate.toDateString();

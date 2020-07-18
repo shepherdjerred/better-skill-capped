@@ -1,14 +1,51 @@
 import React from "react";
+import classNames from "classnames/bind";
 
 export interface HeroProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
+  color?: Color;
+  size?: Size;
 }
 
-export class Hero extends React.Component<HeroProps, unknown> {
+export enum Color {
+  TEAL,
+  RED,
+}
+
+export enum Size {
+  NORMAL,
+  FULL,
+}
+
+export class Hero extends React.PureComponent<HeroProps, unknown> {
+  getClassNameForColor(color: Color): string {
+    switch (color) {
+      case Color.RED:
+        return "is-danger";
+      case Color.TEAL:
+        return "is-primary";
+    }
+  }
+
+  getClassNameForSize(size: Size): string {
+    switch (size) {
+      case Size.NORMAL:
+        return "";
+      case Size.FULL:
+        return "is-fullheight-with-navbar";
+    }
+  }
+
   render() {
+    const sectionClasses: string = classNames({
+      hero: true,
+      [this.getClassNameForColor(this.props.color || Color.TEAL)]: true,
+      [this.getClassNameForSize(this.props.size || Size.NORMAL)]: true,
+    });
+
     return (
-      <section className="hero is-primary">
+      <section className={sectionClasses}>
         <div className="hero-body">
           <div className="container">
             <h1 className="title">{this.props.title}</h1>
