@@ -1,7 +1,7 @@
 import React from "react";
-import { Video } from "../model/Video";
-import { getVideoUrl } from "../utils/UrlUtilities";
-import { roleToString } from "../model/Role";
+import { Video } from "../../model/Video";
+import { getVideoUrl } from "../../utils/UrlUtilities";
+import { roleToString } from "../../model/Role";
 import "./VideoComponent.css";
 
 export interface VideoComponentProps {

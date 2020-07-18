@@ -1,6 +1,6 @@
 import React from "react";
 import VideoComponent from "./VideoComponent";
-import { Video } from "../model/Video";
+import { Video } from "../../model/Video";
 
 export interface VideoListProps {
   videos: Video[];

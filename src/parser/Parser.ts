@@ -71,6 +71,11 @@ export class Parser {
             video: videoInfo,
             altTitle: video.altTitle || undefined,
           };
+        }).map((video) => {
+          return {
+            ...video,
+            course: course
+          }
         });
 
         return {
@@ -80,7 +85,7 @@ export class Parser {
           releaseDate: releaseDate,
           role: role,
           image: course.courseImage,
-          videos: courseVideos,
+          videos: courseVideos
         };
       }
     );

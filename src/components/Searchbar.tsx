@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, {ChangeEvent} from "react";
 
 export interface FilterBarProps {
   onUpdate: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -8,7 +8,7 @@ export interface FilterBarState {
   value: string;
 }
 
-export class FilterBar extends React.Component<FilterBarProps, FilterBarState> {
+export class Searchbar extends React.Component<FilterBarProps, FilterBarState> {
   constructor(props: FilterBarProps) {
     super(props);
     this.state = {
@@ -26,9 +26,12 @@ export class FilterBar extends React.Component<FilterBarProps, FilterBarState> {
 
   render() {
     return (
-      <div>
-        <input type="text" value={this.state.value} onChange={this.onUpdate.bind(this)} />
-      </div>
+        <div className="field">
+          <div className="control">
+            <input className="input" type="text" value={this.state.value} placeholder="Search Courses"
+                   onChange={this.onUpdate.bind(this)}/>
+          </div>
+        </div>
     );
   }
 }
