@@ -93,7 +93,7 @@ export class Parser {
     );
   }
 
-  parseCommentaries(dumpCommentary: DumpCommentary[]): Commentary[] {
+  parseCommentaries(_dumpCommentary: DumpCommentary[]): Commentary[] {
     return [];
   }
 }

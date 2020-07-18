@@ -7,7 +7,7 @@ export interface VideoListProps {
   baseUrl: string;
 }
 
-export class VideoList extends React.Component<VideoListProps, any> {
+export class VideoList extends React.Component<VideoListProps, unknown> {
   renderCourses() {
     return this.props.videos.map((video) => {
       return (

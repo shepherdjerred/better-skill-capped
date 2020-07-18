@@ -1,6 +1,5 @@
 import React from "react";
 import { Course } from "../../model/Course";
-import CourseVideoComponent from "./CourseVideoComponent";
 import { rawTitleToDisplayTitle } from "../../utils/TitleUtilities";
 import { getCourseUrl, getVideoUrl } from "../../utils/UrlUtilities";
 
@@ -8,7 +7,7 @@ export interface CoursesListProps {
   courses: Course[];
 }
 
-export class CourseList extends React.Component<CoursesListProps, any> {
+export class CourseList extends React.Component<CoursesListProps, unknown> {
   renderCourses() {
     return this.props.courses.map((course) => {
       let displayTitle = course.title;

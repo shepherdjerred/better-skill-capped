@@ -1,6 +1,6 @@
 import React from "react";
 
-export class Navbar extends React.Component<any, any> {
+export class Navbar extends React.Component<unknown, unknown> {
   render() {
     return (
       <nav className="navbar" role="navigation" aria-label="main navigation">

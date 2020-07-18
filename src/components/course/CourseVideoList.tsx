@@ -6,7 +6,7 @@ export interface CourseVideoListProps {
   courses: Course[];
 }
 
-export class CourseVideoList extends React.Component<CourseVideoListProps, any> {
+export class CourseVideoList extends React.Component<CourseVideoListProps, unknown> {
   renderCourses() {
     return this.props.courses.map((course) => {
       return (

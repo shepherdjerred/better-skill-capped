@@ -8,7 +8,7 @@ export interface CourseComponentProps {
   course: Course;
 }
 
-export default class CourseVideoComponent extends React.Component<CourseComponentProps, unknown> {
+export default class _CourseVideoComponent extends React.Component<CourseComponentProps, unknown> {
   render() {
     let videos = this.props.course.videos.map((video) => video.video);
     let displayTitle = this.props.course.title;
