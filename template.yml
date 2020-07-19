@@ -50,14 +50,14 @@ Resources:
         Enabled: true
         IPV6Enabled: true
         CustomErrorResponses:
-          - ResponsePagePath: "index.html"
-            ResponseCode: 404
+          - ResponsePagePath: "/index.html"
+            ResponseCode: 200
             ErrorCachingMinTTL: 3600
-            ErrorCode: 200
-          - ResponsePagePath: "index.html"
-            ResponseCode: 403
+            ErrorCode: 404
+          - ResponsePagePath: "/index.html"
+            ResponseCode: 200
             ErrorCachingMinTTL: 3600
-            ErrorCode: 200
+            ErrorCode: 403
         Origins:
           - DomainName:
               Fn::GetAtt:
