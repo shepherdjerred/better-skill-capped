@@ -46,6 +46,7 @@ Resources:
             Cookies:
               Forward: "none"
             QueryString: False
+          Compress: true
         DefaultRootObject: "index.html"
         Enabled: true
         IPV6Enabled: true
