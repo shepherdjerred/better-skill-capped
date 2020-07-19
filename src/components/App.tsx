@@ -2,7 +2,7 @@ import React from "react";
 import data from "../data/dump.json";
 import { Parser } from "../parser/Parser";
 import { Content } from "../model/Content";
-import { ErrorBoundary } from "./ErrorBoundary";
+import { ErrorBoundary, ErrorPageType } from "./ErrorBoundary";
 import { Router } from "./Router";
 
 export interface AppState {
@@ -26,7 +26,7 @@ export default class App extends React.Component<unknown, AppState> {
   render() {
     return (
       <React.Fragment>
-        <ErrorBoundary>
+        <ErrorBoundary type={ErrorPageType.FULL}>
           <Router courses={this.state.content.courses} />
         </ErrorBoundary>
       </React.Fragment>

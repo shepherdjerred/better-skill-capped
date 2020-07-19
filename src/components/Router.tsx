@@ -1,11 +1,13 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { CourseSearch } from "./course/CourseSearch";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {CourseSearch} from "./course/CourseSearch";
 import React from "react";
-import { Course } from "../model/Course";
-import { Home } from "./Home";
-import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
+import {Course} from "../model/Course";
+import {Home} from "./Home";
+import {Navbar} from "./Navbar";
+import {Footer} from "./Footer";
 import "./Wrapper.css";
+import {ErrorBoundary, ErrorPageType} from "./ErrorBoundary";
+import {Color, Hero, Size} from "./Hero";
 
 export interface RouterProps {
   courses: Course[];
@@ -19,16 +21,21 @@ export class Router extends React.Component<RouterProps, unknown> {
           <div className="content-wrapper">
             <BrowserRouter>
               <Navbar />
-              <div>
-                <Switch>
-                  <Route path="/courses">
-                    <CourseSearch courses={this.props.courses} />
-                  </Route>
-                  <Route path="/">
-                    <Home />
-                  </Route>
-                </Switch>
-              </div>
+              <ErrorBoundary type={ErrorPageType.FULL_WITH_NAVBAR}>
+                <div>
+                  <Switch>
+                    <Route exact path={["/", "/home"]}>
+                      <Home />
+                    </Route>
+                    <Route path="/courses">
+                      <CourseSearch courses={this.props.courses} />
+                    </Route>
+                    <Route path="*">
+                      <Hero title="Page Not Found" subtitle="This page doesn't exist" size={Size.FULL_WITH_NAVBAR} color={Color.RED}/>
+                    </Route>
+                  </Switch>
+                </div>
+              </ErrorBoundary>
             </BrowserRouter>
           </div>
           <Footer />

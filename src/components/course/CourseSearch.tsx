@@ -27,7 +27,7 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
       minMatchCharLength: 2,
       distance: 50,
       useExtendedSearch: true,
-      threshold: 0.3,
+      threshold: 0.5,
       includeMatches: true,
     };
 

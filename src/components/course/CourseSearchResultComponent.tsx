@@ -41,9 +41,9 @@ export function CourseSearchResultComponent(props: CourseSearchResultProps) {
           <Highlighter searchWords={props.result.matches} textToHighlight={course.title} autoEscape={true} />
         </h3>
         <p>{course.description}</p>
-        <p>
+        <div>
           <ol>{videos}</ol>
-        </p>
+        </div>
       </div>
     </div>
   );
