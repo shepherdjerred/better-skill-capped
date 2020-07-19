@@ -1,33 +1,39 @@
 import React from "react";
-import data from "../data/dump.json";
 import { Parser } from "../parser/Parser";
 import { Content } from "../model/Content";
 import { ErrorBoundary, ErrorPageType } from "./ErrorBoundary";
 import { Router } from "./Router";
+import axios from 'axios';
 
 export interface AppState {
-  content: Content;
+  content?: Content;
 }
 
 export default class App extends React.Component<unknown, AppState> {
   constructor(props: unknown) {
     super(props);
 
-    const parser = new Parser();
-    const content = parser.parse(JSON.stringify(data));
-
-    console.log(content);
-
     this.state = {
-      content: content,
+      content: undefined
     };
   }
 
+  async componentDidMount() {
+    const parser = new Parser();
+    const contentJson = await axios.get("/skill-capped-manifest.json")
+    const content = parser.parse(JSON.stringify(contentJson.data));
+    this.setState({
+      content
+    });
+  }
+
   render() {
+    const courses = this.state.content?.courses || [];
+
     return (
       <React.Fragment>
         <ErrorBoundary type={ErrorPageType.FULL}>
-          <Router courses={this.state.content.courses} />
+          <Router courses={courses} />
         </ErrorBoundary>
       </React.Fragment>
     );

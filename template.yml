@@ -71,6 +71,7 @@ Resources:
         ViewerCertificate:
           AcmCertificateArn: "arn:aws:acm:us-east-1:692594597524:certificate/6f827781-9221-4818-9ff6-83a31817a1e0"
           SslSupportMethod: "sni-only"
+        HttpVersion: "http2"
   RecordSet:
     Type: "AWS::Route53::RecordSet"
     Properties:
