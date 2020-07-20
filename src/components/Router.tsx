@@ -13,34 +13,33 @@ export interface RouterProps {
   courses: Course[];
 }
 
-export class Router extends React.Component<RouterProps, unknown> {
-  render() {
-    return (
+export function Router(props: RouterProps) {
+  return (
       <React.Fragment>
         <div className="page-wrapper">
           <div className="content-wrapper">
             <BrowserRouter>
-              <Navbar />
+              <Navbar/>
               <ErrorBoundary type={ErrorPageType.FULL_WITH_NAVBAR}>
                 <div>
                   <Switch>
                     <Route exact path={["/", "/home"]}>
-                      <Home />
+                      <Home/>
                     </Route>
                     <Route path="/courses">
-                      <CourseSearch courses={this.props.courses} />
+                      <CourseSearch courses={props.courses}/>
                     </Route>
                     <Route path="*">
-                      <Hero title="Page Not Found" subtitle="This page doesn't exist" size={Size.FULL_WITH_NAVBAR} color={Color.RED}/>
+                      <Hero title="Page Not Found" subtitle="This page doesn't exist"
+                            size={Size.FULL_WITH_NAVBAR} color={Color.RED}/>
                     </Route>
                   </Switch>
                 </div>
               </ErrorBoundary>
             </BrowserRouter>
           </div>
-          <Footer />
+          <Footer/>
         </div>
       </React.Fragment>
-    );
-  }
+  );
 }

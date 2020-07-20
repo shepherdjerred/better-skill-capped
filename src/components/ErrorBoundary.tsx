@@ -1,4 +1,4 @@
-import React, { ErrorInfo } from "react";
+import React from "react";
 import { Color, Hero, Size } from "./Hero";
 
 export interface ErrorPageProps {
@@ -26,10 +26,6 @@ export class ErrorBoundary extends React.Component<ErrorPageProps, ErrorPageStat
 
   static getDerivedStateFromError(error: Error) {
     return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.log(error, errorInfo);
   }
 
   getHeroSize(pageType: ErrorPageType): Size {
