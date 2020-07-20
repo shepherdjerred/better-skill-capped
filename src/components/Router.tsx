@@ -1,13 +1,13 @@
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {CourseSearch} from "./course/CourseSearch";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { CourseSearch } from "./course/CourseSearch";
 import React from "react";
-import {Course} from "../model/Course";
-import {Home} from "./Home";
-import {Navbar} from "./Navbar";
-import {Footer} from "./Footer";
+import { Course } from "../model/Course";
+import { Home } from "./Home";
+import { Navbar } from "./Navbar";
+import { Footer } from "./Footer";
 import "./Wrapper.css";
-import {ErrorBoundary, ErrorPageType} from "./ErrorBoundary";
-import {Color, Hero, Size} from "./Hero";
+import { ErrorBoundary, ErrorPageType } from "./ErrorBoundary";
+import { Color, Hero, Size } from "./Hero";
 
 export interface RouterProps {
   courses: Course[];
@@ -15,31 +15,35 @@ export interface RouterProps {
 
 export function Router(props: RouterProps) {
   return (
-      <React.Fragment>
-        <div className="page-wrapper">
-          <div className="content-wrapper">
-            <BrowserRouter>
-              <Navbar/>
-              <ErrorBoundary type={ErrorPageType.FULL_WITH_NAVBAR}>
-                <div>
-                  <Switch>
-                    <Route exact path={["/", "/home"]}>
-                      <Home/>
-                    </Route>
-                    <Route path="/courses">
-                      <CourseSearch courses={props.courses}/>
-                    </Route>
-                    <Route path="*">
-                      <Hero title="Page Not Found" subtitle="This page doesn't exist"
-                            size={Size.FULL_WITH_NAVBAR} color={Color.RED}/>
-                    </Route>
-                  </Switch>
-                </div>
-              </ErrorBoundary>
-            </BrowserRouter>
-          </div>
-          <Footer/>
+    <React.Fragment>
+      <div className="page-wrapper">
+        <div className="content-wrapper">
+          <BrowserRouter>
+            <Navbar />
+            <ErrorBoundary type={ErrorPageType.FULL_WITH_NAVBAR}>
+              <div>
+                <Switch>
+                  <Route exact path={["/", "/home"]}>
+                    <Home />
+                  </Route>
+                  <Route path="/courses">
+                    <CourseSearch courses={props.courses} />
+                  </Route>
+                  <Route path="*">
+                    <Hero
+                      title="Page Not Found"
+                      subtitle="This page doesn't exist"
+                      size={Size.FULL_WITH_NAVBAR}
+                      color={Color.RED}
+                    />
+                  </Route>
+                </Switch>
+              </div>
+            </ErrorBoundary>
+          </BrowserRouter>
         </div>
-      </React.Fragment>
+        <Footer />
+      </div>
+    </React.Fragment>
   );
 }

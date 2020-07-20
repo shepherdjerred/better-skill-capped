@@ -3,7 +3,7 @@ import { Parser } from "../parser/Parser";
 import { Content } from "../model/Content";
 import { ErrorBoundary, ErrorPageType } from "./ErrorBoundary";
 import { Router } from "./Router";
-import axios from 'axios';
+import axios from "axios";
 
 export interface AppState {
   content?: Content;
@@ -14,16 +14,16 @@ export default class App extends React.Component<unknown, AppState> {
     super(props);
 
     this.state = {
-      content: undefined
+      content: undefined,
     };
   }
 
   async componentDidMount() {
     const parser = new Parser();
-    const contentJson = await axios.get("/skill-capped-manifest.json")
+    const contentJson = await axios.get("/skill-capped-manifest.json");
     const content = parser.parse(JSON.stringify(contentJson.data));
     this.setState({
-      content
+      content,
     });
   }
 

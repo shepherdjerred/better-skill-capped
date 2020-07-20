@@ -6,12 +6,12 @@ export interface ContainerProps {
 
 export function Container(props: ContainerProps) {
   return (
-      <section className="section">
-        <div className="container">
-          <div className="columns">
-            <div className="column is-three-fifths is-offset-one-fifth">{props.children}</div>
-          </div>
+    <section className="section">
+      <div className="container">
+        <div className="columns">
+          <div className="column is-three-fifths is-offset-one-fifth">{props.children}</div>
         </div>
-      </section>
+      </div>
+    </section>
   );
 }

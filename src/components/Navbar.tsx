@@ -30,9 +30,9 @@ export class Navbar extends React.Component<unknown, NavbarState> {
 
     const navbarBurgerClasses = classNames({
       "navbar-burger": true,
-      "burger": true,
-      "is-active": this.state.isVisible
-    })
+      burger: true,
+      "is-active": this.state.isVisible,
+    });
 
     return (
       <nav className="navbar" role="navigation" aria-label="main navigation">
