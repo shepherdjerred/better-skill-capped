@@ -6,9 +6,12 @@ import Fuse from "fuse.js";
 import { Color, Hero } from "../Hero";
 import { Container } from "../Container";
 import { CourseSearchResult } from "./CourseSearchResultComponent";
+import { Bookmark } from "../../model/Bookmark";
 
 export interface CourseHomeProps {
   courses: Course[];
+  bookmarks: Bookmark[];
+  onToggleBookmark: (course: Course) => void;
 }
 
 export interface CourseHomeState {
@@ -110,7 +113,11 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
         <Hero title="Course Search" color={Color.TEAL} />
         <Container>
           <Searchbar onUpdate={this.onFilter.bind(this)} />
-          <CourseSearchResultList results={results} />
+          <CourseSearchResultList
+            results={results}
+            bookmarks={this.props.bookmarks}
+            onToggleBookmark={this.props.onToggleBookmark}
+          />
         </Container>
       </React.Fragment>
     );

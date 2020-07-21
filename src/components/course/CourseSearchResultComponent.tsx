@@ -11,6 +11,24 @@ export interface CourseSearchResult {
 
 export interface CourseSearchResultProps {
   result: CourseSearchResult;
+  onToggleBookmark: () => void;
+  isBookmarked: boolean;
+}
+
+export function BookmarkButton(isBookmarked: boolean, onToggleBookmark: () => void) {
+  if (isBookmarked) {
+    return (
+      <button className="button" onClick={onToggleBookmark}>
+        Unbookmark
+      </button>
+    );
+  } else {
+    return (
+      <button className="button" onClick={onToggleBookmark}>
+        Bookmark
+      </button>
+    );
+  }
 }
 
 export function CourseSearchResultComponent(props: CourseSearchResultProps) {
@@ -44,6 +62,7 @@ export function CourseSearchResultComponent(props: CourseSearchResultProps) {
         <div>
           <ol>{videos}</ol>
         </div>
+        {BookmarkButton(props.isBookmarked, props.onToggleBookmark)}
       </div>
     </div>
   );

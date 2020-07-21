@@ -8,9 +8,12 @@ import { Footer } from "./Footer";
 import "./Wrapper.css";
 import { ErrorBoundary, ErrorPageType } from "./ErrorBoundary";
 import { Color, Hero, Size } from "./Hero";
+import { Bookmark } from "../model/Bookmark";
 
 export interface RouterProps {
   courses: Course[];
+  bookmarks: Bookmark[];
+  onToggleBookmark: (course: Course) => void;
 }
 
 export function Router(props: RouterProps) {
@@ -27,7 +30,11 @@ export function Router(props: RouterProps) {
                     <Home />
                   </Route>
                   <Route path="/courses">
-                    <CourseSearch courses={props.courses} />
+                    <CourseSearch
+                      courses={props.courses}
+                      onToggleBookmark={props.onToggleBookmark}
+                      bookmarks={props.bookmarks}
+                    />
                   </Route>
                   <Route path="*">
                     <Hero
