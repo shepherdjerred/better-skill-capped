@@ -38,7 +38,7 @@ export function Router(props: RouterProps) {
                     />
                   </Route>
                   <Route path="/bookmarks">
-                    <BookmarkList bookmarks={props.bookmarks} onToggleBookmark={props.onToggleBookmark}/>
+                    <BookmarkList bookmarks={props.bookmarks} onToggleBookmark={props.onToggleBookmark} />
                   </Route>
                   <Route path="*">
                     <Hero

@@ -1,6 +1,6 @@
 import { BookmarkDatastore } from "./BookmarkDatastore";
 import { Bookmark } from "../model/Bookmark";
-import {Course} from "../model/Course";
+import { Course } from "../model/Course";
 
 const IDENTIFIER = "bookmarks";
 

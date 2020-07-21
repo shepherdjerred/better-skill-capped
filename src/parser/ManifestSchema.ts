@@ -1,21 +1,21 @@
-export interface DumpSchema {
+export interface ManifestSchema {
   timestamp: number;
-  patch: DumpPatch;
-  videos: DumpVideo[];
-  commentaries: DumpCommentary[];
-  staff: DumpStaff[];
-  courses: DumpCourse[];
-  thisWeekData: DumpThisWeekData;
-  videosToCourses: DumpCourseChapters;
+  patch: ManifestPatch;
+  videos: ManifestVideo[];
+  commentaries: ManifestCommentary[];
+  staff: ManifestStaff[];
+  courses: ManifestCourse[];
+  thisWeekData: ManifestThisWeekData;
+  videosToCourses: ManifestCourseChapters;
 }
 
-export interface DumpPatch {
+export interface ManifestPatch {
   patchVal: string;
   releaseDate: number;
   patchUrl: string;
 }
 
-export interface DumpVideo {
+export interface ManifestVideo {
   role: string;
   title: string;
   desc: string;
@@ -26,7 +26,7 @@ export interface DumpVideo {
   tSS: string;
 }
 
-export interface DumpCommentary {
+export interface ManifestCommentary {
   role: string;
   title: string;
   desc: string;
@@ -47,14 +47,14 @@ export interface DumpCommentary {
   type: string;
 }
 
-export interface DumpStaff {
+export interface ManifestStaff {
   name: string;
   summonerName: string;
   profileImage: string;
   profileImageWithRank: string;
 }
 
-export interface DumpCourse {
+export interface ManifestCourse {
   title: string;
   uuid: string;
   desc: string;
@@ -63,7 +63,7 @@ export interface DumpCourse {
   courseImage: string;
 }
 
-export interface DumpThisWeekData {
+export interface ManifestThisWeekData {
   year: number;
   weekNum: number;
   release: number;
@@ -74,7 +74,7 @@ export interface DumpThisWeekData {
   courseName: string;
 }
 
-export interface DumpCourseChapters {
+export interface ManifestCourseChapters {
   [key: string]: {
     chapters: [
       {

@@ -1,5 +1,11 @@
 import { Content } from "../model/Content";
-import { DumpCommentary, DumpCourse, DumpCourseChapters, DumpSchema, DumpVideo } from "./DumpSchema";
+import {
+  ManifestCommentary,
+  ManifestCourse,
+  ManifestCourseChapters,
+  ManifestSchema,
+  ManifestVideo,
+} from "./ManifestSchema";
 import { Video } from "../model/Video";
 import { Course } from "../model/Course";
 import { Commentary } from "../model/Commentary";
@@ -8,7 +14,7 @@ import { rawTitleToDisplayTitle } from "../utils/TitleUtilities";
 
 export class Parser {
   parse(input: string): Content {
-    const dump: DumpSchema = JSON.parse(input);
+    const dump: ManifestSchema = JSON.parse(input);
     return {
       videos: this.parseVideos(dump.videos),
       courses: this.parseCourses(dump.videos, dump.courses, dump.videosToCourses),
@@ -22,9 +28,9 @@ export class Parser {
     return releaseDate;
   }
 
-  parseVideos(input: DumpVideo[]): Video[] {
+  parseVideos(input: ManifestVideo[]): Video[] {
     return input.map(
-      (video: DumpVideo): Video => {
+      (video: ManifestVideo): Video => {
         const releaseDate = this.parseDate(video.rDate);
         const role = roleFromString(video.role);
         const imageUrl = this.getImageUrl(video);
@@ -43,7 +49,7 @@ export class Parser {
     );
   }
 
-  getImageUrl(input: DumpVideo): string {
+  getImageUrl(input: ManifestVideo): string {
     if (input.tSS !== "") {
       return input.tSS.replace(
         "https://d20k8dfo6rtj2t.cloudfront.net/jpg-images/",
@@ -54,7 +60,11 @@ export class Parser {
     }
   }
 
-  parseCourses(dumpVideos: DumpVideo[], dumpCourses: DumpCourse[], dumpCourseChapters: DumpCourseChapters): Course[] {
+  parseCourses(
+    dumpVideos: ManifestVideo[],
+    dumpCourses: ManifestCourse[],
+    dumpCourseChapters: ManifestCourseChapters
+  ): Course[] {
     const videos = this.parseVideos(dumpVideos);
 
     return dumpCourses.map(
@@ -63,26 +73,19 @@ export class Parser {
         const role = roleFromString(course.role);
         const title = rawTitleToDisplayTitle(course.title);
 
-        const courseVideos = dumpCourseChapters[course.title].chapters[0].vids
-          .map((video) => {
-            const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
-            const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
+        const courseVideos = dumpCourseChapters[course.title].chapters[0].vids.map((video) => {
+          const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
+          const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
 
-            if (videoInfo === undefined) {
-              throw new Error(`Couldn't find video ${video}`);
-            }
+          if (videoInfo === undefined) {
+            throw new Error(`Couldn't find video ${video}`);
+          }
 
-            return {
-              video: videoInfo,
-              altTitle,
-            };
-          })
-          .map((video) => {
-            return {
-              ...video,
-              course: course,
-            };
-          });
+          return {
+            video: videoInfo,
+            altTitle,
+          };
+        });
 
         return {
           title,
@@ -97,7 +100,7 @@ export class Parser {
     );
   }
 
-  parseCommentaries(_dumpCommentary: DumpCommentary[]): Commentary[] {
+  parseCommentaries(_dumpCommentary: ManifestCommentary[]): Commentary[] {
     return [];
   }
 }

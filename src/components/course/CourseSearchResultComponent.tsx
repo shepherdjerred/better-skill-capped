@@ -3,6 +3,7 @@ import { getCourseUrl, getVideoUrl } from "../../utils/UrlUtilities";
 import React from "react";
 import Highlighter from "react-highlight-words";
 import "./CourseSearchResultComponent.css";
+import { roleToString } from "../../model/Role";
 
 export interface CourseSearchResult {
   course: Course;
@@ -18,13 +19,13 @@ export interface CourseSearchResultProps {
 export function BookmarkButton(isBookmarked: boolean, onToggleBookmark: () => void) {
   if (isBookmarked) {
     return (
-      <button className="button" onClick={onToggleBookmark}>
+      <button className="button is-warning bookmark" onClick={onToggleBookmark}>
         Unbookmark
       </button>
     );
   } else {
     return (
-      <button className="button" onClick={onToggleBookmark}>
+      <button className="button is-warning bookmark" onClick={onToggleBookmark}>
         Bookmark
       </button>
     );
@@ -59,6 +60,9 @@ export function CourseSearchResultComponent(props: CourseSearchResultProps) {
           <Highlighter searchWords={props.result.matches} textToHighlight={course.title} autoEscape={true} />
         </h3>
         <p>{course.description}</p>
+        <div className="tags">
+          <span className="tag">{roleToString(props.result.course.role)}</span>
+        </div>
         <div>
           <ol>{videos}</ol>
         </div>
