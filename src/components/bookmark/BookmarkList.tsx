@@ -29,7 +29,7 @@ export function BookmarkList(props: BookmarkListProps) {
 
   return (
     <React.Fragment>
-      <Hero title="Course Search" color={Color.TEAL} />
+      <Hero title="Bookmarks" color={Color.TEAL} />
       <Container>
         <div>{bookmarks}</div>
       </Container>

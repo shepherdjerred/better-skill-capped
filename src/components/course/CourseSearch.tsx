@@ -7,6 +7,7 @@ import { Color, Hero } from "../Hero";
 import { Container } from "../Container";
 import { CourseSearchResult } from "./CourseSearchResultComponent";
 import { Bookmark } from "../../model/Bookmark";
+import { Role } from "../../model/Role";
 
 export interface CourseHomeProps {
   courses: Course[];
@@ -17,6 +18,7 @@ export interface CourseHomeProps {
 export interface CourseHomeState {
   query: string;
   fuse?: Fuse<Course, Fuse.IFuseOptions<Course>>;
+  queryRoles: Role[];
 }
 
 export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeState> {
@@ -24,9 +26,12 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
     super(props);
 
     this.state = {
-      ...this.setupSearch(),
+      fuse: undefined,
       query: "",
+      queryRoles: [],
     };
+
+    this.setupSearch();
   }
 
   componentDidUpdate(prevProps: CourseHomeProps) {
@@ -40,6 +45,13 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
 
   setupSearch() {
     const courses = this.props.courses;
+    const roleCourses = courses.filter((course) => {
+      if (this.state.queryRoles.length === 0) {
+        return true;
+      }
+
+      return this.state.queryRoles.filter((role) => role === course.role);
+    });
 
     const options = {
       keys: ["title", "description", "videos.video.title", "videos.video.altTitle"],
@@ -51,11 +63,29 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
       includeScore: true,
     };
 
-    const index = Fuse.createIndex(options.keys, courses);
+    const index = Fuse.createIndex(options.keys, roleCourses);
 
     return {
-      fuse: new Fuse<Course, Fuse.IFuseOptions<Course>>(courses, options, index),
+      fuse: new Fuse<Course, Fuse.IFuseOptions<Course>>(roleCourses, options, index),
     };
+  }
+
+  onRoleToggle(role: Role) {
+    console.log(`Toggling ${role}`);
+    const { queryRoles } = this.state;
+    if (queryRoles.find((candidate) => candidate === role) !== undefined) {
+      this.setState({
+        queryRoles: queryRoles.filter((candidate) => candidate !== role),
+      });
+    } else {
+      this.setState({
+        queryRoles: [...queryRoles, role],
+      });
+    }
+    console.log(`New state: ${JSON.stringify(this.state)}`);
+    this.setState({
+      ...this.setupSearch(),
+    });
   }
 
   onFilter(event: ChangeEvent<HTMLInputElement>) {

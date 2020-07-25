@@ -5,10 +5,10 @@ export function rawTitleToDisplayTitle(rawTitle: string) {
 
 function toTitleCase(input: string) {
   input = input.toLowerCase();
-  let words = input.split(" ");
-  let results = [];
+  const words = input.split(" ");
+  const results = [];
   for (let i = 0; i < words.length; i++) {
-    let letter = words[i].charAt(0).toUpperCase();
+    const letter = words[i].charAt(0).toUpperCase();
     results.push(letter + words[i].slice(1));
   }
   return results.join(" ");

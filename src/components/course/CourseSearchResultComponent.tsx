@@ -35,7 +35,7 @@ export function BookmarkButton(isBookmarked: boolean, onToggleBookmark: () => vo
 export function CourseSearchResultComponent(props: CourseSearchResultProps) {
   const course = props.result.course;
 
-  let videos = course.videos
+  const videos = course.videos
     .map((video) => {
       return {
         name: video.video.title,
