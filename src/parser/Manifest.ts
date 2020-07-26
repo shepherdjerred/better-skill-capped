@@ -1,4 +1,4 @@
-export interface ManifestSchema {
+export interface Manifest {
   timestamp: number;
   patch: ManifestPatch;
   videos: ManifestVideo[];

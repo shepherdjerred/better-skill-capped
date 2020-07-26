@@ -61,12 +61,14 @@ export default class App extends React.Component<unknown, AppState> {
 
   render() {
     const courses = this.state.content?.courses || [];
+    const videos = this.state.content?.videos || [];
 
     return (
       <React.Fragment>
         <ErrorBoundary type={ErrorPageType.FULL}>
           <Router
             courses={courses}
+            videos={videos}
             bookmarks={this.state.bookmarks}
             onToggleBookmark={(course: Course) => this.onToggleBookmark(course)}
           />

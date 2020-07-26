@@ -8,4 +8,5 @@ export interface Video {
   durationInSeconds: number;
   uuid: string;
   imageUrl: string;
+  skillCappedUrl: string;
 }

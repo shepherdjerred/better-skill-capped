@@ -10,10 +10,12 @@ import { ErrorBoundary, ErrorPageType } from "./ErrorBoundary";
 import { Color, Hero, Size } from "./Hero";
 import { Bookmark } from "../model/Bookmark";
 import { BookmarkList } from "./bookmark/BookmarkList";
-import {VideoSearch} from "./video/VideoSearch";
+import { VideoSearch } from "./video/VideoSearch";
+import { Video } from "../model/Video";
 
 export interface RouterProps {
   courses: Course[];
+  videos: Video[];
   bookmarks: Bookmark[];
   onToggleBookmark: (course: Course) => void;
 }
@@ -39,7 +41,7 @@ export function Router(props: RouterProps) {
                     />
                   </Route>
                   <Route path="/videos">
-                    <VideoSearch videos={[]}/>
+                    <VideoSearch videos={props.videos} />
                   </Route>
                   <Route path="/bookmarks">
                     <BookmarkList bookmarks={props.bookmarks} onToggleBookmark={props.onToggleBookmark} />
