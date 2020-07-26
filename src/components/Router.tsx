@@ -6,7 +6,6 @@ import { Home } from "./Home";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import "./Wrapper.css";
-import { ErrorBoundary, ErrorPageType } from "./ErrorBoundary";
 import { Color, Hero, Size } from "./Hero";
 import { Bookmark } from "../model/Bookmark";
 import { BookmarkList } from "./bookmark/BookmarkList";
