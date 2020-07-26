@@ -1,17 +1,18 @@
 import React from "react";
-import { Parser } from "../parser/Parser";
-import { Content } from "../model/Content";
-import { ErrorBoundary, ErrorPageType } from "./ErrorBoundary";
-import { Router } from "./Router";
+import {Parser} from "../parser/Parser";
+import {Content} from "../model/Content";
+import {Router} from "./Router";
 import axios from "axios";
-import { Bookmark } from "../model/Bookmark";
-import { LocalStorageBookmarkDatastore } from "../datastore/LocalStorageBookmarkDatastore";
-import { BookmarkDatastore } from "../datastore/BookmarkDatastore";
-import { Course } from "../model/Course";
-import { WatchStatusDatastore } from "../datastore/WatchStatusDatastore";
-import { WatchStatus } from "../model/WatchStatus";
-import { LocalStorageWatchStatusDatastore } from "../datastore/LocalStorageWatchStatusDatastore";
-import { Video } from "../model/Video";
+import {Bookmark} from "../model/Bookmark";
+import {LocalStorageBookmarkDatastore} from "../datastore/LocalStorageBookmarkDatastore";
+import {BookmarkDatastore} from "../datastore/BookmarkDatastore";
+import {Course} from "../model/Course";
+import {WatchStatusDatastore} from "../datastore/WatchStatusDatastore";
+import {WatchStatus} from "../model/WatchStatus";
+import {LocalStorageWatchStatusDatastore} from "../datastore/LocalStorageWatchStatusDatastore";
+import {Video} from "../model/Video";
+import * as Sentry from '@sentry/react';
+import {Color, Hero, Size} from "./Hero";
 
 export interface AppState {
   content?: Content;
@@ -104,16 +105,16 @@ export default class App extends React.Component<unknown, AppState> {
 
     return (
       <React.Fragment>
-        <ErrorBoundary type={ErrorPageType.FULL}>
+        <Sentry.ErrorBoundary fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL_WITH_NAVBAR} />}>
           <Router
-            courses={courses}
-            videos={videos}
-            bookmarks={this.state.bookmarks}
-            onToggleBookmark={(course: Course) => this.onToggleBookmark(course)}
-            watchStatuses={this.state.watchStatuses}
-            onToggleWatchStatus={(course: Course) => this.onToggleWatchStatus(course)}
+              courses={courses}
+              videos={videos}
+              bookmarks={this.state.bookmarks}
+              onToggleBookmark={(course: Course) => this.onToggleBookmark(course)}
+              watchStatuses={this.state.watchStatuses}
+              onToggleWatchStatus={(course: Course) => this.onToggleWatchStatus(course)}
           />
-        </ErrorBoundary>
+        </Sentry.ErrorBoundary>
       </React.Fragment>
     );
   }
