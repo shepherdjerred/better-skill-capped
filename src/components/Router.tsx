@@ -13,6 +13,7 @@ import { BookmarkList } from "./bookmark/BookmarkList";
 import { VideoSearch } from "./video/VideoSearch";
 import { Video } from "../model/Video";
 import { WatchStatus } from "../model/WatchStatus";
+import * as Sentry from "@sentry/react";
 
 export interface RouterProps {
   courses: Course[];
@@ -30,7 +31,7 @@ export function Router(props: RouterProps) {
         <div className="content-wrapper">
           <BrowserRouter>
             <Navbar />
-            <ErrorBoundary type={ErrorPageType.FULL_WITH_NAVBAR}>
+            <Sentry.ErrorBoundary fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL_WITH_NAVBAR} />}>
               <div>
                 <Switch>
                   <Route exact path={["/", "/home"]}>
@@ -66,7 +67,7 @@ export function Router(props: RouterProps) {
                   </Route>
                 </Switch>
               </div>
-            </ErrorBoundary>
+            </Sentry.ErrorBoundary>
           </BrowserRouter>
         </div>
         <Footer />
