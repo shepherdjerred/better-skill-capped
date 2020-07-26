@@ -14,19 +14,37 @@ export interface CourseSearchResultProps {
   result: CourseSearchResult;
   onToggleBookmark: () => void;
   isBookmarked: boolean;
+  isWatched: boolean;
+  onToggleWatchStatus: () => void;
 }
 
-export function BookmarkButton(isBookmarked: boolean, onToggleBookmark: () => void) {
+function BookmarkButton(isBookmarked: boolean, onToggle: () => void) {
   if (isBookmarked) {
     return (
-      <button className="button is-warning bookmark" onClick={onToggleBookmark}>
+      <button className="button is-warning bookmark" onClick={onToggle}>
         Unbookmark
       </button>
     );
   } else {
     return (
-      <button className="button is-warning bookmark" onClick={onToggleBookmark}>
+      <button className="button is-warning bookmark" onClick={onToggle}>
         Bookmark
+      </button>
+    );
+  }
+}
+
+function WatchStatusButton(isWatched: boolean, onToggle: () => void) {
+  if (isWatched) {
+    return (
+      <button className="button bookmark" onClick={onToggle}>
+        Mark as unwatched
+      </button>
+    );
+  } else {
+    return (
+      <button className="button bookmark" onClick={onToggle}>
+        Mark as watched
       </button>
     );
   }
@@ -62,11 +80,17 @@ export function CourseSearchResultComponent(props: CourseSearchResultProps) {
         <p>{course.description}</p>
         <div className="tags">
           <span className="tag">{roleToString(props.result.course.role)}</span>
+          <span className="tag" title={props.result.course.releaseDate.toLocaleString()}>
+            {props.result.course.releaseDate.toLocaleDateString()}
+          </span>
         </div>
         <div>
           <ol>{videos}</ol>
         </div>
-        {BookmarkButton(props.isBookmarked, props.onToggleBookmark)}
+        <div className="buttons">
+          {BookmarkButton(props.isBookmarked, props.onToggleBookmark)}
+          {WatchStatusButton(props.isWatched, props.onToggleWatchStatus)}
+        </div>
       </div>
     </div>
   );

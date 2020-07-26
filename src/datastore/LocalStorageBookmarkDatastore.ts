@@ -1,6 +1,5 @@
 import { BookmarkDatastore } from "./BookmarkDatastore";
 import { Bookmark } from "../model/Bookmark";
-import { Course } from "../model/Course";
 
 const IDENTIFIER = "bookmarks";
 
@@ -13,13 +12,13 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
 
   get(): Bookmark[] {
     const bookmarks = JSON.parse(window.localStorage.getItem(IDENTIFIER) || "[]");
-    console.log(bookmarks);
+    console.trace(bookmarks);
     return bookmarks;
   }
 
   remove(bookmark: Bookmark): void {
     const filteredBookmarks = this.get().filter((candidate: Bookmark) => {
-      return candidate !== bookmark && (candidate.item as Course).uuid !== (bookmark.item as Course).uuid;
+      return candidate !== bookmark && candidate.item.uuid !== bookmark.item.uuid;
     });
     this.set(filteredBookmarks);
   }

@@ -1,7 +1,8 @@
 import { Video } from "./Video";
 import { Course } from "./Course";
 
-export interface Bookmark {
+export interface WatchStatus {
   item: Video | Course;
-  date: Date;
+  isWatched: boolean;
+  lastUpdate: Date;
 }

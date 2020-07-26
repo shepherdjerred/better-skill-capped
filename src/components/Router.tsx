@@ -12,12 +12,15 @@ import { Bookmark } from "../model/Bookmark";
 import { BookmarkList } from "./bookmark/BookmarkList";
 import { VideoSearch } from "./video/VideoSearch";
 import { Video } from "../model/Video";
+import { WatchStatus } from "../model/WatchStatus";
 
 export interface RouterProps {
   courses: Course[];
   videos: Video[];
   bookmarks: Bookmark[];
   onToggleBookmark: (course: Course) => void;
+  watchStatuses: WatchStatus[];
+  onToggleWatchStatus: (course: Course) => void;
 }
 
 export function Router(props: RouterProps) {
@@ -38,13 +41,20 @@ export function Router(props: RouterProps) {
                       courses={props.courses}
                       onToggleBookmark={props.onToggleBookmark}
                       bookmarks={props.bookmarks}
+                      onToggleWatchStatus={props.onToggleWatchStatus}
+                      watchStatuses={props.watchStatuses}
                     />
                   </Route>
                   <Route path="/videos">
                     <VideoSearch videos={props.videos} />
                   </Route>
                   <Route path="/bookmarks">
-                    <BookmarkList bookmarks={props.bookmarks} onToggleBookmark={props.onToggleBookmark} />
+                    <BookmarkList
+                      bookmarks={props.bookmarks}
+                      onToggleBookmark={props.onToggleBookmark}
+                      watchStatuses={props.watchStatuses}
+                      onToggleWatchStatus={props.onToggleWatchStatus}
+                    />
                   </Route>
                   <Route path="*">
                     <Hero

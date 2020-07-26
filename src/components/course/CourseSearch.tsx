@@ -8,11 +8,14 @@ import { Container } from "../Container";
 import { CourseSearchResult } from "./CourseSearchResultComponent";
 import { Bookmark } from "../../model/Bookmark";
 import { Role } from "../../model/Role";
+import { WatchStatus } from "../../model/WatchStatus";
 
 export interface CourseHomeProps {
   courses: Course[];
   bookmarks: Bookmark[];
   onToggleBookmark: (course: Course) => void;
+  watchStatuses: WatchStatus[];
+  onToggleWatchStatus: (course: Course) => void;
 }
 
 export interface CourseHomeState {
@@ -71,7 +74,7 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
   }
 
   onRoleToggle(role: Role) {
-    console.log(`Toggling ${role}`);
+    console.trace(`Toggling ${role}`);
     const { queryRoles } = this.state;
     if (queryRoles.find((candidate) => candidate === role) !== undefined) {
       this.setState({
@@ -82,7 +85,7 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
         queryRoles: [...queryRoles, role],
       });
     }
-    console.log(`New state: ${JSON.stringify(this.state)}`);
+    console.trace(`New state: ${JSON.stringify(this.state)}`);
     this.setState({
       ...this.setupSearch(),
     });
@@ -147,6 +150,8 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
             results={results}
             bookmarks={this.props.bookmarks}
             onToggleBookmark={this.props.onToggleBookmark}
+            watchStatuses={this.props.watchStatuses}
+            onToggleWatchStatus={this.props.onToggleWatchStatus}
           />
         </Container>
       </React.Fragment>
