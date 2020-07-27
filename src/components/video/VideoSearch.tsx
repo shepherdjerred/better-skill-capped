@@ -13,7 +13,7 @@ export class VideoSearch extends React.Component<VideoSearchProps, VideoSearchSt
   render() {
     const videos = this.props.videos.map((video) => {
       return (
-        <div>
+        <div key={video.uuid}>
           <a href={video.skillCappedUrl}>{video.title}</a>
         </div>
       );

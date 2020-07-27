@@ -30,7 +30,9 @@ export function Router(props: RouterProps) {
         <div className="content-wrapper">
           <BrowserRouter>
             <Navbar />
-            <Sentry.ErrorBoundary fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL_WITH_NAVBAR} />}>
+            <Sentry.ErrorBoundary
+              fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL_WITH_NAVBAR} />}
+            >
               <div>
                 <Switch>
                   <Route exact path={["/", "/home"]}>

@@ -12,7 +12,7 @@ export class LocalStorageWatchStatusDatastore implements WatchStatusDatastore {
 
   get(): WatchStatus[] {
     const watchStatuses = JSON.parse(window.localStorage.getItem(IDENTIFIER) || "[]");
-    console.trace(watchStatuses);
+    console.debug(watchStatuses);
     return watchStatuses;
   }
 

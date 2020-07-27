@@ -74,7 +74,7 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
   }
 
   onRoleToggle(role: Role) {
-    console.trace(`Toggling ${role}`);
+    console.debug(`Toggling ${role}`);
     const { queryRoles } = this.state;
     if (queryRoles.find((candidate) => candidate === role) !== undefined) {
       this.setState({
@@ -85,7 +85,7 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
         queryRoles: [...queryRoles, role],
       });
     }
-    console.trace(`New state: ${JSON.stringify(this.state)}`);
+    console.debug(`New state: ${JSON.stringify(this.state)}`);
     this.setState({
       ...this.setupSearch(),
     });
