@@ -7,7 +7,7 @@ node_js:
 notifications:
   email: false
 script:
-  - set "REACT_APP_TRAVIS_COMMIT=${TRAVIS_COMMIT}" && npm run build
+  - REACT_APP_TRAVIS_COMMIT=${TRAVIS_COMMIT} npm run build
 
 deploy:
   - local_dir: build
