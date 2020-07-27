@@ -1,18 +1,36 @@
 language: node_js
+dist: xenial
+os: linux
 node_js:
   - node
   - lts/*
 notifications:
   email: false
 script:
-  - npm run build
+  - set "REACT_APP_TRAVIS_COMMIT=${TRAVIS_COMMIT}" && npm run build
+
 deploy:
-  local_dir: build
-  skip_cleanup: true
-  on:
-    node: lts/*
-  provider: s3
-  bucket: com.shepherdjerred.better-skill-capped
-  access_key_id: AKIA2CQO232KG5TOGHED
-  secret_access_key:
-    secure: EoAP70qlEPtG0NuTr0emCT9EujaEmFc2K9LD1x1wt8CIgFfx05WuUJYTAOHGfz5lif2ThGFnnaHLFnVmcLhfWko4kER5kUGcOyCesBx9ZvHKf/SvVYyhYUihh3UVz3xz67eIgMoYzMxWyEpCsKUUO/vHP2eRrNVt4Xg3fYkMzRCGySr8sb+Yw7syCM2NGHWxJ2pdHANrDXLwX1W9Twle7xJA1jIsq9gBpIUv6kCOYjKdnj/B2PSzm6rLyLjEFDFq/mo43KaSrB9PKoBajScJGBJCx6jb9h2TkbJHVxvcem/eWIMszRhmgyonDg3mHZueWRfr2NPAUNEqf7E/AFRamStHQwAmtw83hTL3Oy+rEMwpyKlNga8bgGI3rP7WfHylLnVyyJrIQXwkmvKoKSOytVnOOP4DKWT2T7w7h4FhljtpeANR42+Y5QEGtItC9MPrJuHHJV7cMjV/c/VZJbmHy2Ijg4E3+sqK+ZVmLPVvZ2r+EN7lFmfvjbKGj6s0HJOb0EHfazPvjwzVZUFoHW8VVq/is6ZxP8Yqut4ij81+HYrZ9pTFA+uc1um91Im/KtG+KLKTXvI1RKWc1V/+fOvaAFlt3KbLyVcBIaMI0psHJi846F974tSJmcYC2m4eBrTnSVVbDIC7GHjtO3sIlF26knrB1wRbsnMtNstW7qTcSmM=
+  - local_dir: build
+    skip_cleanup: true
+    on:
+      node_js: lts/*
+      branch: master
+      type: push
+    provider: s3
+    bucket: com.shepherdjerred.better-skill-capped
+    access_key_id: AKIA2CQO232KG5TOGHED
+    secret_access_key:
+      secure: EoAP70qlEPtG0NuTr0emCT9EujaEmFc2K9LD1x1wt8CIgFfx05WuUJYTAOHGfz5lif2ThGFnnaHLFnVmcLhfWko4kER5kUGcOyCesBx9ZvHKf/SvVYyhYUihh3UVz3xz67eIgMoYzMxWyEpCsKUUO/vHP2eRrNVt4Xg3fYkMzRCGySr8sb+Yw7syCM2NGHWxJ2pdHANrDXLwX1W9Twle7xJA1jIsq9gBpIUv6kCOYjKdnj/B2PSzm6rLyLjEFDFq/mo43KaSrB9PKoBajScJGBJCx6jb9h2TkbJHVxvcem/eWIMszRhmgyonDg3mHZueWRfr2NPAUNEqf7E/AFRamStHQwAmtw83hTL3Oy+rEMwpyKlNga8bgGI3rP7WfHylLnVyyJrIQXwkmvKoKSOytVnOOP4DKWT2T7w7h4FhljtpeANR42+Y5QEGtItC9MPrJuHHJV7cMjV/c/VZJbmHy2Ijg4E3+sqK+ZVmLPVvZ2r+EN7lFmfvjbKGj6s0HJOb0EHfazPvjwzVZUFoHW8VVq/is6ZxP8Yqut4ij81+HYrZ9pTFA+uc1um91Im/KtG+KLKTXvI1RKWc1V/+fOvaAFlt3KbLyVcBIaMI0psHJi846F974tSJmcYC2m4eBrTnSVVbDIC7GHjtO3sIlF26knrB1wRbsnMtNstW7qTcSmM=
+
+jobs:
+  include:
+    - name: Create release and notify Sentry of deploy
+      env: SENTRY_ORG=jerred-shepherd SENTRY_PROJECT=better-skill-capped SENTRY_ENVIRONMENT=production
+      if: branch = master AND type = push
+      script: |
+        curl -sL https://sentry.io/get-cli/ | bash
+        export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+        sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+        sentry-cli releases set-commits $SENTRY_RELEASE --auto
+        sentry-cli releases finalize $SENTRY_RELEASE
+        sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
