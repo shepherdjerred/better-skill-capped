@@ -29,31 +29,31 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
     super(props);
 
     this.state = {
-      fuse: undefined,
+      ...this.setupSearch(),
       query: "",
       queryRoles: [],
     };
-
-    this.setupSearch();
   }
 
-  componentDidUpdate(prevProps: CourseHomeProps) {
-    const courses = this.props.courses;
-    if (prevProps.courses === courses) {
-      return;
-    }
+  shouldComponentUpdate(): boolean {
+    return true;
+  }
 
-    this.setState(this.setupSearch());
+  componentDidUpdate(nextProps: Readonly<CourseHomeProps>) {
+    if (nextProps.courses !== this.props.courses) {
+      this.setState(this.setupSearch());
+    }
   }
 
   setupSearch() {
     const courses = this.props.courses;
+    const queryRoles = this.state?.queryRoles || [];
     const roleCourses = courses.filter((course) => {
-      if (this.state.queryRoles.length === 0) {
+      if (queryRoles.length === 0) {
         return true;
       }
 
-      return this.state.queryRoles.filter((role) => role === course.role);
+      return queryRoles.filter((role) => role === course.role);
     });
 
     const options = {
@@ -92,6 +92,7 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
   }
 
   onFilter(event: ChangeEvent<HTMLInputElement>) {
+    console.log(`New query: ${event.target.value}`)
     this.setState({
       ...this.state,
       query: event.target.value || "",
@@ -103,7 +104,9 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
     const query = this.state.query;
     const fuse = this.state.fuse;
 
+    console.debug("Searching")
     if (fuse === undefined || query === "") {
+      console.debug("Returning all courses")
       return allCourses.map((course) => {
         return {
           course,
@@ -141,6 +144,7 @@ export class CourseSearch extends React.Component<CourseHomeProps, CourseHomeSta
 
   render() {
     const results = this.searchCourses();
+
     return (
       <React.Fragment>
         <Hero title="Course Search" color={Color.TEAL} />
