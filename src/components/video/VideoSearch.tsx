@@ -8,19 +8,15 @@ export interface VideoSearchProps {
   videos: Video[];
 }
 
-export interface VideoSearchState {
-}
+export function VideoSearch(props: VideoSearchProps) {
+  const videos = props.videos.map((video) => {
+    return <VideoSearchResult video={video}/>
+  });
 
-export class VideoSearch extends React.Component<VideoSearchProps, VideoSearchState> {
-  render() {
-    const videos = this.props.videos.map((video) => {
-      return <VideoSearchResult video={video}/>
-    });
-    return (
-        <React.Fragment>
-          <Hero title="Video Search" color={Color.TEAL}/>
-          <Container>{videos}</Container>
-        </React.Fragment>
-    );
-  }
+  return (
+      <React.Fragment>
+        <Hero title="Video Search" color={Color.TEAL}/>
+        <Container>{videos}</Container>
+      </React.Fragment>
+  );
 }
