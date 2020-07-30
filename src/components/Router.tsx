@@ -20,7 +20,7 @@ export interface RouterProps {
   bookmarks: Bookmark[];
   onToggleBookmark: (course: Course) => void;
   watchStatuses: WatchStatus[];
-  onToggleWatchStatus: (course: Course) => void;
+  onToggleWatchStatus: (item: Course | Video) => void;
 }
 
 export function Router(props: RouterProps) {

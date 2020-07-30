@@ -4,6 +4,7 @@ import React from "react";
 import Highlighter from "react-highlight-words";
 import "./CourseSearchResultComponent.css";
 import { roleToString } from "../../model/Role";
+import {Video} from "../../model/Video";
 
 export interface CourseSearchResult {
   course: Course;
@@ -14,8 +15,8 @@ export interface CourseSearchResultProps {
   result: CourseSearchResult;
   onToggleBookmark: () => void;
   isBookmarked: boolean;
-  isWatched: boolean;
-  onToggleWatchStatus: () => void;
+  isWatched: (item: Video | Course) => boolean;
+  onToggleWatchStatus: (item: Video | Course) => void;
 }
 
 function BookmarkButton(isBookmarked: boolean, onToggle: () => void) {
@@ -59,14 +60,19 @@ export function CourseSearchResultComponent(props: CourseSearchResultProps) {
         name: video.video.title,
         uuid: video.video.uuid,
         link: getVideoUrl(video.video, getCourseUrl(course)),
+        video: video
       };
     })
     .map((video) => {
+      const isWatched = props.isWatched(video.video.video);
+
       return (
         <li key={video.uuid}>
           <a href={video.link}>
             <Highlighter searchWords={props.result.matches} textToHighlight={video.name} autoEscape={true} />
           </a>
+          {" "}
+          <button onClick={() => props.onToggleWatchStatus(video.video.video)} className="video-watched-button tag is-small">{isWatched ? "Mark unwatched" : "Mark watched"}</button>
         </li>
       );
     });
@@ -89,7 +95,7 @@ export function CourseSearchResultComponent(props: CourseSearchResultProps) {
         </div>
         <div className="buttons">
           {BookmarkButton(props.isBookmarked, props.onToggleBookmark)}
-          {WatchStatusButton(props.isWatched, props.onToggleWatchStatus)}
+          {WatchStatusButton(props.isWatched(props.result.course), () => props.onToggleWatchStatus(props.result.course))}
         </div>
       </div>
     </div>

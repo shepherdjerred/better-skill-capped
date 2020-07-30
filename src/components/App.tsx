@@ -55,6 +55,7 @@ export default class App extends React.Component<unknown, AppState> {
   }
 
   onToggleWatchStatus(item: Video | Course) {
+    console.log(item);
     const { watchStatusesDatastore, watchStatuses } = this.state;
     const currentWatchStatus = this.getWatchStatus(item, watchStatuses);
 
@@ -125,7 +126,7 @@ export default class App extends React.Component<unknown, AppState> {
             bookmarks={this.state.bookmarks}
             onToggleBookmark={(course: Course) => this.onToggleBookmark(course)}
             watchStatuses={this.state.watchStatuses}
-            onToggleWatchStatus={(course: Course) => this.onToggleWatchStatus(course)}
+            onToggleWatchStatus={(item: Course | Video) => this.onToggleWatchStatus(item)}
           />
         </Sentry.ErrorBoundary>
       </React.Fragment>

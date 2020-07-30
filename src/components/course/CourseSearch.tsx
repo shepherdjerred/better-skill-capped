@@ -9,13 +9,14 @@ import { CourseSearchResult } from "./CourseSearchResultComponent";
 import { Bookmark } from "../../model/Bookmark";
 import { Role } from "../../model/Role";
 import { WatchStatus } from "../../model/WatchStatus";
+import {Video} from "../../model/Video";
 
 export interface CourseHomeProps {
   courses: Course[];
   bookmarks: Bookmark[];
   onToggleBookmark: (course: Course) => void;
   watchStatuses: WatchStatus[];
-  onToggleWatchStatus: (course: Course) => void;
+  onToggleWatchStatus: (item: Course | Video) => void;
 }
 
 export interface CourseHomeState {

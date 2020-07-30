@@ -5,19 +5,20 @@ import { Course } from "../../model/Course";
 import { Color, Hero } from "../Hero";
 import { Container } from "../Container";
 import { WatchStatus } from "../../model/WatchStatus";
+import {Video} from "../../model/Video";
 
 export interface BookmarkListProps {
   bookmarks: Bookmark[];
   onToggleBookmark: (course: Course) => void;
   watchStatuses: WatchStatus[];
-  onToggleWatchStatus: (course: Course) => void;
+  onToggleWatchStatus: (item: Course | Video) => void;
 }
 
-function isWatched(course: Course, watchStatuses: WatchStatus[]) {
+function isWatched(item: Course | Video, watchStatuses: WatchStatus[]) {
   return (
-    watchStatuses.find((watchStatuses) => {
-      return watchStatuses.item.uuid === course.uuid;
-    }) !== undefined
+      watchStatuses.find((watchStatuses) => {
+        return watchStatuses.item.uuid === item.uuid && watchStatuses.isWatched;
+      }) !== undefined
   );
 }
 
@@ -34,8 +35,8 @@ export function BookmarkList(props: BookmarkListProps) {
         onToggleBookmark={() => props.onToggleBookmark(result.course)}
         isBookmarked={true}
         key={result.course.uuid}
-        onToggleWatchStatus={() => props.onToggleWatchStatus(result.course)}
-        isWatched={isWatched(result.course, props.watchStatuses)}
+        onToggleWatchStatus={props.onToggleWatchStatus}
+        isWatched={(item: Course | Video) => isWatched(item, props.watchStatuses)}
       />
     );
   });
