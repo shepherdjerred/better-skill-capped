@@ -1,8 +1,6 @@
-import {BookmarkDatastore} from "./BookmarkDatastore";
-import {Bookmark} from "../model/Bookmark";
-import {Content} from "../model/Content";
-import {Video} from "../model/Video";
-import {Course} from "../model/Course";
+import { BookmarkDatastore } from "./BookmarkDatastore";
+import { Bookmark, Bookmarkable } from "../model/Bookmark";
+import { Content } from "../model/Content";
 
 const IDENTIFIER = "bookmarks";
 
@@ -22,7 +20,7 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
   get(): Bookmark[] {
     const bookmarks: Bookmark[] = JSON.parse(window.localStorage.getItem(IDENTIFIER) || "[]");
     const updatedBookmarks: Bookmark[] = bookmarks.flatMap((bookmark) => {
-      let matchedItem: Course | Video | undefined;
+      let matchedItem: Bookmarkable | undefined;
 
       if ("videos" in bookmark.item) {
         matchedItem = this.content.courses.find((course) => {
@@ -31,7 +29,7 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
       } else {
         matchedItem = this.content.videos.find((video) => {
           return video.uuid === bookmark.item.uuid;
-        })
+        });
       }
 
       if (matchedItem === undefined) {
@@ -40,10 +38,10 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
       } else {
         return {
           ...bookmark,
-          item: matchedItem
-        }
+          item: matchedItem,
+        };
       }
-    })
+    });
     console.debug(updatedBookmarks);
     return updatedBookmarks;
   }

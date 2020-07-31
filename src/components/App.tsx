@@ -3,14 +3,12 @@ import { Parser } from "../parser/Parser";
 import { Content } from "../model/Content";
 import { Router } from "./Router";
 import axios from "axios";
-import { Bookmark } from "../model/Bookmark";
+import { Bookmark, Bookmarkable } from "../model/Bookmark";
 import { LocalStorageBookmarkDatastore } from "../datastore/LocalStorageBookmarkDatastore";
 import { BookmarkDatastore } from "../datastore/BookmarkDatastore";
-import { Course } from "../model/Course";
 import { WatchStatusDatastore } from "../datastore/WatchStatusDatastore";
-import { WatchStatus } from "../model/WatchStatus";
+import { Watchable, WatchStatus } from "../model/WatchStatus";
 import { LocalStorageWatchStatusDatastore } from "../datastore/LocalStorageWatchStatusDatastore";
-import { Video } from "../model/Video";
 import * as Sentry from "@sentry/react";
 import { Color, Hero, Size } from "./Hero";
 
@@ -45,22 +43,21 @@ export default class App extends React.Component<unknown, AppState> {
       content: {
         ...content,
         courses: content.courses.sort((left, right) => right.releaseDate.getTime() - left.releaseDate.getTime()),
-        videos: content.videos.sort((left, right) => right.releaseDate.getTime() - left.releaseDate.getTime())
+        videos: content.videos.sort((left, right) => right.releaseDate.getTime() - left.releaseDate.getTime()),
       },
       bookmarkDatastore,
       watchStatusesDatastore,
       bookmarks: bookmarkDatastore.get(),
-      watchStatuses: watchStatusesDatastore.get()
+      watchStatuses: watchStatusesDatastore.get(),
     });
   }
 
-  onToggleWatchStatus(item: Video | Course) {
-    console.log(item);
+  onToggleWatchStatus(item: Bookmarkable) {
     const { watchStatusesDatastore, watchStatuses } = this.state;
     const currentWatchStatus = this.getWatchStatus(item, watchStatuses);
 
     if (watchStatusesDatastore === undefined) {
-      console.error("Not ready to toggle yet")
+      console.error("Not ready to toggle yet");
     }
 
     if (currentWatchStatus !== undefined) {
@@ -80,13 +77,13 @@ export default class App extends React.Component<unknown, AppState> {
     });
   }
 
-  getWatchStatus(item: Video | Course, watchStatuses: WatchStatus[]) {
+  getWatchStatus(item: Bookmarkable, watchStatuses: WatchStatus[]) {
     return watchStatuses.find((watchStatus) => {
       return watchStatus.item.uuid === item.uuid;
     });
   }
 
-  onToggleBookmark(item: Video | Course) {
+  onToggleBookmark(item: Bookmarkable) {
     const { bookmarkDatastore, bookmarks } = this.state;
     const currentBookmark = this.getBookmark(item, bookmarks);
 
@@ -107,10 +104,26 @@ export default class App extends React.Component<unknown, AppState> {
     });
   }
 
-  getBookmark(item: Video | Course, bookmarks: Bookmark[]) {
+  getBookmark(item: Bookmarkable, bookmarks: Bookmark[]) {
     return bookmarks.find((bookmark) => {
       return bookmark.item.uuid === item.uuid;
     });
+  }
+
+  isWatched(item: Watchable) {
+    return (
+      this.state.watchStatuses.find((watchStatuses) => {
+        return watchStatuses.item.uuid === item.uuid && watchStatuses.isWatched;
+      }) !== undefined
+    );
+  }
+
+  isBookmarked(item: Bookmarkable) {
+    return (
+      this.state.bookmarks.find((bookmark) => {
+        return bookmark.item.uuid === item.uuid;
+      }) !== undefined
+    );
   }
 
   render() {
@@ -124,9 +137,11 @@ export default class App extends React.Component<unknown, AppState> {
             courses={courses}
             videos={videos}
             bookmarks={this.state.bookmarks}
-            onToggleBookmark={(course: Course) => this.onToggleBookmark(course)}
+            onToggleBookmark={(item: Bookmarkable) => this.onToggleBookmark(item)}
             watchStatuses={this.state.watchStatuses}
-            onToggleWatchStatus={(item: Course | Video) => this.onToggleWatchStatus(item)}
+            onToggleWatchStatus={(item: Watchable) => this.onToggleWatchStatus(item)}
+            isBookmarked={this.isBookmarked.bind(this)}
+            isWatched={this.isWatched.bind(this)}
           />
         </Sentry.ErrorBoundary>
       </React.Fragment>

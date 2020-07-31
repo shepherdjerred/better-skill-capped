@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { CourseSearch } from "./course/CourseSearch";
+import { CourseSearchPage } from "./course/SearchPage";
 import React from "react";
 import { Course } from "../model/Course";
 import { Home } from "./Home";
@@ -7,20 +7,22 @@ import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import "./Wrapper.css";
 import { Color, Hero, Size } from "./Hero";
-import { Bookmark } from "../model/Bookmark";
-import { BookmarkList } from "./bookmark/BookmarkList";
-import { VideoSearch } from "./video/VideoSearch";
+import { Bookmark, Bookmarkable } from "../model/Bookmark";
+import { VideoSearchPage } from "./video/SearchPage";
 import { Video } from "../model/Video";
-import { WatchStatus } from "../model/WatchStatus";
+import { Watchable, WatchStatus } from "../model/WatchStatus";
 import * as Sentry from "@sentry/react";
+import { BookmarkListPage } from "./bookmark/ListPage";
 
 export interface RouterProps {
   courses: Course[];
   videos: Video[];
   bookmarks: Bookmark[];
-  onToggleBookmark: (course: Course) => void;
+  onToggleBookmark: (item: Bookmarkable) => void;
   watchStatuses: WatchStatus[];
-  onToggleWatchStatus: (item: Course | Video) => void;
+  onToggleWatchStatus: (item: Watchable) => void;
+  isBookmarked: (item: Bookmarkable) => boolean;
+  isWatched: (item: Watchable) => boolean;
 }
 
 export function Router(props: RouterProps) {
@@ -39,23 +41,29 @@ export function Router(props: RouterProps) {
                     <Home />
                   </Route>
                   <Route path="/courses">
-                    <CourseSearch
+                    <CourseSearchPage
                       courses={props.courses}
                       onToggleBookmark={props.onToggleBookmark}
-                      bookmarks={props.bookmarks}
                       onToggleWatchStatus={props.onToggleWatchStatus}
-                      watchStatuses={props.watchStatuses}
+                      isBookmarked={props.isBookmarked}
+                      isWatched={props.isWatched}
                     />
                   </Route>
                   <Route path="/videos">
-                    <VideoSearch videos={props.videos} />
+                    <VideoSearchPage
+                      videos={props.videos}
+                      onToggleBookmark={props.onToggleBookmark}
+                      onToggleWatchStatus={props.onToggleWatchStatus}
+                      isBookmarked={props.isBookmarked}
+                      isWatched={props.isWatched}
+                    />
                   </Route>
                   <Route path="/bookmarks">
-                    <BookmarkList
+                    <BookmarkListPage
                       bookmarks={props.bookmarks}
                       onToggleBookmark={props.onToggleBookmark}
-                      watchStatuses={props.watchStatuses}
                       onToggleWatchStatus={props.onToggleWatchStatus}
+                      isWatched={props.isWatched}
                     />
                   </Route>
                   <Route path="*">
