@@ -37,6 +37,7 @@ export function Router(props: RouterProps) {
             <Navbar />
             <Sentry.ErrorBoundary
               fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL_WITH_NAVBAR} />}
+              showDialog={true}
             >
               <div>
                 <Switch>

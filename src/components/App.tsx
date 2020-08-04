@@ -129,7 +129,10 @@ export default class App extends React.Component<unknown, AppState> {
   render() {
     return (
       <React.Fragment>
-        <Sentry.ErrorBoundary fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL} />}>
+        <Sentry.ErrorBoundary
+          fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL} />}
+          showDialog={true}
+        >
           <Router
             content={this.state.content}
             bookmarks={this.state.bookmarks}
