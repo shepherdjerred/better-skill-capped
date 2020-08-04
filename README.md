@@ -6,4 +6,4 @@
 
 Luckily they provide a manifest of all their video data hardcoded right into the HTML they serve! This is a small React app that renders the video data in a nice interface.
 
-![Screenshot as of 7a600dfcd679783d41e69a35d6832e5c9434bf51](https://i.imgur.com/HbBwtcH.png)
+![Screenshot as of commit 1a351b89136f204372ef56fc27e133ad377f0dbd](https://i.imgur.com/Hzrs3gh.png)
