@@ -6,7 +6,7 @@ import { Watchable } from "../../model/WatchStatus";
 import { FuseSearchResult } from "../FuseSearch";
 import { CourseSearchResultVideo } from "./SearchResultVideo";
 import { roleToString } from "../../model/Role";
-import { ToggleBookmarkButton } from "../ToggleBookmarkButton";
+import { ToggleBookmarkButton } from "../bookmark/ToggleButton";
 import { ToggleWatchStatusButton } from "../ToggleWatchStatusButton";
 import { Bookmarkable } from "../../model/Bookmark";
 
@@ -18,7 +18,7 @@ export interface CourseSearchResultProps {
   onToggleWatchStatus: (item: Watchable) => void;
 }
 
-export function SearchResult(props: CourseSearchResultProps) {
+export function CourseSearchResult(props: CourseSearchResultProps) {
   const { result, isWatched, onToggleWatchStatus, onToggleBookmark, isBookmarked } = props;
   const { matchedStrings, item: course } = result;
 

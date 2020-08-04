@@ -14,6 +14,7 @@ export class Parser {
       videos: this.parseVideos(manifest.videos, manifest.courses, manifest.videosToCourses),
       courses: this.parseCourses(manifest.videos, manifest.courses, manifest.videosToCourses),
       commentaries: this.parseCommentaries(manifest.commentaries),
+      unmappedVideos: this.getUnmatchedVideos(manifest.videos, manifest.courses, manifest.videosToCourses),
     };
   }
 
@@ -23,6 +24,53 @@ export class Parser {
     return releaseDate;
   }
 
+  getUnmatchedVideos(input: ManifestVideo[], courses: ManifestCourse[], chapters: ManifestCourseChapters) {
+    return input.flatMap((video) => {
+      const match = this.matchVideoToCourse(video, courses, chapters);
+
+      if (match !== undefined) {
+        return [];
+      } else {
+        return ({
+          ...video,
+        } as unknown) as Video;
+      }
+    });
+  }
+
+  matchVideoToCourse(video: ManifestVideo, courses: ManifestCourse[], chapters: ManifestCourseChapters) {
+    let courseTitle: string | null = null;
+    for (const [key, value] of Object.entries(chapters)) {
+      const match =
+        value.chapters[0].vids.find((courseVideo) => {
+          return courseVideo.uuid === video.uuid;
+        }) !== undefined;
+      if (match) {
+        courseTitle = key;
+        break;
+      }
+    }
+
+    if (courseTitle === null) {
+      console.debug(`Could not find course for video ${JSON.stringify(video)}`);
+      return undefined;
+    }
+
+    const matchedCourse = courses.find((candidate) => {
+      return courseTitle === candidate.title;
+    });
+
+    if (matchedCourse === undefined) {
+      console.debug(`Could not find course for name ${courseTitle}`);
+      return undefined;
+    }
+
+    return {
+      video: video.uuid,
+      course: matchedCourse,
+    };
+  }
+
   parseVideos(input: ManifestVideo[], courses: ManifestCourse[], chapters: ManifestCourseChapters): Video[] {
     return input.flatMap((video: ManifestVideo): Video | Video[] => {
       const releaseDate = this.parseDate(video.rDate);
@@ -30,45 +78,18 @@ export class Parser {
       const imageUrl = this.getImageUrl(video);
       const title = rawTitleToDisplayTitle(video.title);
 
-      let courseTitle: string | null = null;
-      for (const [key, value] of Object.entries(chapters)) {
-        const match =
-          value.chapters[0].vids.find((courseVideo) => {
-            return courseVideo.uuid === video.uuid;
-          }) !== undefined;
-        if (match) {
-          courseTitle = key;
-          break;
-        }
-      }
+      const match = this.matchVideoToCourse(video, courses, chapters);
 
-      if (courseTitle === null) {
-        console.debug(`Could not find course for video ${JSON.stringify(video)}`);
+      if (match === undefined) {
         return [];
       }
-
-      const matchedCourse = courses.find((candidate) => {
-        return courseTitle === candidate.title;
-      });
-
-      if (matchedCourse === undefined) {
-        console.debug(`Could not find course for name ${courseTitle}`);
-        return [];
-      }
-
-      const courseUuid = matchedCourse.uuid;
-
-      const fakeCourse = {
-        uuid: courseUuid,
-        title: courseTitle,
-      } as Course;
 
       const fakeVideo = {
         title: video.title,
         uuid: video.uuid,
       } as Video;
 
-      const courseUrl = getCourseUrl(fakeCourse);
+      const courseUrl = getCourseUrl((match.course as unknown) as Course);
       const videoUrl = getVideoUrl(fakeVideo, courseUrl);
 
       return {

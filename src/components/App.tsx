@@ -127,15 +127,11 @@ export default class App extends React.Component<unknown, AppState> {
   }
 
   render() {
-    const courses = this.state.content?.courses || [];
-    const videos = this.state.content?.videos || [];
-
     return (
       <React.Fragment>
         <Sentry.ErrorBoundary fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL} />}>
           <Router
-            courses={courses}
-            videos={videos}
+            content={this.state.content}
             bookmarks={this.state.bookmarks}
             onToggleBookmark={(item: Bookmarkable) => this.onToggleBookmark(item)}
             watchStatuses={this.state.watchStatuses}

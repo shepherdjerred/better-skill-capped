@@ -14,6 +14,7 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
   add(bookmark: Bookmark): void {
     const existingBookmarks = this.get();
     existingBookmarks.push(bookmark);
+    existingBookmarks.sort((left, right) => right.date.getTime() - left.date.getTime());
     this.set(existingBookmarks);
   }
 
@@ -39,6 +40,7 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
         return {
           ...bookmark,
           item: matchedItem,
+          date: new Date((bookmark.date as unknown) as string),
         };
       }
     });

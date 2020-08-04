@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchResult } from "./SearchResult";
+import { CourseSearchResult } from "./SearchResult";
 import { Bookmarkable } from "../../model/Bookmark";
 import { Watchable } from "../../model/WatchStatus";
 import { FuseSearchResult } from "../FuseSearch";
@@ -17,7 +17,7 @@ export function SearchResultList(props: CoursesListProps) {
   const { isBookmarked, isWatched } = props;
 
   const courses = props.results.map((result) => (
-    <SearchResult
+    <CourseSearchResult
       result={result}
       key={result.item.uuid}
       onToggleBookmark={props.onToggleBookmark}

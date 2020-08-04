@@ -1,6 +1,6 @@
 import React from "react";
 import { Bookmark, Bookmarkable } from "../../model/Bookmark";
-import { SearchResult } from "../course/SearchResult";
+import { CourseSearchResult } from "../course/SearchResult";
 import { Course } from "../../model/Course";
 import { Watchable } from "../../model/WatchStatus";
 import { VideoSearchResult } from "../video/SearchResult";
@@ -26,7 +26,7 @@ export function BookmarkList(props: BookmarkListProps) {
       };
 
       return (
-        <SearchResult
+        <CourseSearchResult
           result={result}
           onToggleBookmark={() => props.onToggleBookmark(item)}
           isBookmarked={() => true}

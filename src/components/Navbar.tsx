@@ -57,7 +57,7 @@ export class Navbar extends React.Component<unknown, NavbarState> {
 
         <div id="navbar" className={navbarMenuClasses}>
           <div className="navbar-start">
-            <NavLink to="/" className="navbar-item" activeClassName="is-active">
+            <NavLink to="/" className="navbar-item" activeClassName="is-active" exact={true}>
               Home
             </NavLink>
             <NavLink to="/courses" className="navbar-item" activeClassName="is-active">
@@ -68,6 +68,9 @@ export class Navbar extends React.Component<unknown, NavbarState> {
             </NavLink>
             <NavLink to="/bookmarks" className="navbar-item" activeClassName="is-active">
               Bookmarks
+            </NavLink>
+            <NavLink to="/stats" className="navbar-item" activeClassName="is-active">
+              Stats
             </NavLink>
           </div>
         </div>

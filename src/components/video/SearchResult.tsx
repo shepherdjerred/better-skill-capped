@@ -2,7 +2,7 @@ import { roleToString } from "../../model/Role";
 import React from "react";
 import { Video } from "../../model/Video";
 import { ToggleWatchStatusButton } from "../ToggleWatchStatusButton";
-import { ToggleBookmarkButton } from "../ToggleBookmarkButton";
+import { ToggleBookmarkButton } from "../bookmark/ToggleButton";
 import { Bookmarkable } from "../../model/Bookmark";
 import { Watchable } from "../../model/WatchStatus";
 
