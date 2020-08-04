@@ -5,6 +5,9 @@ import { ToggleWatchStatusButton } from "../ToggleWatchStatusButton";
 import { ToggleBookmarkButton } from "../bookmark/ToggleButton";
 import { Bookmarkable } from "../../model/Bookmark";
 import { Watchable } from "../../model/WatchStatus";
+import { getStreamUrl } from "../../utils/UrlUtilities";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudDownloadAlt } from "@fortawesome/free-solid-svg-icons";
 
 export interface VideoSearchResultProps {
   video: Video;
@@ -37,6 +40,12 @@ export function VideoSearchResult(props: VideoSearchResultProps) {
         <div className="buttons">
           <ToggleBookmarkButton {...buttonProps} />
           <ToggleWatchStatusButton {...buttonProps} />
+          <a href={getStreamUrl(video)} className="button bookmark">
+            <span className="icon is-small">
+              <FontAwesomeIcon icon={faCloudDownloadAlt} />
+            </span>
+            <span>Download</span>
+          </a>
         </div>
       </div>
     </div>

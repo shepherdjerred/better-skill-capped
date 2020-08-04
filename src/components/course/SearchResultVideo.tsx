@@ -2,10 +2,10 @@ import { Video } from "../../model/Video";
 import { Course } from "../../model/Course";
 import Highlighter from "react-highlight-words";
 import React from "react";
-import { getCourseUrl, getVideoUrl } from "../../utils/UrlUtilities";
+import { getCourseUrl, getStreamUrl, getVideoUrl } from "../../utils/UrlUtilities";
 import { Bookmarkable } from "../../model/Bookmark";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faCloudDownloadAlt, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Watchable } from "../../model/WatchStatus";
 
 export interface SearchResultVideoProps {
@@ -41,6 +41,9 @@ export function CourseSearchResultVideo(props: SearchResultVideoProps) {
       >
         <FontAwesomeIcon icon={watchToggleIcon} />
       </button>
+      <a href={getStreamUrl(video)} className="video-watched-button tag is-small is-outlined is-inverted is-rounded">
+        <FontAwesomeIcon icon={faCloudDownloadAlt} />
+      </a>
     </li>
   );
 }

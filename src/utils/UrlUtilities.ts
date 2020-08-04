@@ -20,3 +20,7 @@ export function getVideoUrl(video: Video, baseUrl: string): string {
   const videoName = rawTitleToUrlTitle(video.title);
   return baseUrl + videoName + "/" + video.uuid;
 }
+
+export function getStreamUrl(video: Video): string {
+  return `https://www.skill-capped.com/lol/api/dailyvideo/${video.uuid}/4500.m3u8`;
+}

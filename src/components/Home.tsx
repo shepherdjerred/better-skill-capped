@@ -64,6 +64,26 @@ export function Home() {
                   and it allows me to use Skill Capped more effectively.
                 </p>
               </div>
+              <div className="home-section">
+                <h6 className="title is-6">How does the download button work?</h6>
+                <p>
+                  Skill Capped stores their videos in the <a href="https://en.wikipedia.org/wiki/M3U">M3U8</a> format.
+                  The download button links to this file which causes your browser to download it. This file allows you
+                  to stream videos through video players like <a href="https://www.videolan.org/vlc/index.html">VLC</a>.
+                  If you don't have a Skill Capped subscription then the download button will not function. Your
+                  subscription is not checked in any way by this site. All authentication/authorization is done by Skill
+                  Capped.
+                </p>
+              </div>
+              <div className="home-section">
+                <h6 className="title is-6">How is my data (i.e. bookmarks, watch status) stored?</h6>
+                <p>
+                  Better Skill Capped does not store any data except for locally on your computer. There are no servers
+                  containing your bookmarks or watch history. All data is stored in yours browser's{" "}
+                  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">local storage</a>. This
+                  means that your data does not sync across devices, and you will lose your data if you clear site data.
+                </p>
+              </div>
             </div>
           </div>
         </div>
