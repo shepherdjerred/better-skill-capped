@@ -40,10 +40,10 @@ export function Home() {
                   Skill Capped embeds a JSON manifest in the HTML that they serve. This JSON manifest contains data
                   about all of the videos on their website such as the title, description, etc. This JSON manifest is
                   downloaded as a part of this web app. It is then parsed to provide an interface for discovering Skill
-                  Capped content. The JSON manifest is pulled on the hour from skill capped as part of{" "}
+                  Capped content. The JSON manifest is pulled every ten minutes from skill capped as part of{" "}
                   <a href="https://github.com/shepherdjerred/skill-capped-fetcher">another project</a> of mine. This
-                  means that when new videos are posted onto skill capped it might take up to an hour for it to reflect
-                  on this website.
+                  means that when new videos are posted onto skill capped it might take up to ten minutes for it to
+                  reflect on this website.
                 </p>
               </div>
               <div className="home-section">
