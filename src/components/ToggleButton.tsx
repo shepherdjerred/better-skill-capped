@@ -3,7 +3,7 @@ import React from "react";
 export interface ToggleButtonProps {
   status: boolean;
   onToggle: () => void;
-  buttonText: (status: boolean) => string;
+  buttonText: (status: boolean) => React.ReactNode;
   classes?: string;
 }
 

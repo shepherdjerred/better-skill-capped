@@ -1,6 +1,8 @@
 import React from "react";
 import { ToggleButton } from "./ToggleButton";
 import { Watchable } from "../model/WatchStatus";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export interface ToggleWatchStatusButtonProps {
   item: Watchable;
@@ -10,11 +12,22 @@ export interface ToggleWatchStatusButtonProps {
 
 export function ToggleWatchStatusButton(props: ToggleWatchStatusButtonProps) {
   const { item, isWatched, onToggleWatchStatus } = props;
+  const watchToggleIcon = isWatched ? faEyeSlash : faEye;
+
   return (
     <ToggleButton
       status={isWatched}
       onToggle={() => onToggleWatchStatus(item)}
-      buttonText={(status) => (status ? "Mark as unwatched" : "Mark as watched")}
+      buttonText={(status) => {
+        return (
+          <React.Fragment>
+            <span className="icon is-small">
+              <FontAwesomeIcon icon={watchToggleIcon} />
+            </span>
+            <span>{status ? "Mark as unwatched" : "Mark as watched"}</span>
+          </React.Fragment>
+        );
+      }}
     />
   );
 }
