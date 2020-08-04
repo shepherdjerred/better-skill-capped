@@ -55,9 +55,9 @@ export function Home() {
                   You don't have to trust me though. This project is fully open sourced on{" "}
                   <a href="https://github.com/shepherdjerred/better-skill-capped">GitHub</a>. Feel free to go through
                   the code. There are no client-side analytics or ads of any kind, but some information is collected
-                  through <a href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> which is how this project is
-                  hosted. I also collect errors through <a href="https://sentry.io/">Sentry</a> which allows me to debug
-                  issues that users run into.
+                  through <a href="https://aws.amazon.com/cloudfront/reporting/">AWS CloudFront</a> which is how this
+                  project is hosted. I also collect errors through <a href="https://sentry.io/">Sentry</a> which allows
+                  me to debug issues that users run into.
                   <br />
                   <br />
                   I'm not making any kind of a profit through this tool. It's simply a project that I enjoy working on
