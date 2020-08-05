@@ -10,4 +10,4 @@ Luckily they provide a manifest of all their video data hardcoded right into the
 
 A special thanks to [Sentry](https://sentry.io/) for sponsoring this project. Check them out!
 
-![Sentry Logo](https://i.imgur.com/6do6yJx.png)
+[![Sentry Logo](https://i.imgur.com/6do6yJx.png)](https://sentry.io/)
