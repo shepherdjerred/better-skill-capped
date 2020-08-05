@@ -7,3 +7,7 @@
 Luckily they provide a manifest of all their video data hardcoded right into the HTML they serve! This is a small React app that renders the video data in a nice interface.
 
 ![Screenshot as of commit 1a351b89136f204372ef56fc27e133ad377f0dbd](https://i.imgur.com/Mr4o5sv.png)
+
+A special thanks to [Sentry](https://sentry.io/) for sponsoring this project. Check them out!
+
+![Sentry Logo](https://i.imgur.com/6do6yJx.png)
