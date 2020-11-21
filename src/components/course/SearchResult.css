@@ -23,4 +23,8 @@
   font: inherit;
   cursor: pointer;
   outline: inherit;
+  font-size: .7rem !important;
+  margin-left: 5px;
+  height: 1.25rem !important;
+  float: right;
 }
