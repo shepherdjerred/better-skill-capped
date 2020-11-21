@@ -7,10 +7,14 @@ export interface FuseSearchProps<T> {
   items: T[];
   options: Fuse.IFuseOptions<T>;
   render: (items: FuseSearchResult<T>[]) => React.ReactNode;
+  itemsPerPage: number;
+  page: number;
+  onResultsUpdate: (newResults: T[]) => void;
 }
 
 export interface FuseSearchState<T> {
   fuse: Fuse<T, Fuse.IFuseOptions<T>>;
+  matchedItems: FuseSearchResult<T>[];
 }
 
 export interface FuseSearchResult<T> {
@@ -26,13 +30,41 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
 
     this.state = {
       fuse: createIndexedFuseInstance(items, options),
+      matchedItems: [],
     };
+  }
+
+  componentDidMount() {
+    const results = this.getResults();
+    this.setState((state) => {
+      return {
+        ...state,
+        matchedItems: results,
+      };
+    });
+    this.props.onResultsUpdate(results.map((result) => result.item));
   }
 
   componentDidUpdate(prevProps: Readonly<FuseSearchProps<T>>) {
     // This prevents us from rebuilding fuse if our items haven't changed
     // This happens a lot when a user is typing which results in updates to the "query" prop
     this.rebuildFuseIfNeeded(this.props.items, prevProps.items);
+    this.searchIfNeeded(prevProps);
+  }
+
+  searchIfNeeded(prevProps: Readonly<FuseSearchProps<T>>) {
+    const needsSearch = prevProps.query !== this.props.query || prevProps.items !== this.props.items;
+
+    if (needsSearch) {
+      const results = this.getResults();
+      this.setState((state) => {
+        return {
+          ...state,
+          matchedItems: results,
+        };
+      });
+      this.props.onResultsUpdate(results.map((result) => result.item));
+    }
   }
 
   rebuildFuseIfNeeded(currentItems: T[], previousItems: T[]) {
@@ -93,9 +125,11 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
 
   render() {
     const { render } = this.props;
-    const results = this.getResults();
 
-    return render(results);
+    const start = this.props.itemsPerPage * (this.props.page - 1);
+    const end = start + this.props.itemsPerPage;
+
+    return render(this.state.matchedItems.slice(start, end));
   }
 }
 

@@ -52,7 +52,6 @@ export class Parser {
     }
 
     if (courseTitle === null) {
-      console.debug(`Could not find course for video ${JSON.stringify(video)}`);
       return undefined;
     }
 
@@ -61,7 +60,6 @@ export class Parser {
     });
 
     if (matchedCourse === undefined) {
-      console.debug(`Could not find course for name ${courseTitle}`);
       return undefined;
     }
 

@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 
 export interface FilterBarProps {
-  onUpdate: (event: ChangeEvent<HTMLInputElement>) => void;
+  onValueUpdate: (newValue: string) => void;
 }
 
 export interface FilterBarState {
@@ -17,11 +17,14 @@ export class Searchbar extends React.Component<FilterBarProps, FilterBarState> {
   }
 
   onUpdate(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      ...this.state,
-      value: event.target.value || "",
+    event.persist();
+    this.setState((state) => {
+      return {
+        ...state,
+        value: event.target.value || "",
+      };
     });
-    this.props.onUpdate(event);
+    this.props.onValueUpdate(event.target.value);
   }
 
   render() {

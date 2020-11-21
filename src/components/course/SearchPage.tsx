@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { Searchbar } from "../Searchbar";
 import { SearchResultList } from "./SearchResultList";
 import { Course } from "../../model/Course";
@@ -7,6 +7,7 @@ import { Container } from "../Container";
 import { Bookmarkable } from "../../model/Bookmark";
 import { Watchable } from "../../model/WatchStatus";
 import { FuseSearch } from "../FuseSearch";
+import PaginationControls from "../PaginationControls";
 
 export interface CourseSearchPageProps {
   courses: Course[];
@@ -18,6 +19,8 @@ export interface CourseSearchPageProps {
 
 export interface CourseSearchPageState {
   query: string;
+  page: number;
+  matches: Course[];
 }
 
 export class CourseSearchPage extends React.PureComponent<CourseSearchPageProps, CourseSearchPageState> {
@@ -26,6 +29,8 @@ export class CourseSearchPage extends React.PureComponent<CourseSearchPageProps,
 
     this.state = {
       query: "",
+      page: 1,
+      matches: [],
     };
   }
 
@@ -41,16 +46,21 @@ export class CourseSearchPage extends React.PureComponent<CourseSearchPageProps,
     };
   }
 
-  onFilter(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      ...this.state,
-      query: event.target.value,
+  onQueryUpdate(newValue: string) {
+    this.setState((state) => {
+      return {
+        ...state,
+        query: newValue,
+        page: 1,
+      };
     });
   }
 
   render() {
     const { courses } = this.props;
     const { query } = this.state;
+
+    const itemsPagePage = 10;
 
     const resultList = (
       <FuseSearch
@@ -60,15 +70,39 @@ export class CourseSearchPage extends React.PureComponent<CourseSearchPageProps,
         render={(items) => {
           return <SearchResultList results={items} {...this.props} />;
         }}
+        itemsPerPage={itemsPagePage}
+        page={this.state.page}
+        onResultsUpdate={(newResults) => {
+          this.setState((state) => {
+            return {
+              ...state,
+              matches: newResults,
+            };
+          });
+        }}
       />
     );
+
+    const pages = Math.floor(this.state.matches.length / itemsPagePage) + 1;
 
     return (
       <React.Fragment>
         <Hero title="Course Search" color={Color.TEAL} />
         <Container>
-          <Searchbar onUpdate={this.onFilter.bind(this)} />
+          <Searchbar onValueUpdate={this.onQueryUpdate.bind(this)} />
           {resultList}
+          <PaginationControls
+            currentPage={this.state.page}
+            lastPage={pages}
+            onPageChange={(newPage) => {
+              this.setState((state) => {
+                return {
+                  ...state,
+                  page: newPage,
+                };
+              });
+            }}
+          />
         </Container>
       </React.Fragment>
     );
