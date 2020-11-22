@@ -30,7 +30,7 @@ export default function VideoSearchPage(props: VideoSearchPageProps) {
 
   return (
     <React.Fragment>
-      <Hero title="Video Search" color={Color.TEAL} />
+      <Hero title="Videos" color={Color.TEAL} />
       <Container>
         <Search
           items={videos}
@@ -43,6 +43,7 @@ export default function VideoSearchPage(props: VideoSearchPageProps) {
               isWatched={isWatched(item.item)}
               onToggleBookmark={onToggleBookmark}
               onToggleWatchStatus={onToggleWatchStatus}
+              matchedStrings={item.matchedStrings}
             />
           )}
           itemsPerPage={20}

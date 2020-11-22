@@ -56,6 +56,7 @@ export function ListItem({
         isWatched={isWatched(item)}
         onToggleBookmark={onToggleBookmark}
         onToggleWatchStatus={onToggleWatchStatus}
+        matchedStrings={matchedStrings}
       />
     );
   }

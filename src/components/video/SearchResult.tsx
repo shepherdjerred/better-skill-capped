@@ -8,6 +8,7 @@ import { Watchable } from "../../model/WatchStatus";
 import { getStreamUrl } from "../../utils/UrlUtilities";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudDownloadAlt } from "@fortawesome/free-solid-svg-icons";
+import Highlighter from "react-highlight-words";
 
 export interface VideoSearchResultProps {
   video: Video;
@@ -15,10 +16,11 @@ export interface VideoSearchResultProps {
   isWatched: boolean;
   onToggleBookmark: (item: Bookmarkable) => void;
   onToggleWatchStatus: (item: Watchable) => void;
+  matchedStrings: string[];
 }
 
 export function VideoSearchResult(props: VideoSearchResultProps) {
-  const { video } = props;
+  const { video, matchedStrings } = props;
   const buttonProps = {
     ...props,
     item: video,
@@ -28,9 +30,13 @@ export function VideoSearchResult(props: VideoSearchResultProps) {
     <div key={video.uuid} className="box">
       <div className="box-content">
         <h3 className="title is-5">
-          <a href={video.skillCappedUrl}>{video.title}</a>
+          <a href={video.skillCappedUrl}>
+            <Highlighter searchWords={matchedStrings} textToHighlight={video.title} autoEscape={true} />
+          </a>
         </h3>
-        <p>{video.description}</p>
+        <p>
+          <Highlighter searchWords={matchedStrings} textToHighlight={video.description} autoEscape={true} />
+        </p>
         <div className="tags">
           <span className="tag">{roleToString(video.role)}</span>
           <span className="tag" title={video.releaseDate.toLocaleString()}>
