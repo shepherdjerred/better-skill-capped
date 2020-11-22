@@ -30,7 +30,7 @@ export function CourseSearchPage(props: CourseSearchPageProps) {
 
   return (
     <React.Fragment>
-      <Hero title="Course Search" color={Color.TEAL} />
+      <Hero title="Courses" color={Color.TEAL} />
       <Container>
         <Search
           items={courses}

@@ -5,8 +5,9 @@ import React from "react";
 import { getCourseUrl, getStreamUrl, getVideoUrl } from "../../utils/UrlUtilities";
 import { Bookmarkable } from "../../model/Bookmark";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudDownloadAlt, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faCloudDownloadAlt, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Watchable } from "../../model/WatchStatus";
+import classNames from "classnames";
 
 export interface SearchResultVideoProps {
   matchedStrings: string[];
@@ -19,12 +20,13 @@ export interface SearchResultVideoProps {
 }
 
 export function CourseSearchResultVideo(props: SearchResultVideoProps) {
-  const { course, video, matchedStrings, isWatched } = props;
+  const { course, video, matchedStrings, isWatched, isBookmarked } = props;
   // TODO: use alt title from course video
   const { title } = video;
 
   const link = getVideoUrl(video, getCourseUrl(course));
 
+  const bookmarkHint = isBookmarked ? "Unbookmark" : "Bookmark";
   const watchToggleIcon = isWatched ? faEyeSlash : faEye;
   const watchToggleHint = isWatched ? "Mark as unwatched" : "Watch as watched";
   const textStyle = isWatched ? "has-text-grey-lighter" : "";
@@ -35,13 +37,26 @@ export function CourseSearchResultVideo(props: SearchResultVideoProps) {
         <Highlighter searchWords={matchedStrings} textToHighlight={title} autoEscape={true} />
       </a>{" "}
       <button
+        onClick={() => props.onToggleBookmark(video)}
+        className={classNames("video-watched-button tag is-small is-outlined is-inverted is-rounded", {
+          "is-warning": isBookmarked,
+        })}
+        title={bookmarkHint}
+      >
+        <FontAwesomeIcon icon={faBookmark} />
+      </button>
+      <button
         onClick={() => props.onToggleWatchStatus(video)}
         className="video-watched-button tag is-small is-outlined is-inverted is-rounded"
         title={watchToggleHint}
       >
         <FontAwesomeIcon icon={watchToggleIcon} />
       </button>
-      <a href={getStreamUrl(video)} className="video-watched-button tag is-small is-outlined is-inverted is-rounded">
+      <a
+        href={getStreamUrl(video)}
+        className="video-watched-button tag is-small is-outlined is-inverted is-rounded"
+        title="Download video stream"
+      >
         <FontAwesomeIcon icon={faCloudDownloadAlt} />
       </a>
     </li>

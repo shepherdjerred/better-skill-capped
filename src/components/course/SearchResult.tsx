@@ -45,9 +45,9 @@ export function CourseSearchResult(props: CourseSearchResultProps) {
         </h3>
         <p>{course.description}</p>
         <div className="tags">
-          <span className="tag">{roleToString(props.result.item.role)}</span>
+          <span className="tag">Lane: {roleToString(props.result.item.role)}</span>
           <span className="tag" title={props.result.item.releaseDate.toLocaleString()}>
-            {props.result.item.releaseDate.toLocaleDateString()}
+            Posted: {props.result.item.releaseDate.toLocaleDateString()}
           </span>
         </div>
         <div>
