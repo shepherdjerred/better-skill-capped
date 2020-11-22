@@ -49,7 +49,7 @@ export default class PaginatedFuseSearch<T> extends React.PureComponent<
 
   render() {
     const { query, items, fuseOptions, render, itemsPerPage } = this.props;
-    const { currentPage } = this.state;
+    const { currentPage, matches } = this.state;
 
     const resultList = (
       <FuseSearch
@@ -70,7 +70,7 @@ export default class PaginatedFuseSearch<T> extends React.PureComponent<
       />
     );
 
-    const numberOfPages = Math.ceil(items.length / itemsPerPage);
+    const numberOfPages = Math.ceil(matches.length / itemsPerPage);
 
     return (
       <>
