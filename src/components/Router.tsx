@@ -7,12 +7,12 @@ import { Footer } from "./Footer";
 import "./Wrapper.css";
 import { Color, Hero, Size } from "./Hero";
 import { Bookmark, Bookmarkable } from "../model/Bookmark";
-import { VideoSearchPage } from "./video/SearchPage";
 import { Watchable, WatchStatus } from "../model/WatchStatus";
 import * as Sentry from "@sentry/react";
 import { BookmarkListPage } from "./bookmark/ListPage";
 import { StatsPage } from "./StatsPage";
 import { Content } from "../model/Content";
+import VideoSearchPage from "./video/SearchPage";
 
 export interface RouterProps {
   content?: Content;

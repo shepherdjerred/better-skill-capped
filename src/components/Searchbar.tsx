@@ -2,6 +2,7 @@ import React, { ChangeEvent } from "react";
 
 export interface FilterBarProps {
   onValueUpdate: (newValue: string) => void;
+  placeholder: string;
 }
 
 export interface FilterBarState {
@@ -35,7 +36,7 @@ export class Searchbar extends React.Component<FilterBarProps, FilterBarState> {
             className="input"
             type="text"
             value={this.state.value}
-            placeholder="Search Courses"
+            placeholder={this.props.placeholder}
             onChange={this.onUpdate.bind(this)}
           />
         </div>

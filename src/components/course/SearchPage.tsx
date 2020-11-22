@@ -89,7 +89,7 @@ export class CourseSearchPage extends React.PureComponent<CourseSearchPageProps,
       <React.Fragment>
         <Hero title="Course Search" color={Color.TEAL} />
         <Container>
-          <Searchbar onValueUpdate={this.onQueryUpdate.bind(this)} />
+          <Searchbar onValueUpdate={this.onQueryUpdate.bind(this)} placeholder="Search courses" />
           {resultList}
           <PaginationControls
             currentPage={this.state.page}
