@@ -3,7 +3,7 @@ import React from "react";
 import Highlighter from "react-highlight-words";
 import "./SearchResult.css";
 import { Watchable } from "../../model/WatchStatus";
-import { FuseSearchResult } from "../FuseSearch";
+import { FuseSearchResult } from "../search/FuseSearch";
 import { CourseSearchResultVideo } from "./SearchResultVideo";
 import { roleToString } from "../../model/Role";
 import { ToggleBookmarkButton } from "../bookmark/ToggleButton";

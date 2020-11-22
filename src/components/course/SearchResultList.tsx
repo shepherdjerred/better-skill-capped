@@ -2,7 +2,7 @@ import React from "react";
 import { CourseSearchResult } from "./SearchResult";
 import { Bookmarkable } from "../../model/Bookmark";
 import { Watchable } from "../../model/WatchStatus";
-import { FuseSearchResult } from "../FuseSearch";
+import { FuseSearchResult } from "../search/FuseSearch";
 import { Course } from "../../model/Course";
 
 export interface CoursesListProps {

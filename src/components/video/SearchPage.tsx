@@ -5,7 +5,7 @@ import { Container } from "../Container";
 import { VideoSearchResult } from "./SearchResult";
 import { Bookmarkable } from "../../model/Bookmark";
 import { Watchable } from "../../model/WatchStatus";
-import { FuseSearch } from "../FuseSearch";
+import { FuseSearch } from "../search/FuseSearch";
 import { Searchbar } from "../Searchbar";
 import PaginationControls from "../PaginationControls";
 

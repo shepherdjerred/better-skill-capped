@@ -6,8 +6,7 @@ import { Color, Hero } from "../Hero";
 import { Container } from "../Container";
 import { Bookmarkable } from "../../model/Bookmark";
 import { Watchable } from "../../model/WatchStatus";
-import { FuseSearch } from "../FuseSearch";
-import PaginationControls from "../PaginationControls";
+import PaginatedFuseSearch from "../search/PaginatedFuseSearch";
 
 export interface CourseSearchPageProps {
   courses: Course[];
@@ -19,8 +18,6 @@ export interface CourseSearchPageProps {
 
 export interface CourseSearchPageState {
   query: string;
-  page: number;
-  matches: Course[];
 }
 
 export class CourseSearchPage extends React.PureComponent<CourseSearchPageProps, CourseSearchPageState> {
@@ -29,8 +26,6 @@ export class CourseSearchPage extends React.PureComponent<CourseSearchPageProps,
 
     this.state = {
       query: "",
-      page: 1,
-      matches: [],
     };
   }
 
@@ -60,48 +55,17 @@ export class CourseSearchPage extends React.PureComponent<CourseSearchPageProps,
     const { courses } = this.props;
     const { query } = this.state;
 
-    const itemsPagePage = 10;
-
-    const resultList = (
-      <FuseSearch
-        query={query}
-        items={courses}
-        options={this.getFuseOptions()}
-        render={(items) => {
-          return <SearchResultList results={items} {...this.props} />;
-        }}
-        itemsPerPage={itemsPagePage}
-        page={this.state.page}
-        onResultsUpdate={(newResults) => {
-          this.setState((state) => {
-            return {
-              ...state,
-              matches: newResults,
-            };
-          });
-        }}
-      />
-    );
-
-    const pages = Math.floor(this.state.matches.length / itemsPagePage) + 1;
-
     return (
       <React.Fragment>
         <Hero title="Course Search" color={Color.TEAL} />
         <Container>
           <Searchbar onValueUpdate={this.onQueryUpdate.bind(this)} placeholder="Search courses" />
-          {resultList}
-          <PaginationControls
-            currentPage={this.state.page}
-            lastPage={pages}
-            onPageChange={(newPage) => {
-              this.setState((state) => {
-                return {
-                  ...state,
-                  page: newPage,
-                };
-              });
-            }}
+          <PaginatedFuseSearch
+            query={query}
+            items={courses}
+            fuseOptions={this.getFuseOptions()}
+            render={(items) => <SearchResultList results={items} {...this.props} />}
+            itemsPerPage={10}
           />
         </Container>
       </React.Fragment>
