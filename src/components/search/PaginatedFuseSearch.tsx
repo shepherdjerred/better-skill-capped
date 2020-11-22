@@ -29,6 +29,24 @@ export default class PaginatedFuseSearch<T> extends React.PureComponent<
     };
   }
 
+  componentDidUpdate(
+    prevProps: Readonly<PaginatedFuseSearchProps<T>>,
+    prevState: Readonly<PaginatedFuseSearchState<T>>
+  ) {
+    if (prevProps.query !== this.props.query) {
+      this.setState((state) => {
+        return {
+          ...state,
+          currentPage: 1,
+        };
+      });
+    }
+
+    if (prevState.currentPage !== this.state.currentPage) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   render() {
     const { query, items, fuseOptions, render, itemsPerPage } = this.props;
     const { currentPage } = this.state;
