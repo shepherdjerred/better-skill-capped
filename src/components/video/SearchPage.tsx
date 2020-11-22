@@ -35,18 +35,16 @@ export default function VideoSearchPage(props: VideoSearchPageProps) {
         <Search
           items={videos}
           fuseOptions={fuseOptions}
-          render={(items) =>
-            items.map((item) => (
-              <VideoSearchResult
-                key={item.item.uuid}
-                video={item.item}
-                isBookmarked={isBookmarked(item.item)}
-                isWatched={isWatched(item.item)}
-                onToggleBookmark={onToggleBookmark}
-                onToggleWatchStatus={onToggleWatchStatus}
-              />
-            ))
-          }
+          render={(item) => (
+            <VideoSearchResult
+              key={item.item.uuid}
+              video={item.item}
+              isBookmarked={isBookmarked(item.item)}
+              isWatched={isWatched(item.item)}
+              onToggleBookmark={onToggleBookmark}
+              onToggleWatchStatus={onToggleWatchStatus}
+            />
+          )}
           itemsPerPage={20}
           searchBarPlaceholder="Search Videos"
         />

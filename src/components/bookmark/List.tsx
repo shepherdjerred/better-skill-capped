@@ -16,6 +16,10 @@ export interface BookmarkListProps {
 export function BookmarkList(props: BookmarkListProps) {
   const { isWatched } = props;
 
+  if (props.bookmarks.length === 0) {
+    return <p>You don't have any bookmarks :(</p>;
+  }
+
   return props.bookmarks.map(({ item }) => {
     const isCourse = "videos" in item;
 

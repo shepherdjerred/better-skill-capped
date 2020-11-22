@@ -60,6 +60,9 @@ export class Navbar extends React.Component<unknown, NavbarState> {
             <NavLink to="/" className="navbar-item" activeClassName="is-active" exact={true}>
               Home
             </NavLink>
+            <NavLink to="/about" className="navbar-item" activeClassName="is-active">
+              About
+            </NavLink>
             <NavLink to="/courses" className="navbar-item" activeClassName="is-active">
               Courses
             </NavLink>

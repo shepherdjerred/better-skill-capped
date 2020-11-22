@@ -7,7 +7,7 @@ import { FuseSearchResult } from "./FuseSearch";
 export interface SearchProps<T> {
   items: T[];
   fuseOptions: Fuse.IFuseOptions<T>;
-  render: (items: FuseSearchResult<T>[]) => React.ReactNode;
+  render: (items: FuseSearchResult<T>) => React.ReactNode;
   itemsPerPage: number;
   searchBarPlaceholder: string;
 }

@@ -7,7 +7,7 @@ export interface PaginatedFuseSearchProps<T> {
   query: string;
   items: T[];
   fuseOptions: Fuse.IFuseOptions<T>;
-  render: (items: FuseSearchResult<T>[]) => React.ReactNode;
+  render: (items: FuseSearchResult<T>) => React.ReactNode;
   itemsPerPage: number;
 }
 

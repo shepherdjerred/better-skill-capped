@@ -13,6 +13,7 @@ import { BookmarkListPage } from "./bookmark/ListPage";
 import { StatsPage } from "./StatsPage";
 import { Content } from "../model/Content";
 import VideoSearchPage from "./video/SearchPage";
+import About from "./About";
 
 export interface RouterProps {
   content?: Content;
@@ -43,6 +44,9 @@ export function Router(props: RouterProps) {
                 <Switch>
                   <Route exact path={["/", "/home"]}>
                     <Home />
+                  </Route>
+                  <Route path={"/about"}>
+                    <About />
                   </Route>
                   <Route path="/courses">
                     <CourseSearchPage

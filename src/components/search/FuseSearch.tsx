@@ -6,7 +6,7 @@ export interface FuseSearchProps<T> {
   query?: string;
   items: T[];
   options: Fuse.IFuseOptions<T>;
-  render: (items: FuseSearchResult<T>[]) => React.ReactNode;
+  render: (items: FuseSearchResult<T>) => React.ReactNode;
   itemsPerPage: number;
   page: number;
   onResultsUpdate: (newResults: T[]) => void;
@@ -129,7 +129,7 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
     const start = this.props.itemsPerPage * (this.props.page - 1);
     const end = start + this.props.itemsPerPage;
 
-    return render(this.state.matchedItems.slice(start, end));
+    return this.state.matchedItems.slice(start, end).map((item) => render(item));
   }
 }
 

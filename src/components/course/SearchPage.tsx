@@ -1,11 +1,11 @@
 import React from "react";
-import { SearchResultList } from "./SearchResultList";
 import { Course } from "../../model/Course";
 import { Color, Hero } from "../Hero";
 import { Container } from "../Container";
 import { Bookmarkable } from "../../model/Bookmark";
 import { Watchable } from "../../model/WatchStatus";
 import Search from "../search/Search";
+import { CourseSearchResult } from "./SearchResult";
 
 export interface CourseSearchPageProps {
   courses: Course[];
@@ -26,7 +26,7 @@ export function CourseSearchPage(props: CourseSearchPageProps) {
     includeScore: true,
   };
 
-  const { courses } = props;
+  const { courses, isBookmarked, isWatched } = props;
 
   return (
     <React.Fragment>
@@ -35,7 +35,16 @@ export function CourseSearchPage(props: CourseSearchPageProps) {
         <Search
           items={courses}
           fuseOptions={fuseOptions}
-          render={(items) => <SearchResultList results={items} {...props} />}
+          render={(item) => (
+            <CourseSearchResult
+              result={item}
+              key={item.item.uuid}
+              onToggleBookmark={props.onToggleBookmark}
+              isBookmarked={isBookmarked}
+              onToggleWatchStatus={props.onToggleWatchStatus}
+              isWatched={(item) => isWatched(item)}
+            />
+          )}
           itemsPerPage={10}
           searchBarPlaceholder="Search Courses"
         />
