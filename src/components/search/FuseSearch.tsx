@@ -81,7 +81,9 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
         fuse: createIndexedFuseInstance(currentItems, this.props.options),
       });
     } else {
-      console.log(`No need to rebuild fuse. Same items size: ${areItemsTheSameSize}, Same items: ${areItemsTheSame}`);
+      console.log(
+        `No need to rebuild fuse. Same items size: ${areItemsTheSameSize.toString()}, Same items: ${areItemsTheSame.toString()}`
+      );
     }
   }
 

@@ -41,8 +41,8 @@ export function StatsPage(props: StatsPageProps) {
           <p>Bookmark count: {bookmarkCount}</p>
           <br />
           <p>
-            Skill Capped has several videos in their manifest that aren't attached to any course. This makes them
-            impossible to access via their website. Below is the count of these "unmapped" videos.
+            Skill Capped has several videos in their manifest that aren&apos;t attached to any course. This makes them
+            impossible to access via their website. Below is the count of these &quot;unmapped&quot; videos.
             <br />
             Unmapped videos: {unmappedVideos}
           </p>

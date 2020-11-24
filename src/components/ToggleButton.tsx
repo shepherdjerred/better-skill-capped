@@ -9,7 +9,7 @@ export interface ToggleButtonProps {
 
 export function ToggleButton(props: ToggleButtonProps) {
   const { status, onToggle, buttonText } = props;
-  const classes = "button bookmark " + props.classes || "";
+  const classes = "button bookmark " + (props.classes || "");
   return (
     <button className={classes} onClick={onToggle}>
       {buttonText(status)}
