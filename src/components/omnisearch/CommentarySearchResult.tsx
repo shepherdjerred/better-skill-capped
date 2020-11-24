@@ -1,30 +1,19 @@
 import { roleToString } from "../../model/Role";
 import React from "react";
-import { Video } from "../../model/Video";
-import { ToggleWatchStatusButton } from "../ToggleWatchStatusButton";
-import { ToggleBookmarkButton } from "../bookmark/ToggleButton";
-import { Bookmarkable } from "../../model/Bookmark";
-import { Watchable } from "../../model/WatchStatus";
 import { getStreamUrl } from "../../utils/UrlUtilities";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudDownloadAlt } from "@fortawesome/free-solid-svg-icons";
 import Highlighter from "react-highlight-words";
+import { Commentary } from "../../model/Commentary";
 
-export interface VideoSearchResultProps {
-  video: Video;
-  isBookmarked: boolean;
-  isWatched: boolean;
-  onToggleBookmark: (item: Bookmarkable) => void;
-  onToggleWatchStatus: (item: Watchable) => void;
+export interface CommentarySearchResultProps {
+  commentary: Commentary;
   matchedStrings: string[];
 }
 
-export function VideoSearchResult(props: VideoSearchResultProps) {
-  const { video, matchedStrings } = props;
-  const buttonProps = {
-    ...props,
-    item: video,
-  };
+export function CommentarySearchResult(props: CommentarySearchResultProps) {
+  const { commentary, matchedStrings } = props;
+  const video = commentary.video;
 
   return (
     <div key={video.uuid} className="box">
@@ -44,8 +33,6 @@ export function VideoSearchResult(props: VideoSearchResultProps) {
           </span>
         </div>
         <div className="buttons">
-          <ToggleBookmarkButton {...buttonProps} />
-          <ToggleWatchStatusButton {...buttonProps} />
           <a href={getStreamUrl(video)} className="button bookmark">
             <span className="icon is-small">
               <FontAwesomeIcon icon={faCloudDownloadAlt} />

@@ -10,3 +10,8 @@ export interface Course {
   image: string;
   videos: CourseVideo[];
 }
+
+export function isCourse(item: unknown): item is Course {
+  const possibleCourse = item as Course;
+  return "videos" in possibleCourse;
+}

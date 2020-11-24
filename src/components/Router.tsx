@@ -1,20 +1,15 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { CourseSearchPage } from "./course/SearchPage";
 import React from "react";
-import { Home } from "./Home";
-import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import "./Wrapper.css";
 import { Color, Hero, Size } from "./Hero";
 import { Bookmark, Bookmarkable } from "../model/Bookmark";
 import { Watchable, WatchStatus } from "../model/WatchStatus";
 import * as Sentry from "@sentry/react";
-import { BookmarkListPage } from "./bookmark/ListPage";
-import { StatsPage } from "./StatsPage";
 import { Content } from "../model/Content";
-import VideoSearchPage from "./video/SearchPage";
-import About from "./About";
-import CommentaryList from "./commentary/CommentaryList";
+import { OmniSearch } from "./omnisearch/OmniSearch";
+import OmniSearchable from "./omnisearch/OmniSearchable";
+import { isCommentary } from "../model/Commentary";
 
 export interface RouterProps {
   content?: Content;
@@ -27,17 +22,34 @@ export interface RouterProps {
 }
 
 export function Router(props: RouterProps) {
-  const { content, bookmarks, onToggleBookmark, onToggleWatchStatus, isBookmarked, isWatched, watchStatuses } = props;
+  const { content, onToggleBookmark, onToggleWatchStatus, isBookmarked, isWatched } = props;
   const courses = content?.courses || [];
   const videos = content?.videos || [];
   const commentaries = content?.commentaries || [];
+  let items: OmniSearchable[] = [];
+  items = items.concat(courses, videos, commentaries).sort((left, right) => {
+    let leftVal: Date;
+    let rightVal: Date;
+
+    if (isCommentary(left)) {
+      leftVal = left.video.releaseDate;
+    } else {
+      leftVal = left.releaseDate;
+    }
+
+    if (isCommentary(right)) {
+      rightVal = right.video.releaseDate;
+    } else {
+      rightVal = right.releaseDate;
+    }
+    return rightVal.getTime() - leftVal.getTime();
+  });
 
   return (
     <React.Fragment>
       <div className="page-wrapper">
         <div className="content-wrapper">
           <BrowserRouter>
-            <Navbar />
             <Sentry.ErrorBoundary
               fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL_WITH_NAVBAR} />}
               showDialog={true}
@@ -45,48 +57,13 @@ export function Router(props: RouterProps) {
               <div>
                 <Switch>
                   <Route exact path={["/", "/home"]}>
-                    <Home />
-                  </Route>
-                  <Route path={"/about"}>
-                    <About />
-                  </Route>
-                  <Route path="/courses">
-                    <CourseSearchPage
-                      courses={courses}
+                    <OmniSearch
+                      items={items}
                       onToggleBookmark={onToggleBookmark}
                       onToggleWatchStatus={onToggleWatchStatus}
+                      isWatched={isWatched}
                       isBookmarked={isBookmarked}
-                      isWatched={isWatched}
                     />
-                  </Route>
-                  <Route path="/videos">
-                    <VideoSearchPage
-                      videos={videos}
-                      onToggleBookmark={onToggleBookmark}
-                      onToggleWatchStatus={onToggleWatchStatus}
-                      isBookmarked={isBookmarked}
-                      isWatched={isWatched}
-                    />
-                  </Route>
-                  <Route path="/commentaries">
-                    <CommentaryList
-                      commentaries={commentaries}
-                      onToggleBookmark={onToggleBookmark}
-                      onToggleWatchStatus={onToggleWatchStatus}
-                      isBookmarked={isBookmarked}
-                      isWatched={isWatched}
-                    />
-                  </Route>
-                  <Route path="/bookmarks">
-                    <BookmarkListPage
-                      bookmarks={bookmarks}
-                      onToggleBookmark={onToggleBookmark}
-                      onToggleWatchStatus={onToggleWatchStatus}
-                      isWatched={isWatched}
-                    />
-                  </Route>
-                  <Route path="/stats">
-                    <StatsPage content={content} bookmarks={bookmarks} watchStatuses={watchStatuses} />
                   </Route>
                   <Route path="*">
                     <Hero

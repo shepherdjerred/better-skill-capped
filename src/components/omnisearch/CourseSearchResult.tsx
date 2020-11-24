@@ -1,12 +1,12 @@
 import { Course } from "../../model/Course";
 import React from "react";
 import Highlighter from "react-highlight-words";
-import "./SearchResult.css";
+import "./CourseSearchResult.css";
 import { Watchable } from "../../model/WatchStatus";
-import { FuseSearchResult } from "../search/FuseSearch";
-import { CourseSearchResultVideo } from "./SearchResultVideo";
+import { FuseSearchResult } from "./search/FuseSearch";
+import { CourseSearchResultVideo } from "./CourseSearchResultVideo";
 import { roleToString } from "../../model/Role";
-import { ToggleBookmarkButton } from "../bookmark/ToggleButton";
+import { ToggleBookmarkButton } from "../BookmarkToggleButton";
 import { ToggleWatchStatusButton } from "../ToggleWatchStatusButton";
 import { Bookmarkable } from "../../model/Bookmark";
 
@@ -45,7 +45,7 @@ export function CourseSearchResult(props: CourseSearchResultProps) {
         </h3>
         <p>{course.description}</p>
         <div className="tags">
-          <span className="tag">Lane: {roleToString(props.result.item.role)}</span>
+          <span className="tag">{roleToString(props.result.item.role)}</span>
           <span className="tag" title={props.result.item.releaseDate.toLocaleString()}>
             Posted: {props.result.item.releaseDate.toLocaleDateString()}
           </span>

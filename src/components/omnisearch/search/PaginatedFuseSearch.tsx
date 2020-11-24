@@ -1,5 +1,5 @@
 import React from "react";
-import PaginationControls from "../PaginationControls";
+import PaginationControls from "./PaginationControls";
 import { FuseSearch, FuseSearchResult } from "./FuseSearch";
 import Fuse from "fuse.js";
 

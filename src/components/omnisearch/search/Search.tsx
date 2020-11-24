@@ -1,8 +1,9 @@
 import React from "react";
-import { Searchbar } from "../Searchbar";
+import { Searchbar } from "./Searchbar";
 import PaginatedFuseSearch from "./PaginatedFuseSearch";
 import Fuse from "fuse.js";
 import { FuseSearchResult } from "./FuseSearch";
+import { Container } from "../../Container";
 
 export interface SearchProps<T> {
   items: T[];
@@ -41,13 +42,15 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
     return (
       <>
         <Searchbar onValueUpdate={this.onQueryUpdate.bind(this)} placeholder={searchBarPlaceholder} />
-        <PaginatedFuseSearch
-          query={query}
-          items={items}
-          fuseOptions={fuseOptions}
-          render={render}
-          itemsPerPage={itemsPerPage}
-        />
+        <Container>
+          <PaginatedFuseSearch
+            query={query}
+            items={items}
+            fuseOptions={fuseOptions}
+            render={render}
+            itemsPerPage={itemsPerPage}
+          />
+        </Container>
       </>
     );
   }

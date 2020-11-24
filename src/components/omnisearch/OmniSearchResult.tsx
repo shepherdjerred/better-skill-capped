@@ -1,36 +1,31 @@
 import React from "react";
-import { Bookmark, Bookmarkable } from "../../model/Bookmark";
-import { CourseSearchResult } from "../course/SearchResult";
-import { Course } from "../../model/Course";
+import { Bookmarkable } from "../../model/Bookmark";
+import { CourseSearchResult } from "./CourseSearchResult";
 import { Watchable } from "../../model/WatchStatus";
-import { VideoSearchResult } from "../video/SearchResult";
-import { Video } from "../../model/Video";
+import { VideoSearchResult } from "./VideoSearchResult";
+import OmniSearchable from "./OmniSearchable";
+import { isCourse } from "../../model/Course";
+import { isVideo } from "../../model/Video";
+import { isCommentary } from "../../model/Commentary";
+import { CommentarySearchResult } from "./CommentarySearchResult";
 
-export interface BookmarkListItemProps {
-  bookmark: Bookmark;
+export interface OmniSearchResultProps {
+  item: OmniSearchable;
   matchedStrings: string[];
   isWatched: (item: Watchable) => boolean;
+  isBookmarked: (item: Bookmarkable) => boolean;
   onToggleBookmark: (item: Bookmarkable) => void;
   onToggleWatchStatus: (item: Watchable) => void;
 }
 
-function isCourse(item: Bookmarkable): item is Course {
-  return "videos" in item;
-}
-
-function isVideo(item: Bookmarkable): item is Video {
-  return item !== undefined;
-}
-
-export function ListItem({
-  bookmark,
+export function OmniSearchResult({
+  item,
   isWatched,
+  isBookmarked,
   onToggleWatchStatus,
   onToggleBookmark,
   matchedStrings,
-}: BookmarkListItemProps) {
-  const item: Bookmarkable = bookmark.item;
-
+}: OmniSearchResultProps) {
   if (isCourse(item)) {
     const result = {
       item,
@@ -41,10 +36,10 @@ export function ListItem({
       <CourseSearchResult
         result={result}
         onToggleBookmark={() => onToggleBookmark(item)}
-        isBookmarked={() => true}
+        isBookmarked={(item: Bookmarkable) => isBookmarked(item)}
         key={item.uuid}
         onToggleWatchStatus={onToggleWatchStatus}
-        isWatched={(item: Bookmarkable) => isWatched(item)}
+        isWatched={(item: Watchable) => isWatched(item)}
       />
     );
   } else if (isVideo(item)) {
@@ -59,6 +54,8 @@ export function ListItem({
         matchedStrings={matchedStrings}
       />
     );
+  } else if (isCommentary(item)) {
+    return <CommentarySearchResult key={item.video.uuid} commentary={item} matchedStrings={matchedStrings} />;
   }
 
   return <></>;

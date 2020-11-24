@@ -10,3 +10,8 @@ export interface Video {
   imageUrl: string;
   skillCappedUrl: string;
 }
+
+export function isVideo(item: unknown): item is Video {
+  const possibleVideo = item as Video;
+  return "skillCappedUrl" in possibleVideo;
+}

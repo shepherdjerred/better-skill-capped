@@ -9,6 +9,7 @@ export interface HeroProps {
 }
 
 export enum Color {
+  NONE,
   TEAL,
   RED,
 }
@@ -24,6 +25,8 @@ export enum Size {
 export class Hero extends React.PureComponent<HeroProps, unknown> {
   getClassNameForColor(color: Color): string {
     switch (color) {
+      case Color.NONE:
+        return "";
       case Color.RED:
         return "is-danger";
       case Color.TEAL:
@@ -49,7 +52,8 @@ export class Hero extends React.PureComponent<HeroProps, unknown> {
   render() {
     const sectionClasses: string = classNames({
       hero: true,
-      [this.getClassNameForColor(this.props.color || Color.TEAL)]: true,
+      "is-dark": true,
+      [this.getClassNameForColor(this.props.color || Color.NONE)]: true,
       [this.getClassNameForSize(this.props.size || Size.SMALL)]: true,
     });
 
