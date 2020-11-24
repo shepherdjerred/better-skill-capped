@@ -14,6 +14,7 @@ import { StatsPage } from "./StatsPage";
 import { Content } from "../model/Content";
 import VideoSearchPage from "./video/SearchPage";
 import About from "./About";
+import CommentaryList from "./commentary/CommentaryList";
 
 export interface RouterProps {
   content?: Content;
@@ -29,6 +30,7 @@ export function Router(props: RouterProps) {
   const { content, bookmarks, onToggleBookmark, onToggleWatchStatus, isBookmarked, isWatched, watchStatuses } = props;
   const courses = content?.courses || [];
   const videos = content?.videos || [];
+  const commentaries = content?.commentaries || [];
 
   return (
     <React.Fragment>
@@ -60,6 +62,15 @@ export function Router(props: RouterProps) {
                   <Route path="/videos">
                     <VideoSearchPage
                       videos={videos}
+                      onToggleBookmark={onToggleBookmark}
+                      onToggleWatchStatus={onToggleWatchStatus}
+                      isBookmarked={isBookmarked}
+                      isWatched={isWatched}
+                    />
+                  </Route>
+                  <Route path="/commentaries">
+                    <CommentaryList
+                      commentaries={commentaries}
                       onToggleBookmark={onToggleBookmark}
                       onToggleWatchStatus={onToggleWatchStatus}
                       isBookmarked={isBookmarked}

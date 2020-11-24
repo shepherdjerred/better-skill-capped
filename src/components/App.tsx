@@ -36,6 +36,8 @@ export default class App extends React.Component<unknown, AppState> {
     const contentJson = await axios.get("/skill-capped-manifest.json");
     const content = parser.parse(JSON.stringify(contentJson.data));
 
+    console.log(content);
+
     const bookmarkDatastore: BookmarkDatastore = new LocalStorageBookmarkDatastore(content);
     const watchStatusesDatastore: WatchStatusDatastore = new LocalStorageWatchStatusDatastore();
 

@@ -1,7 +1,7 @@
 import { Course } from "../model/Course";
 import { Video } from "../model/Video";
 
-const BASE_URL = "https://www.skill-capped.com/lol/course/";
+const BASE_URL = "https://www.skill-capped.com/lol/";
 
 export function rawTitleToUrlTitle(rawTitle: string) {
   return rawTitle
@@ -13,12 +13,16 @@ export function rawTitleToUrlTitle(rawTitle: string) {
 
 export function getCourseUrl(course: Course): string {
   const courseName = rawTitleToUrlTitle(course.title);
-  return BASE_URL + courseName + "/" + course.uuid + "/";
+  return BASE_URL + "course/" + courseName + "/" + course.uuid + "/";
 }
 
 export function getVideoUrl(video: Video, baseUrl: string): string {
   const videoName = rawTitleToUrlTitle(video.title);
   return baseUrl + videoName + "/" + video.uuid;
+}
+
+export function getCommentaryUrl(video: Video): string {
+  return BASE_URL + "commentaries/" + video.uuid;
 }
 
 export function getStreamUrl(video: Video): string {

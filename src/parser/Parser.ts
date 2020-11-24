@@ -5,7 +5,7 @@ import { Course } from "../model/Course";
 import { Commentary } from "../model/Commentary";
 import { roleFromString } from "../model/Role";
 import { rawTitleToDisplayTitle } from "../utils/TitleUtilities";
-import { getCourseUrl, getVideoUrl } from "../utils/UrlUtilities";
+import { getCommentaryUrl, getCourseUrl, getVideoUrl } from "../utils/UrlUtilities";
 
 export class Parser {
   parse(input: string): Content {
@@ -132,7 +132,7 @@ export class Parser {
           const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
 
           if (videoInfo === undefined) {
-            throw new Error(`Couldn't find video ${video}`);
+            throw new Error(`Couldn't find video ${video.toString()}`);
           }
 
           return {
@@ -154,7 +154,46 @@ export class Parser {
     );
   }
 
-  parseCommentaries(_dumpCommentary: ManifestCommentary[]): Commentary[] {
-    return [];
+  parseCommentaries(dumpCommentary: ManifestCommentary[]): Commentary[] {
+    return dumpCommentary.map(
+      (commentary): Commentary => {
+        const releaseDate = this.parseDate(commentary.rDate);
+        const role = roleFromString(commentary.role);
+        const imageUrl = this.getImageUrl(commentary);
+        const title = rawTitleToDisplayTitle(commentary.title);
+
+        const fakeVideo = {
+          title: commentary.title,
+          uuid: commentary.uuid,
+        } as Video;
+
+        const videoUrl = getCommentaryUrl(fakeVideo);
+
+        const video = {
+          role,
+          title,
+          description: commentary.desc,
+          releaseDate,
+          durationInSeconds: commentary.durSec,
+          uuid: commentary.uuid,
+          imageUrl,
+          skillCappedUrl: videoUrl,
+        };
+
+        return {
+          video,
+          staff: commentary.staff,
+          matchLink: commentary.matchLink,
+          champion: commentary.yourChampion,
+          opponent: commentary.theirChampion,
+          kills: commentary.k,
+          deaths: commentary.d,
+          assists: commentary.a,
+          gameLengthInSeconds: Number.parseInt(commentary.gameTime),
+          carry: commentary.carry,
+          type: commentary.type,
+        };
+      }
+    );
   }
 }
