@@ -25,7 +25,7 @@ export function CommentarySearchResult(props: CommentarySearchResultProps) {
           </a>
         </h3>
         <p>
-          {matchLink}
+          <a href={matchLink}>Match Link</a>
           <Highlighter searchWords={matchedStrings} textToHighlight={video.description} autoEscape={true} />
         </p>
         <div className="tags">
