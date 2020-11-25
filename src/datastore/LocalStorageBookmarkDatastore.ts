@@ -1,6 +1,9 @@
 import { BookmarkDatastore } from "./BookmarkDatastore";
 import { Bookmark, Bookmarkable } from "../model/Bookmark";
 import { Content } from "../model/Content";
+import { isCommentary } from "../model/Commentary";
+import { isVideo } from "../model/Video";
+import { isCourse } from "../model/Course";
 
 const IDENTIFIER = "bookmarks";
 
@@ -23,11 +26,15 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
     const updatedBookmarks: Bookmark[] = bookmarks.flatMap((bookmark) => {
       let matchedItem: Bookmarkable | undefined;
 
-      if ("videos" in bookmark.item) {
+      if (isCommentary(bookmark.item)) {
+        matchedItem = this.content.commentaries.find((commentary) => {
+          return commentary.uuid === bookmark.item.uuid;
+        });
+      } else if (isCourse(bookmark.item)) {
         matchedItem = this.content.courses.find((course) => {
           return course.uuid === bookmark.item.uuid;
         });
-      } else {
+      } else if (isVideo(bookmark.item)) {
         matchedItem = this.content.videos.find((video) => {
           return video.uuid === bookmark.item.uuid;
         });

@@ -1,7 +1,6 @@
 import { Video } from "./Video";
 
-export interface Commentary {
-  video: Video;
+export interface Commentary extends Video {
   staff: string;
   matchLink: string;
   champion: string;
@@ -16,5 +15,5 @@ export interface Commentary {
 
 export function isCommentary(item: unknown): item is Commentary {
   const possibleCommentary = item as Commentary;
-  return "video" in possibleCommentary;
+  return "matchLink" in possibleCommentary;
 }

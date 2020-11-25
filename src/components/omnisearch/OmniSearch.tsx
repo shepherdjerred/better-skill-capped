@@ -30,6 +30,7 @@ export function OmniSearch({ items, isWatched, isBookmarked, onToggleBookmark, o
       fuseOptions={fuseOptions}
       render={(item) => (
         <OmniSearchResult
+          key={item.item.uuid}
           item={item.item}
           isWatched={isWatched}
           isBookmarked={isBookmarked}

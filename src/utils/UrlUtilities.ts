@@ -1,5 +1,6 @@
 import { Course } from "../model/Course";
 import { Video } from "../model/Video";
+import { Commentary } from "../model/Commentary";
 
 const BASE_URL = "https://www.skill-capped.com/lol/";
 
@@ -21,10 +22,10 @@ export function getVideoUrl(video: Video, baseUrl: string): string {
   return baseUrl + videoName + "/" + video.uuid;
 }
 
-export function getCommentaryUrl(video: Video): string {
-  return BASE_URL + "commentaries/" + video.uuid;
+export function getCommentaryUrl(commentary: Commentary): string {
+  return BASE_URL + "commentaries/" + commentary.uuid;
 }
 
-export function getStreamUrl(video: Video): string {
+export function getStreamUrl(video: Video | Commentary): string {
   return `https://www.skill-capped.com/lol/api/dailyvideo/${video.uuid}/4500.m3u8`;
 }

@@ -1,4 +1,5 @@
 import { Role } from "./Role";
+import { isCommentary } from "./Commentary";
 
 export interface Video {
   role: Role;
@@ -13,5 +14,5 @@ export interface Video {
 
 export function isVideo(item: unknown): item is Video {
   const possibleVideo = item as Video;
-  return "skillCappedUrl" in possibleVideo;
+  return "skillCappedUrl" in possibleVideo && !isCommentary(item);
 }

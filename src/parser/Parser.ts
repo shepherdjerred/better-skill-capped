@@ -162,26 +162,22 @@ export class Parser {
         const imageUrl = this.getImageUrl(commentary);
         const title = rawTitleToDisplayTitle(commentary.title);
 
-        const fakeVideo = {
+        const fakeCommentary = {
           title: commentary.title,
           uuid: commentary.uuid,
-        } as Video;
+        } as Commentary;
 
-        const videoUrl = getCommentaryUrl(fakeVideo);
+        const commentaryUrl = getCommentaryUrl(fakeCommentary);
 
-        const video = {
+        return {
           role,
           title,
-          description: commentary.desc,
+          description: commentary.desc || "",
           releaseDate,
           durationInSeconds: commentary.durSec,
           uuid: commentary.uuid,
           imageUrl,
-          skillCappedUrl: videoUrl,
-        };
-
-        return {
-          video,
+          skillCappedUrl: commentaryUrl,
           staff: commentary.staff,
           matchLink: commentary.matchLink,
           champion: commentary.yourChampion,

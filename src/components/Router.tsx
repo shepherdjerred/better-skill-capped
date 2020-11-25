@@ -9,7 +9,6 @@ import * as Sentry from "@sentry/react";
 import { Content } from "../model/Content";
 import { OmniSearch } from "./omnisearch/OmniSearch";
 import OmniSearchable from "./omnisearch/OmniSearchable";
-import { isCommentary } from "../model/Commentary";
 
 export interface RouterProps {
   content?: Content;
@@ -27,23 +26,9 @@ export function Router(props: RouterProps) {
   const videos = content?.videos || [];
   const commentaries = content?.commentaries || [];
   let items: OmniSearchable[] = [];
-  items = items.concat(courses, videos, commentaries).sort((left, right) => {
-    let leftVal: Date;
-    let rightVal: Date;
-
-    if (isCommentary(left)) {
-      leftVal = left.video.releaseDate;
-    } else {
-      leftVal = left.releaseDate;
-    }
-
-    if (isCommentary(right)) {
-      rightVal = right.video.releaseDate;
-    } else {
-      rightVal = right.releaseDate;
-    }
-    return rightVal.getTime() - leftVal.getTime();
-  });
+  items = items
+    .concat(courses, videos, commentaries)
+    .sort((left, right) => right.releaseDate.getTime() - left.releaseDate.getTime());
 
   return (
     <React.Fragment>

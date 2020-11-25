@@ -47,7 +47,7 @@ export default class App extends React.Component<unknown, AppState> {
         courses: content.courses.sort((left, right) => right.releaseDate.getTime() - left.releaseDate.getTime()),
         videos: content.videos.sort((left, right) => right.releaseDate.getTime() - left.releaseDate.getTime()),
         commentaries: content.commentaries.sort(
-          (left, right) => right.video.releaseDate.getTime() - left.video.releaseDate.getTime()
+          (left, right) => right.releaseDate.getTime() - left.releaseDate.getTime()
         ),
       },
       bookmarkDatastore,
