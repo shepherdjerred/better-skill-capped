@@ -9,7 +9,7 @@ export interface Commentary {
   kills: number;
   deaths: number;
   assists: number;
-  gameLengthInSeconds: number;
+  gameLengthInMinutes: number;
   carry: string;
   type: string;
 }

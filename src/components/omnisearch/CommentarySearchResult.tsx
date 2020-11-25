@@ -13,6 +13,7 @@ export interface CommentarySearchResultProps {
 
 export function CommentarySearchResult(props: CommentarySearchResultProps) {
   const { commentary, matchedStrings } = props;
+  const { staff, matchLink, champion, opponent, kills, deaths, assists, gameLengthInMinutes, carry, type } = commentary;
   const video = commentary.video;
 
   return (
@@ -24,6 +25,7 @@ export function CommentarySearchResult(props: CommentarySearchResultProps) {
           </a>
         </h3>
         <p>
+          {matchLink}
           <Highlighter searchWords={matchedStrings} textToHighlight={video.description} autoEscape={true} />
         </p>
         <div className="tags">
@@ -31,6 +33,16 @@ export function CommentarySearchResult(props: CommentarySearchResultProps) {
           <span className="tag" title={video.releaseDate.toLocaleString()}>
             {video.releaseDate.toLocaleDateString()}
           </span>
+          <span className="tag">{staff}</span>
+          <span className="tag">
+            {champion} vs {opponent}
+          </span>
+          <span className="tag">
+            {kills}/{deaths}/{assists}
+          </span>
+          <span className="tag">{gameLengthInMinutes} minutes</span>
+          <span className="tag">{carry}</span>
+          <span className="tag">{type}</span>
         </div>
         <div className="buttons">
           <a href={getStreamUrl(video)} className="button bookmark">

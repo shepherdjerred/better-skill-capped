@@ -189,7 +189,7 @@ export class Parser {
           kills: commentary.k,
           deaths: commentary.d,
           assists: commentary.a,
-          gameLengthInSeconds: Number.parseInt(commentary.gameTime),
+          gameLengthInMinutes: Number.parseInt(commentary.gameTime),
           carry: commentary.carry,
           type: commentary.type,
         };
