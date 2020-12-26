@@ -4,6 +4,11 @@ import PaginatedFuseSearch from "./PaginatedFuseSearch";
 import Fuse from "fuse.js";
 import { FuseSearchResult } from "./FuseSearch";
 import { Container } from "../../Container";
+import FilterSelector from "../filter/FilterSelector";
+import { Filters } from "../filter/Filters";
+import { isCommentary } from "../../../model/Commentary";
+import { isCourse } from "../../../model/Course";
+import { isVideo } from "../../../model/Video";
 
 export interface SearchProps<T> {
   items: T[];
@@ -15,14 +20,23 @@ export interface SearchProps<T> {
 
 interface SearchState {
   query: string;
+  filters: Filters;
 }
 
 export default class Search<T> extends React.PureComponent<SearchProps<T>, SearchState> {
   constructor(props: SearchProps<T>) {
     super(props);
 
+    const defaultFilters: Filters = {
+      roles: [],
+      types: [],
+      onlyBookmarked: false,
+      onlyUnwatched: false,
+    };
+
     this.state = {
       query: "",
+      filters: defaultFilters,
     };
   }
 
@@ -35,17 +49,39 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
     });
   }
 
+  onFiltersUpdate(newValue: Filters) {
+    this.setState((state) => {
+      return {
+        ...state,
+        filters: newValue,
+      };
+    });
+  }
+
   render() {
     const { items, fuseOptions, render, itemsPerPage, searchBarPlaceholder } = this.props;
-    const { query } = this.state;
+    const { query, filters } = this.state;
+
+    // TODO this is very hacky. fix it.
+    const filteredItems = items.filter((item) => {
+      if (filters.roles.length > 0) {
+        if (isVideo(item) || isCourse(item) || isCommentary(item)) {
+          return filters.roles.find((role) => role === item.role) !== undefined;
+        } else {
+          return false;
+        }
+      } else {
+        return true;
+      }
+    });
 
     return (
       <>
         <Searchbar onValueUpdate={this.onQueryUpdate.bind(this)} placeholder={searchBarPlaceholder} />
-        <Container>
+        <Container sidebar={<FilterSelector filters={filters} onFiltersUpdate={this.onFiltersUpdate.bind(this)} />}>
           <PaginatedFuseSearch
             query={query}
-            items={items}
+            items={filteredItems}
             fuseOptions={fuseOptions}
             render={render}
             itemsPerPage={itemsPerPage}
