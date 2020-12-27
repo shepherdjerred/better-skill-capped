@@ -40,6 +40,8 @@ export function OmniSearch({ items, isWatched, isBookmarked, onToggleBookmark, o
         />
       )}
       itemsPerPage={20}
+      isBookmarked={isBookmarked}
+      isWatched={isWatched}
       searchBarPlaceholder="Search for courses, videos, or game commentary"
     />
   );

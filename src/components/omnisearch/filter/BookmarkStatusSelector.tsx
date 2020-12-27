@@ -1,14 +1,20 @@
 import React from "react";
 
-export default function BookmarkStatusSelector() {
+export interface BookmarkStatusSelectorProps {
+  isSelected: boolean;
+  onSelectionChange: (newStatus: boolean) => void;
+}
+
+export default function BookmarkStatusSelector({ isSelected, onSelectionChange }: BookmarkStatusSelectorProps) {
   return (
     <nav className="panel">
-      <p className="panel-heading">Bookmark Status</p>
+      <p className="panel-heading">Watch Status</p>
       <div className="panel-block">
         <p className="control">
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" /> Only show bookmarked
+              <input type="checkbox" checked={isSelected} onClick={() => onSelectionChange(!isSelected)} /> Only show
+              bookmarked
             </label>
           </div>
         </p>

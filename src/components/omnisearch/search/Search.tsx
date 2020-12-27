@@ -9,6 +9,8 @@ import { Filters } from "../filter/Filters";
 import { isCommentary } from "../../../model/Commentary";
 import { isCourse } from "../../../model/Course";
 import { isVideo } from "../../../model/Video";
+import { Watchable } from "../../../model/WatchStatus";
+import { Bookmarkable } from "../../../model/Bookmark";
 
 export interface SearchProps<T> {
   items: T[];
@@ -16,6 +18,8 @@ export interface SearchProps<T> {
   render: (items: FuseSearchResult<T>) => React.ReactNode;
   itemsPerPage: number;
   searchBarPlaceholder: string;
+  isWatched: (item: Watchable) => boolean;
+  isBookmarked: (item: Bookmarkable) => boolean;
 }
 
 interface SearchState {
@@ -59,21 +63,44 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
   }
 
   render() {
-    const { items, fuseOptions, render, itemsPerPage, searchBarPlaceholder } = this.props;
+    const { items, fuseOptions, render, itemsPerPage, searchBarPlaceholder, isBookmarked, isWatched } = this.props;
     const { query, filters } = this.state;
 
     // TODO this is very hacky. fix it.
-    const filteredItems = items.filter((item) => {
-      if (filters.roles.length > 0) {
-        if (isVideo(item) || isCourse(item) || isCommentary(item)) {
-          return filters.roles.find((role) => role === item.role) !== undefined;
+    const filteredItems = items
+      .filter((item) => {
+        if (filters.roles.length > 0) {
+          if (isVideo(item) || isCourse(item) || isCommentary(item)) {
+            return filters.roles.find((role) => role === item.role) !== undefined;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          return true;
         }
-      } else {
-        return true;
-      }
-    });
+      })
+      .filter((item) => {
+        if (filters.onlyBookmarked) {
+          if (isVideo(item) || isCourse(item) || isCommentary(item)) {
+            return isBookmarked(item);
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
+      })
+      .filter((item) => {
+        if (filters.onlyUnwatched) {
+          if (isVideo(item) || isCourse(item) || isCommentary(item)) {
+            return !isWatched(item);
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
+      });
 
     return (
       <>
