@@ -74,7 +74,7 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
     const areItemsTheSameSize = currentItems.length === previousItems.length;
     const areItemsTheSame = currentItems.every((item) => previousItems.includes(item));
 
-    const shouldRebuildFuse = !(areItemsTheSameSize || areItemsTheSame);
+    const shouldRebuildFuse = !(areItemsTheSameSize && areItemsTheSame);
 
     if (shouldRebuildFuse) {
       this.setState({
