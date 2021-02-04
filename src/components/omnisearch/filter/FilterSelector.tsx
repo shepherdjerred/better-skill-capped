@@ -4,6 +4,7 @@ import { Filters } from "./Filters";
 import { Role } from "../../../model/Role";
 import WatchStatusSelector from "./WatchStatusSelector";
 import BookmarkStatusSelector from "./BookmarkStatusSelector";
+import TypeSelector from "./TypeSelector";
 
 export interface FilterSelectorProps {
   filters: Filters;
@@ -38,6 +39,7 @@ export default function FilterSelector({ filters, onFiltersUpdate }: FilterSelec
   return (
     <>
       <RoleSelector selectedRoles={filters.roles} onRolesUpdate={updateFilterRoles} />
+      <TypeSelector />
       <WatchStatusSelector isSelected={filters.onlyUnwatched} onSelectionChange={updateFilterWatchStatus} />
       <BookmarkStatusSelector isSelected={filters.onlyBookmarked} onSelectionChange={updateFilterBookmark} />
     </>

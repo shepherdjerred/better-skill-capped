@@ -1,6 +1,5 @@
 import { Role } from "../../../model/Role";
-
-export type Type = "Course" | "Video" | "Commentary";
+import Type from "../../../model/Type";
 
 export interface Filters {
   roles: Role[];
