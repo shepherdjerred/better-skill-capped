@@ -16,7 +16,6 @@ export default function TypeSelector({ selectedTypes, onTypesUpdate }: TypeSelec
   };
 
   const getNewTypes = (type: Type) => {
-    console.log(type);
     let newTypes = selectedTypes.slice();
     if (isChecked(type)) {
       newTypes = newTypes.filter((candidate) => {

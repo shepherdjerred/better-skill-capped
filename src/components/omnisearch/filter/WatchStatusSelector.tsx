@@ -1,11 +1,16 @@
 import React from "react";
 
 export interface WatchStatusSelectorProps {
-  isSelected: boolean;
-  onSelectionChange: (newStatus: boolean) => void;
+  onlyShowUnwatched: boolean;
+  onlyShowWatched: boolean;
+  onSelectionChange: (onlyShowUnwatched: boolean, onlyShowWatched: boolean) => void;
 }
 
-export default function WatchStatusSelector({ isSelected, onSelectionChange }: WatchStatusSelectorProps) {
+export default function WatchStatusSelector({
+  onlyShowUnwatched,
+  onlyShowWatched,
+  onSelectionChange,
+}: WatchStatusSelectorProps) {
   return (
     <nav className="panel">
       <p className="panel-heading">Watch Status</p>
@@ -13,8 +18,22 @@ export default function WatchStatusSelector({ isSelected, onSelectionChange }: W
         <div className="control">
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isSelected} onChange={() => onSelectionChange(!isSelected)} /> Only show
-              unwatched
+              <input
+                type="checkbox"
+                checked={onlyShowUnwatched}
+                onChange={() => onSelectionChange(!onlyShowUnwatched, onlyShowWatched)}
+              />{" "}
+              Only show unwatched
+            </label>
+          </div>
+          <div className="field">
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                checked={onlyShowWatched}
+                onChange={() => onSelectionChange(onlyShowUnwatched, !onlyShowWatched)}
+              />{" "}
+              Only show watched
             </label>
           </div>
         </div>

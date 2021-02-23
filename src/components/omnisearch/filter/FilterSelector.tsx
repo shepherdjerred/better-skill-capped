@@ -21,18 +21,21 @@ export default function FilterSelector({ filters, onFiltersUpdate }: FilterSelec
     onFiltersUpdate(newFilters);
   };
 
-  const updateFilterBookmark = (newBookmark: boolean) => {
+  const updateFilterBookmark = (onlyShowBookmarked: boolean, onlyShowUnbookmarked: boolean) => {
     const newFilters = {
       ...filters,
-      onlyBookmarked: newBookmark,
+      onlyBookmarked: onlyShowBookmarked,
+      onlyUnbookmarked: onlyShowUnbookmarked,
     };
+    console.log(onlyShowUnbookmarked, onlyShowBookmarked);
     onFiltersUpdate(newFilters);
   };
 
-  const updateFilterWatchStatus = (newWatchStatus: boolean) => {
+  const updateFilterWatchStatus = (onlyShowUnwatched: boolean, onlyShowWatched: boolean) => {
     const newFilters = {
       ...filters,
-      onlyUnwatched: newWatchStatus,
+      onlyUnwatched: onlyShowUnwatched,
+      onlyWatched: onlyShowWatched,
     };
     onFiltersUpdate(newFilters);
   };
@@ -42,7 +45,6 @@ export default function FilterSelector({ filters, onFiltersUpdate }: FilterSelec
       ...filters,
       types: newTypes,
     };
-    console.log(newTypes);
     onFiltersUpdate(newFilters);
   };
 
@@ -50,8 +52,16 @@ export default function FilterSelector({ filters, onFiltersUpdate }: FilterSelec
     <>
       <RoleSelector selectedRoles={filters.roles} onRolesUpdate={updateFilterRoles} />
       <TypeSelector selectedTypes={filters.types} onTypesUpdate={updateFilterTypes} />
-      <WatchStatusSelector isSelected={filters.onlyUnwatched} onSelectionChange={updateFilterWatchStatus} />
-      <BookmarkStatusSelector isSelected={filters.onlyBookmarked} onSelectionChange={updateFilterBookmark} />
+      <WatchStatusSelector
+        onlyShowUnwatched={filters.onlyUnwatched}
+        onlyShowWatched={filters.onlyWatched}
+        onSelectionChange={updateFilterWatchStatus}
+      />
+      <BookmarkStatusSelector
+        onlyShowBookmarked={filters.onlyBookmarked}
+        onlyShowUnbookmarked={filters.onlyUnbookmarked}
+        onSelectionChange={updateFilterBookmark}
+      />
     </>
   );
 }

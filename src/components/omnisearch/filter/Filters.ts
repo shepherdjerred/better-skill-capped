@@ -6,4 +6,6 @@ export interface Filters {
   types: Type[];
   onlyBookmarked: boolean;
   onlyUnwatched: boolean;
+  onlyUnbookmarked: boolean;
+  onlyWatched: boolean;
 }

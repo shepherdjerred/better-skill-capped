@@ -38,6 +38,8 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
       types: [],
       onlyBookmarked: false,
       onlyUnwatched: true,
+      onlyWatched: false,
+      onlyUnbookmarked: false,
     };
 
     this.state = {
@@ -93,9 +95,31 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
         }
       })
       .filter((item) => {
+        if (filters.onlyUnbookmarked) {
+          if (isVideo(item) || isCourse(item) || isCommentary(item)) {
+            return !isBookmarked(item);
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
+      })
+      .filter((item) => {
         if (filters.onlyUnwatched) {
           if (isVideo(item) || isCourse(item) || isCommentary(item)) {
             return !isWatched(item);
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
+      })
+      .filter((item) => {
+        if (filters.onlyWatched) {
+          if (isVideo(item) || isCourse(item) || isCommentary(item)) {
+            return isWatched(item);
           } else {
             return false;
           }
