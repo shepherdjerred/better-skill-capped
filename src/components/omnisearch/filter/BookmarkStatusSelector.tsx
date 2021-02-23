@@ -10,14 +10,14 @@ export default function BookmarkStatusSelector({ isSelected, onSelectionChange }
     <nav className="panel">
       <p className="panel-heading">Watch Status</p>
       <div className="panel-block">
-        <p className="control">
+        <div className="control">
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isSelected} onClick={() => onSelectionChange(!isSelected)} /> Only show
+              <input type="checkbox" checked={isSelected} onChange={() => onSelectionChange(!isSelected)} /> Only show
               bookmarked
             </label>
           </div>
-        </p>
+        </div>
       </div>
     </nav>
   );

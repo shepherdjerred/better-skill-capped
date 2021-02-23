@@ -31,39 +31,40 @@ export default function RoleSelector({ selectedRoles, onRolesUpdate }: RoleSelec
     <nav className="panel">
       <p className="panel-heading">Roles</p>
       <div className="panel-block">
-        <p className="control">
+        <div className="control">
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.TOP)} onClick={() => getNewRoles(Role.TOP)} /> Top
+              <input type="checkbox" checked={isChecked(Role.TOP)} onChange={() => getNewRoles(Role.TOP)} /> Top
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.JUNGLE)} onClick={() => getNewRoles(Role.JUNGLE)} /> Jungle
+              <input type="checkbox" checked={isChecked(Role.JUNGLE)} onChange={() => getNewRoles(Role.JUNGLE)} />{" "}
+              Jungle
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.MID)} onClick={() => getNewRoles(Role.MID)} /> Mid
+              <input type="checkbox" checked={isChecked(Role.MID)} onChange={() => getNewRoles(Role.MID)} /> Mid
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.ADC)} onClick={() => getNewRoles(Role.ADC)} /> ADC
+              <input type="checkbox" checked={isChecked(Role.ADC)} onChange={() => getNewRoles(Role.ADC)} /> ADC
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.SUPPORT)} onClick={() => getNewRoles(Role.SUPPORT)} />{" "}
+              <input type="checkbox" checked={isChecked(Role.SUPPORT)} onChange={() => getNewRoles(Role.SUPPORT)} />{" "}
               Support
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.ALL)} onClick={() => getNewRoles(Role.ALL)} /> All Roles
+              <input type="checkbox" checked={isChecked(Role.ALL)} onChange={() => getNewRoles(Role.ALL)} /> All Roles
             </label>
           </div>
-        </p>
+        </div>
       </div>
     </nav>
   );
