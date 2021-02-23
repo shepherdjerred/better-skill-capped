@@ -22,7 +22,7 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
   }
 
   get(): Bookmark[] {
-    const bookmarks: Bookmark[] = JSON.parse(window.localStorage.getItem(IDENTIFIER) || "[]");
+    const bookmarks: Bookmark[] = JSON.parse(window.localStorage.getItem(IDENTIFIER) || "[]") as Bookmark[];
     const updatedBookmarks: Bookmark[] = bookmarks.flatMap((bookmark) => {
       let matchedItem: Bookmarkable | undefined;
 

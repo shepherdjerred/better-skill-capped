@@ -9,7 +9,7 @@ import { getCommentaryUrl, getCourseUrl, getVideoUrl } from "../utils/UrlUtiliti
 
 export class Parser {
   parse(input: string): Content {
-    const manifest: Manifest = JSON.parse(input);
+    const manifest: Manifest = JSON.parse(input) as Manifest;
     return {
       videos: this.parseVideos(manifest.videos, manifest.courses, manifest.videosToCourses),
       courses: this.parseCourses(manifest.videos, manifest.courses, manifest.videosToCourses),
