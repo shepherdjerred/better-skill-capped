@@ -11,6 +11,7 @@ import { isCourse } from "../../../model/Course";
 import { isVideo } from "../../../model/Video";
 import { Watchable } from "../../../model/WatchStatus";
 import { Bookmarkable } from "../../../model/Bookmark";
+import Banner from "../../Banner";
 
 export interface SearchProps<T> {
   items: T[];
@@ -106,6 +107,13 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
       <>
         <Searchbar onValueUpdate={this.onQueryUpdate.bind(this)} placeholder={searchBarPlaceholder} />
         <Container sidebar={<FilterSelector filters={filters} onFiltersUpdate={this.onFiltersUpdate.bind(this)} />}>
+          <Banner>
+            Want to receive updates about Better Skill Capped? Sign up for our{" "}
+            <a href="https://betterskillcapped.substack.com/?r=er400&utm_campaign=pub&utm_medium=web&utm_source=copy">
+              mailing list
+            </a>
+            !
+          </Banner>
           <PaginatedFuseSearch
             query={query}
             items={filteredItems}
