@@ -36,7 +36,7 @@ Resources:
     Properties:
       DistributionConfig:
         Aliases:
-          - "better-skill-capped.shepherdjerred.com"
+          - "better-skill-capped.com"
         Comment: "better-skill-capped"
         DefaultCacheBehavior:
           DefaultTTL: 300
@@ -69,14 +69,14 @@ Resources:
               OriginAccessIdentity:
                 Fn::Sub: "origin-access-identity/cloudfront/${Identity}"
         ViewerCertificate:
-          AcmCertificateArn: "arn:aws:acm:us-east-1:692594597524:certificate/6f827781-9221-4818-9ff6-83a31817a1e0"
+          AcmCertificateArn: "arn:aws:acm:us-east-1:692594597524:certificate/d974b886-58c9-49d8-870d-ee33c7e3bc7c"
           SslSupportMethod: "sni-only"
         HttpVersion: "http2"
   RecordSet:
     Type: "AWS::Route53::RecordSet"
     Properties:
-      HostedZoneId: "Z24MJMG74F2S94"
-      Name: "better-skill-capped.shepherdjerred.com"
+      HostedZoneId: "Z06373641GXSE3185XKVW"
+      Name: "better-skill-capped.com"
       Type: "A"
       AliasTarget:
         HostedZoneId: "Z2FDTNDATAQYW2"
