@@ -12,6 +12,7 @@ import { isVideo } from "../../../model/Video";
 import { Watchable } from "../../../model/WatchStatus";
 import { Bookmarkable } from "../../../model/Bookmark";
 import Banner from "../../Banner";
+import { getType } from "../../../model/Type";
 
 export interface SearchProps<T> {
   items: T[];
@@ -36,7 +37,7 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
       roles: [],
       types: [],
       onlyBookmarked: false,
-      onlyUnwatched: false,
+      onlyUnwatched: true,
     };
 
     this.state = {
@@ -95,6 +96,18 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
         if (filters.onlyUnwatched) {
           if (isVideo(item) || isCourse(item) || isCommentary(item)) {
             return !isWatched(item);
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
+      })
+      .filter((item) => {
+        if (filters.types.length > 0) {
+          if (isVideo(item) || isCourse(item) || isCommentary(item)) {
+            const type = getType(item);
+            return filters.types.find((candidate) => candidate === type) !== undefined;
           } else {
             return false;
           }

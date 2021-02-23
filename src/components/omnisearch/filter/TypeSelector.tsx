@@ -1,27 +1,54 @@
 import React from "react";
+import Type from "../../../model/Type";
 
-export default function TypeSelector() {
+export interface TypeSelectorProps {
+  selectedTypes: Type[];
+  onTypesUpdate: (newTypes: Type[]) => void;
+}
+
+export default function TypeSelector({ selectedTypes, onTypesUpdate }: TypeSelectorProps) {
+  const isChecked = (type: Type) => {
+    return (
+      selectedTypes.find((candidate) => {
+        return candidate === type;
+      }) !== undefined
+    );
+  };
+
+  const getNewTypes = (type: Type) => {
+    console.log(type);
+    let newTypes = selectedTypes.slice();
+    if (isChecked(type)) {
+      newTypes = newTypes.filter((candidate) => {
+        return candidate !== type;
+      });
+    } else {
+      newTypes.push(type);
+    }
+    onTypesUpdate(newTypes);
+  };
+
   return (
     <nav className="panel">
       <p className="panel-heading">Type</p>
       <div className="panel-block">
-        <p className="control">
+        <div className="control">
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" /> Video
+              <input type="checkbox" onChange={() => getNewTypes(Type.VIDEO)} /> Video
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" /> Commentary
+              <input type="checkbox" onChange={() => getNewTypes(Type.COMMENTARY)} /> Commentary
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" /> Course
+              <input type="checkbox" onChange={() => getNewTypes(Type.COURSE)} /> Course
             </label>
           </div>
-        </p>
+        </div>
       </div>
     </nav>
   );
