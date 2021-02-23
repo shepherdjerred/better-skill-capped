@@ -34,7 +34,7 @@ export class Searchbar extends React.Component<FilterBarProps, FilterBarState> {
 
   render() {
     return (
-      <section className="hero is-primary">
+      <section className="hero searchbar">
         <div className="hero-body">
           <Container>
             <div className="field">

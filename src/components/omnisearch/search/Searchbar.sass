@@ -1,5 +1,10 @@
 @import "src/bulma"
 
-.searchbar
-  background-color: $turquoise
-  margin-bottom: 3vh
+@media (prefers-color-scheme: light)
+  .searchbar
+    background-color: $turquoise
+
+
+@media (prefers-color-scheme: dark)
+  .searchbar
+    background-color: #000
