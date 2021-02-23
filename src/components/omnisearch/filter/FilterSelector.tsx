@@ -27,7 +27,6 @@ export default function FilterSelector({ filters, onFiltersUpdate }: FilterSelec
       onlyBookmarked: onlyShowBookmarked,
       onlyUnbookmarked: onlyShowUnbookmarked,
     };
-    console.log(onlyShowUnbookmarked, onlyShowBookmarked);
     onFiltersUpdate(newFilters);
   };
 
