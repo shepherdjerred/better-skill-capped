@@ -11,8 +11,7 @@ export class LocalStorageWatchStatusDatastore implements WatchStatusDatastore {
   }
 
   get(): WatchStatus[] {
-    const watchStatuses = JSON.parse(window.localStorage.getItem(IDENTIFIER) || "[]") as WatchStatus[];
-    return watchStatuses;
+    return JSON.parse(window.localStorage.getItem(IDENTIFIER) || "[]") as WatchStatus[];
   }
 
   remove(watchStatus: WatchStatus): void {
