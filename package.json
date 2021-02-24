@@ -23,7 +23,7 @@
     "classnames": "^2.2.6",
     "fuse.js": "^6.4.0",
     "ga-4-react": "^0.1.28",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-highlight-words": "^0.17.0",
