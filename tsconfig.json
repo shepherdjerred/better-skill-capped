@@ -3,22 +3,19 @@
     "incremental": false,
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "checkJs": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    // "outFile": "./",
     "outDir": "build/",
-    // "rootDir": "./",
-    // "composite": true,
-    // "tsBuildInfoFile": "build/tsconfig.tsbuildinfo",
-    // "removeComments": true,
     "noEmit": true,
-    // "importHelpers": true,
-    // "downlevelIteration": true,
     "isolatedModules": true,
     "strict": true,
     "noImplicitAny": true,
@@ -33,26 +30,17 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    // "baseUrl": "./",
-    // "paths": {},
-    // "rootDirs": [],
-    // "typeRoots": [],
-    // "types": [],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    // "preserveSymlinks": true,
-    // "allowUmdGlobalAccess": true,
-
     "sourceRoot": "build/",
     "mapRoot": "build/",
-    // "inlineSourceMap": true,
-    // "inlineSources": true,
-
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
