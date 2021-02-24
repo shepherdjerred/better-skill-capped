@@ -40,26 +40,41 @@ export function CourseSearchResult(props: CourseSearchResultProps): React.ReactE
   return (
     <div key={course.uuid} className="box">
       <div className="box-content">
-        <h3 className="title">
-          <Highlighter searchWords={props.result.matchedStrings} textToHighlight={course.title} autoEscape={true} />
-        </h3>
-        <p>{course.description}</p>
-        <div className="tags">
-          <span className="tag">{roleToString(props.result.item.role)}</span>
-          <span className="tag" title={props.result.item.releaseDate.toLocaleString()}>
-            Posted: {props.result.item.releaseDate.toLocaleDateString()}
-          </span>
-        </div>
-        <div>
-          <ol>{videos}</ol>
-        </div>
-        <div className="buttons">
-          <ToggleBookmarkButton item={course} isBookmarked={isBookmarked(course)} onToggleBookmark={onToggleBookmark} />
-          <ToggleWatchStatusButton
-            item={course}
-            isWatched={isWatched(course)}
-            onToggleWatchStatus={onToggleWatchStatus}
-          />
+        <div className="columns is-multiline">
+          <div className="column is-9">
+            <h3 className="title">
+              <Highlighter searchWords={props.result.matchedStrings} textToHighlight={course.title} autoEscape={true} />
+            </h3>
+            <p>{course.description}</p>
+            <div className="tags">
+              <span className="tag">{roleToString(props.result.item.role)}</span>
+              <span className="tag" title={props.result.item.releaseDate.toLocaleString()}>
+                Posted: {props.result.item.releaseDate.toLocaleDateString()}
+              </span>
+            </div>
+            <div>
+              <ol>{videos}</ol>
+            </div>
+          </div>
+          <div className="column is-3">
+            <figure className="image is-16by9">
+              <img src={course.image} alt="Video thumbnail" className="thumbnail" />
+            </figure>
+          </div>
+          <div className="column is-12">
+            <div className="buttons">
+              <ToggleBookmarkButton
+                item={course}
+                isBookmarked={isBookmarked(course)}
+                onToggleBookmark={onToggleBookmark}
+              />
+              <ToggleWatchStatusButton
+                item={course}
+                isWatched={isWatched(course)}
+                onToggleWatchStatus={onToggleWatchStatus}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

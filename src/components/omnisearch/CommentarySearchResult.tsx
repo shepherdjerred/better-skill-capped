@@ -48,40 +48,51 @@ export function CommentarySearchResult(props: CommentarySearchResultProps): Reac
   return (
     <div key={uuid} className="box">
       <div className="box-content">
-        <h3 className="title is-5">
-          <a href={skillCappedUrl}>
-            <Highlighter searchWords={matchedStrings} textToHighlight={title} autoEscape={true} />
-          </a>
-        </h3>
-        <p>
-          <a href={matchLink}>Match Link</a>
-          <Highlighter searchWords={matchedStrings} textToHighlight={description} autoEscape={true} />
-        </p>
-        <div className="tags">
-          <span className="tag">{roleToString(role)}</span>
-          <span className="tag" title={releaseDate.toLocaleString()}>
-            {releaseDate.toLocaleDateString()}
-          </span>
-          <span className="tag">{staff}</span>
-          <span className="tag">
-            {champion} vs {opponent}
-          </span>
-          <span className="tag">
-            {kills}/{deaths}/{assists}
-          </span>
-          <span className="tag">{gameLengthInMinutes} minutes</span>
-          <span className="tag">{carry}</span>
-          <span className="tag">{type}</span>
-        </div>
-        <div className="buttons">
-          <ToggleBookmarkButton {...buttonProps} />
-          <ToggleWatchStatusButton {...buttonProps} />
-          <a href={getStreamUrl(commentary)} className="button bookmark">
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={faCloudDownloadAlt} />
-            </span>
-            <span>Download</span>
-          </a>
+        <div className="columns is-multiline">
+          <div className="column is-9">
+            <h3 className="title is-5">
+              <a href={skillCappedUrl}>
+                <Highlighter searchWords={matchedStrings} textToHighlight={title} autoEscape={true} />
+              </a>
+            </h3>
+            <p>
+              <a href={matchLink}>Match Link</a>
+              <Highlighter searchWords={matchedStrings} textToHighlight={description} autoEscape={true} />
+            </p>
+            <div className="tags">
+              <span className="tag">{roleToString(role)}</span>
+              <span className="tag" title={releaseDate.toLocaleString()}>
+                {releaseDate.toLocaleDateString()}
+              </span>
+              <span className="tag">{staff}</span>
+              <span className="tag">
+                {champion} vs {opponent}
+              </span>
+              <span className="tag">
+                {kills}/{deaths}/{assists}
+              </span>
+              <span className="tag">{gameLengthInMinutes} minutes</span>
+              <span className="tag">{carry}</span>
+              <span className="tag">{type}</span>
+            </div>
+          </div>
+          <div className="column is-3">
+            <figure className="image is-16by9">
+              <img src={commentary.imageUrl} alt="Video thumbnail" className="thumbnail" />
+            </figure>
+          </div>
+          <div className="column is-12">
+            <div className="buttons">
+              <ToggleBookmarkButton {...buttonProps} />
+              <ToggleWatchStatusButton {...buttonProps} />
+              <a href={getStreamUrl(commentary)} className="button bookmark">
+                <span className="icon is-small">
+                  <FontAwesomeIcon icon={faCloudDownloadAlt} />
+                </span>
+                <span>Download</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -29,29 +29,38 @@ export function VideoSearchResult(props: VideoSearchResultProps): React.ReactEle
   return (
     <div key={video.uuid} className="box">
       <div className="box-content">
-        <h3 className="title is-5">
-          <a href={video.skillCappedUrl}>
-            <Highlighter searchWords={matchedStrings} textToHighlight={video.title} autoEscape={true} />
-          </a>
-        </h3>
-        <p>
-          <Highlighter searchWords={matchedStrings} textToHighlight={video.description} autoEscape={true} />
-        </p>
-        <div className="tags">
-          <span className="tag">{roleToString(video.role)}</span>
-          <span className="tag" title={video.releaseDate.toLocaleString()}>
-            {video.releaseDate.toLocaleDateString()}
-          </span>
-        </div>
-        <div className="buttons">
-          <ToggleBookmarkButton {...buttonProps} />
-          <ToggleWatchStatusButton {...buttonProps} />
-          <a href={getStreamUrl(video)} className="button bookmark">
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={faCloudDownloadAlt} />
-            </span>
-            <span>Download</span>
-          </a>
+        <div className="columns is-multiline">
+          <div className="column is-9">
+            <h3 className="title is-5">
+              <a href={video.skillCappedUrl}>
+                <Highlighter searchWords={matchedStrings} textToHighlight={video.title} autoEscape={true} />
+              </a>
+            </h3>
+            <p>
+              <Highlighter searchWords={matchedStrings} textToHighlight={video.description} autoEscape={true} />
+            </p>
+            <div className="tags">
+              <span className="tag">{roleToString(video.role)}</span>
+              <span className="tag" title={video.releaseDate.toLocaleString()}>
+                {video.releaseDate.toLocaleDateString()}
+              </span>
+            </div>
+            <div className="buttons">
+              <ToggleBookmarkButton {...buttonProps} />
+              <ToggleWatchStatusButton {...buttonProps} />
+              <a href={getStreamUrl(video)} className="button bookmark">
+                <span className="icon is-small">
+                  <FontAwesomeIcon icon={faCloudDownloadAlt} />
+                </span>
+                <span>Download</span>
+              </a>
+            </div>
+          </div>
+          <div className="column is-3">
+            <figure className="image is-16by9">
+              <img src={video.imageUrl} alt="Video thumbnail" className="thumbnail" />
+            </figure>
+          </div>
         </div>
       </div>
     </div>

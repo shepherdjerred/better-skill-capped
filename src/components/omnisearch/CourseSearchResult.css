@@ -28,3 +28,7 @@
   height: 1.25rem !important;
   float: right;
 }
+
+.thumbnail {
+  border-radius: 10px;
+}

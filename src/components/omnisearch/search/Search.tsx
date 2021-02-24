@@ -12,7 +12,8 @@ import { isVideo } from "../../../model/Video";
 import { Watchable } from "../../../model/WatchStatus";
 import { Bookmarkable } from "../../../model/Bookmark";
 import Banner from "../../Banner";
-import { getType } from "../../../model/Type";
+import Type, { getType } from "../../../model/Type";
+import { Role } from "../../../model/Role";
 
 export interface SearchProps<T> {
   items: T[];
@@ -34,8 +35,8 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
     super(props);
 
     const defaultFilters: Filters = {
-      roles: [],
-      types: [],
+      roles: [Role.ALL, Role.ADC, Role.TOP, Role.SUPPORT, Role.JUNGLE, Role.MID],
+      types: [Type.COURSE, Type.VIDEO, Type.COMMENTARY],
       onlyBookmarked: false,
       onlyUnwatched: true,
       onlyWatched: false,
