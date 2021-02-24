@@ -57,7 +57,7 @@ export function CourseSearchResult(props: CourseSearchResultProps): React.ReactE
             </div>
           </div>
           <div className="column is-3">
-            <figure className="image is-16by9">
+            <figure className="image">
               <img src={course.image} alt="Video thumbnail" className="thumbnail" />
             </figure>
           </div>
