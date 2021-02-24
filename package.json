@@ -8,10 +8,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@sentry/react": "^6.2.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-
     "axios": "^0.21.1",
     "bulma": "^0.9.0",
     "bulma-prefers-dark": "^0.1.0-beta.0",
@@ -28,6 +24,9 @@
     "typescript": "^4.2.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
     "@types/axios": "^0.14.0",
     "@types/classnames": "^2.2.10",
     "@types/jest": "^24.9.1",
