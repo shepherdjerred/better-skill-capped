@@ -74,14 +74,10 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
     // TODO this is very hacky. fix it.
     const filteredItems = items
       .filter((item) => {
-        if (filters.roles.length > 0) {
-          if (isVideo(item) || isCourse(item) || isCommentary(item)) {
-            return filters.roles.find((role) => role === item.role) !== undefined;
-          } else {
-            return false;
-          }
+        if (isVideo(item) || isCourse(item) || isCommentary(item)) {
+          return filters.roles.find((role) => role === item.role) !== undefined;
         } else {
-          return true;
+          return false;
         }
       })
       .filter((item) => {
@@ -129,15 +125,11 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
         }
       })
       .filter((item) => {
-        if (filters.types.length > 0) {
-          if (isVideo(item) || isCourse(item) || isCommentary(item)) {
-            const type = getType(item);
-            return filters.types.find((candidate) => candidate === type) !== undefined;
-          } else {
-            return false;
-          }
+        if (isVideo(item) || isCourse(item) || isCommentary(item)) {
+          const type = getType(item);
+          return filters.types.find((candidate) => candidate === type) !== undefined;
         } else {
-          return true;
+          return false;
         }
       });
 
