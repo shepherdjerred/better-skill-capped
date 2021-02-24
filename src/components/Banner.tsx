@@ -5,5 +5,5 @@ export interface BannerProps {
 }
 
 export default function Banner({ children }: BannerProps): React.ReactElement {
-  return <div className="notification">{children}</div>;
+  return <div className="notification is-primary">{children}</div>;
 }
