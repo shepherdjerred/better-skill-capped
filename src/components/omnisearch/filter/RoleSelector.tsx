@@ -6,7 +6,7 @@ export interface RoleSelectorProps {
   onRolesUpdate: (newRoles: Role[]) => void;
 }
 
-export default function RoleSelector({ selectedRoles, onRolesUpdate }: RoleSelectorProps) {
+export default function RoleSelector({ selectedRoles, onRolesUpdate }: RoleSelectorProps): React.ReactElement {
   const isChecked = (role: Role) => {
     return (
       selectedRoles.find((candidate) => {

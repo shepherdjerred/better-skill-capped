@@ -7,7 +7,7 @@ export interface ToggleButtonProps {
   classes?: string;
 }
 
-export function ToggleButton(props: ToggleButtonProps) {
+export function ToggleButton(props: ToggleButtonProps): React.ReactElement {
   const { status, onToggle, buttonText } = props;
   const classes = "button bookmark " + (props.classes || "");
   return (

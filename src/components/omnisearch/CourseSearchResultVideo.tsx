@@ -19,7 +19,7 @@ export interface SearchResultVideoProps {
   isBookmarked: boolean;
 }
 
-export function CourseSearchResultVideo(props: SearchResultVideoProps) {
+export function CourseSearchResultVideo(props: SearchResultVideoProps): React.ReactElement {
   const { course, video, matchedStrings, isWatched, isBookmarked } = props;
   // TODO: use alt title from course video
   const { title } = video;

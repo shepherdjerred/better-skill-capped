@@ -25,7 +25,7 @@ export function OmniSearchResult({
   onToggleWatchStatus,
   onToggleBookmark,
   matchedStrings,
-}: OmniSearchResultProps) {
+}: OmniSearchResultProps): React.ReactElement {
   if (isCourse(item)) {
     const result = {
       item,

@@ -12,7 +12,7 @@ export interface FilterSelectorProps {
   onFiltersUpdate: (newFilters: Filters) => void;
 }
 
-export default function FilterSelector({ filters, onFiltersUpdate }: FilterSelectorProps) {
+export default function FilterSelector({ filters, onFiltersUpdate }: FilterSelectorProps): React.ReactElement {
   const updateFilterRoles = (newRoles: Role[]) => {
     const newFilters = {
       ...filters,

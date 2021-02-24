@@ -19,7 +19,7 @@ export interface VideoSearchResultProps {
   matchedStrings: string[];
 }
 
-export function VideoSearchResult(props: VideoSearchResultProps) {
+export function VideoSearchResult(props: VideoSearchResultProps): React.ReactElement {
   const { video, matchedStrings } = props;
   const buttonProps = {
     ...props,

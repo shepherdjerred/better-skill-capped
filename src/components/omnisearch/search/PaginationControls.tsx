@@ -13,7 +13,7 @@ interface NumberedPageControlProps {
   onClick?: () => void;
 }
 
-function NumberedPageControl({ page, isCurrent, onClick }: NumberedPageControlProps) {
+function NumberedPageControl({ page, isCurrent, onClick }: NumberedPageControlProps): React.ReactElement {
   return (
     <li key={page}>
       <button
@@ -32,7 +32,11 @@ function NumberedPageControl({ page, isCurrent, onClick }: NumberedPageControlPr
   );
 }
 
-export default function PaginationControls({ currentPage, lastPage, onPageChange }: PaginationControlsProps) {
+export default function PaginationControls({
+  currentPage,
+  lastPage,
+  onPageChange,
+}: PaginationControlsProps): React.ReactElement {
   const firstPage = 1;
 
   const nextPage = currentPage + 1;

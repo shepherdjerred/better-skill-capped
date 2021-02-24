@@ -19,7 +19,7 @@ export interface CommentarySearchResultProps {
   onToggleWatchStatus: (item: Watchable) => void;
 }
 
-export function CommentarySearchResult(props: CommentarySearchResultProps) {
+export function CommentarySearchResult(props: CommentarySearchResultProps): React.ReactElement {
   const { commentary, matchedStrings } = props;
   const {
     role,

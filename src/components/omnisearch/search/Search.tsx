@@ -48,7 +48,7 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
     };
   }
 
-  onQueryUpdate(newValue: string) {
+  onQueryUpdate(newValue: string): void {
     this.setState((state) => {
       return {
         ...state,
@@ -57,7 +57,7 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
     });
   }
 
-  onFiltersUpdate(newValue: Filters) {
+  onFiltersUpdate(newValue: Filters): void {
     this.setState((state) => {
       return {
         ...state,
@@ -66,7 +66,7 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
     });
   }
 
-  render() {
+  render(): React.ReactElement {
     const { items, fuseOptions, render, itemsPerPage, searchBarPlaceholder, isBookmarked, isWatched } = this.props;
     const { query, filters } = this.state;
 

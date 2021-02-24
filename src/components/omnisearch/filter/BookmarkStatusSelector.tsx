@@ -10,7 +10,7 @@ export default function BookmarkStatusSelector({
   onlyShowBookmarked,
   onlyShowUnbookmarked,
   onSelectionChange,
-}: BookmarkStatusSelectorProps) {
+}: BookmarkStatusSelectorProps): React.ReactElement {
   return (
     <nav className="panel">
       <p className="panel-heading">Bookmark Status</p>

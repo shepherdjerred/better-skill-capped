@@ -31,7 +31,7 @@ export default class App extends React.Component<unknown, AppState> {
     };
   }
 
-  async componentDidMount() {
+  async componentDidMount(): Promise<void> {
     const parser = new Parser();
     const contentJson = await axios.get("/skill-capped-manifest.json");
     const content = parser.parse(JSON.stringify(contentJson.data));
@@ -57,7 +57,7 @@ export default class App extends React.Component<unknown, AppState> {
     });
   }
 
-  onToggleWatchStatus(item: Bookmarkable) {
+  onToggleWatchStatus(item: Bookmarkable): void {
     const { watchStatusesDatastore, watchStatuses } = this.state;
     const currentWatchStatus = this.getWatchStatus(item, watchStatuses);
 
@@ -66,29 +66,29 @@ export default class App extends React.Component<unknown, AppState> {
     }
 
     if (currentWatchStatus !== undefined) {
-      watchStatusesDatastore!.remove(currentWatchStatus);
+      watchStatusesDatastore?.remove(currentWatchStatus);
     }
 
     const newStatus = currentWatchStatus !== undefined ? !currentWatchStatus.isWatched : true;
 
-    watchStatusesDatastore!.add({
+    watchStatusesDatastore?.add({
       item,
       isWatched: newStatus,
       lastUpdate: new Date(),
     });
 
     this.setState({
-      watchStatuses: watchStatusesDatastore!.get(),
+      watchStatuses: watchStatusesDatastore?.get() || [],
     });
   }
 
-  getWatchStatus(item: Bookmarkable, watchStatuses: WatchStatus[]) {
+  getWatchStatus(item: Bookmarkable, watchStatuses: WatchStatus[]): WatchStatus | undefined {
     return watchStatuses.find((watchStatus) => {
       return watchStatus.item.uuid === item.uuid;
     });
   }
 
-  onToggleBookmark(item: Bookmarkable) {
+  onToggleBookmark(item: Bookmarkable): void {
     const { bookmarkDatastore, bookmarks } = this.state;
     const currentBookmark = this.getBookmark(item, bookmarks);
 
@@ -97,25 +97,25 @@ export default class App extends React.Component<unknown, AppState> {
     }
 
     if (currentBookmark !== undefined) {
-      bookmarkDatastore!.remove(currentBookmark);
+      bookmarkDatastore?.remove(currentBookmark);
     } else {
-      bookmarkDatastore!.add({
+      bookmarkDatastore?.add({
         item,
         date: new Date(),
       });
     }
     this.setState({
-      bookmarks: bookmarkDatastore!.get(),
+      bookmarks: bookmarkDatastore?.get() || [],
     });
   }
 
-  getBookmark(item: Bookmarkable, bookmarks: Bookmark[]) {
+  getBookmark(item: Bookmarkable, bookmarks: Bookmark[]): Bookmark | undefined {
     return bookmarks.find((bookmark) => {
       return bookmark.item.uuid === item.uuid;
     });
   }
 
-  isWatched(item: Watchable) {
+  isWatched(item: Watchable): boolean {
     return (
       this.state.watchStatuses.find((watchStatuses) => {
         return watchStatuses.item.uuid === item.uuid && watchStatuses.isWatched;
@@ -123,7 +123,7 @@ export default class App extends React.Component<unknown, AppState> {
     );
   }
 
-  isBookmarked(item: Bookmarkable) {
+  isBookmarked(item: Bookmarkable): boolean {
     return (
       this.state.bookmarks.find((bookmark) => {
         return bookmark.item.uuid === item.uuid;
@@ -131,7 +131,7 @@ export default class App extends React.Component<unknown, AppState> {
     );
   }
 
-  render() {
+  render(): React.ReactNode {
     return (
       <React.Fragment>
         <Sentry.ErrorBoundary

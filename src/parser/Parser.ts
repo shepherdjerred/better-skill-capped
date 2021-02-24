@@ -18,13 +18,13 @@ export class Parser {
     };
   }
 
-  parseDate(input: number) {
+  parseDate(input: number): Date {
     const releaseDate = new Date(0);
     releaseDate.setUTCMilliseconds(input);
     return releaseDate;
   }
 
-  getUnmatchedVideos(input: ManifestVideo[], courses: ManifestCourse[], chapters: ManifestCourseChapters) {
+  getUnmatchedVideos(input: ManifestVideo[], courses: ManifestCourse[], chapters: ManifestCourseChapters): Video[] {
     return input.flatMap((video) => {
       const match = this.matchVideoToCourse(video, courses, chapters);
 
@@ -38,7 +38,11 @@ export class Parser {
     });
   }
 
-  matchVideoToCourse(video: ManifestVideo, courses: ManifestCourse[], chapters: ManifestCourseChapters) {
+  matchVideoToCourse(
+    video: ManifestVideo,
+    courses: ManifestCourse[],
+    chapters: ManifestCourseChapters
+  ): { video: string; course: ManifestCourse } | undefined {
     let courseTitle: string | null = null;
     for (const [key, value] of Object.entries(chapters)) {
       const match =

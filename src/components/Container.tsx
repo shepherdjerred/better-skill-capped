@@ -5,7 +5,7 @@ export interface ContainerProps {
   children: React.ReactNode;
 }
 
-export function Container(props: ContainerProps) {
+export function Container(props: ContainerProps): React.ReactElement {
   return (
     <section className="section">
       <div className="columns">

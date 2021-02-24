@@ -34,7 +34,7 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const results = this.getResults();
     this.setState((state) => {
       return {
@@ -45,14 +45,14 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
     this.props.onResultsUpdate(results.map((result) => result.item));
   }
 
-  componentDidUpdate(prevProps: Readonly<FuseSearchProps<T>>) {
+  componentDidUpdate(prevProps: Readonly<FuseSearchProps<T>>): void {
     // This prevents us from rebuilding fuse if our items haven't changed
     // This happens a lot when a user is typing which results in updates to the "query" prop
     this.rebuildFuseIfNeeded(this.props.items, prevProps.items);
     this.searchIfNeeded(prevProps);
   }
 
-  searchIfNeeded(prevProps: Readonly<FuseSearchProps<T>>) {
+  searchIfNeeded(prevProps: Readonly<FuseSearchProps<T>>): void {
     const needsSearch = prevProps.query !== this.props.query || prevProps.items !== this.props.items;
 
     if (needsSearch) {
@@ -67,7 +67,7 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
     }
   }
 
-  rebuildFuseIfNeeded(currentItems: T[], previousItems: T[]) {
+  rebuildFuseIfNeeded(currentItems: T[], previousItems: T[]): void {
     if (currentItems === previousItems) {
       return;
     }
@@ -87,7 +87,7 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
     }
   }
 
-  getResults() {
+  getResults(): { item: T; matchedStrings: string[] }[] {
     const { fuse } = this.state;
     const { query } = this.props;
 
@@ -125,7 +125,7 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
     }
   }
 
-  render() {
+  render(): React.ReactNode {
     const { render } = this.props;
 
     const start = this.props.itemsPerPage * (this.props.page - 1);
@@ -135,7 +135,7 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
   }
 }
 
-function createIndexedFuseInstance<T>(items: T[], options: Fuse.IFuseOptions<T>) {
+function createIndexedFuseInstance<T>(items: T[], options: Fuse.IFuseOptions<T>): Fuse<T, Fuse.IFuseOptions<T>> {
   // This should only occur when the items or options have changed
   console.log("Building Fuse instance");
   const index = Fuse.createIndex(options.keys || [], items);

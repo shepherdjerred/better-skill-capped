@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export function Footer() {
+export function Footer(): React.ReactElement {
   const commit: string = process.env.REACT_APP_TRAVIS_COMMIT || "";
   const commitUrl = "https://github.com/shepherdjerred/better-skill-capped/commit/" + commit;
   const releaseMessage = commit !== undefined ? <a href={commitUrl}>{commit.substr(0, 7)}</a> : "unknown";

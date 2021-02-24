@@ -13,7 +13,13 @@ export interface OmniSearchProps {
   onToggleWatchStatus: (item: Watchable) => void;
 }
 
-export function OmniSearch({ items, isWatched, isBookmarked, onToggleBookmark, onToggleWatchStatus }: OmniSearchProps) {
+export function OmniSearch({
+  items,
+  isWatched,
+  isBookmarked,
+  onToggleBookmark,
+  onToggleWatchStatus,
+}: OmniSearchProps): React.ReactElement {
   const fuseOptions = {
     keys: searchableFields,
     minMatchCharLength: 2,

@@ -10,7 +10,7 @@ export interface ToggleWatchStatusButtonProps {
   onToggleWatchStatus: (item: Watchable) => void;
 }
 
-export function ToggleWatchStatusButton(props: ToggleWatchStatusButtonProps) {
+export function ToggleWatchStatusButton(props: ToggleWatchStatusButtonProps): React.ReactElement {
   const { item, isWatched, onToggleWatchStatus } = props;
   const watchToggleIcon = isWatched ? faEyeSlash : faEye;
 

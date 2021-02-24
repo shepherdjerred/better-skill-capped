@@ -7,6 +7,11 @@ module.exports = {
     sourceType: "module",
     project: ["./tsconfig.json"],
   },
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
   plugins: ["@typescript-eslint", "promise", "import"],
   extends: [
     "eslint:recommended",

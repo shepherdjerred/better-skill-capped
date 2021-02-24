@@ -21,7 +21,7 @@ export class Searchbar extends React.Component<FilterBarProps, FilterBarState> {
     };
   }
 
-  onUpdate(event: ChangeEvent<HTMLInputElement>) {
+  onUpdate(event: ChangeEvent<HTMLInputElement>): void {
     event.persist();
     this.setState((state) => {
       return {
@@ -32,7 +32,7 @@ export class Searchbar extends React.Component<FilterBarProps, FilterBarState> {
     this.props.onValueUpdate(event.target.value);
   }
 
-  render() {
+  render(): React.ReactNode {
     return (
       <section className="hero searchbar">
         <div className="hero-body">

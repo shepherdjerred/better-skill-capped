@@ -4,7 +4,7 @@ import { Commentary } from "../model/Commentary";
 
 const BASE_URL = "https://www.skill-capped.com/lol/";
 
-export function rawTitleToUrlTitle(rawTitle: string) {
+export function rawTitleToUrlTitle(rawTitle: string): string {
   return rawTitle
     .toLowerCase()
     .replace(/ /g, "-")

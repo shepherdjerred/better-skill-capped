@@ -6,7 +6,7 @@ export interface TypeSelectorProps {
   onTypesUpdate: (newTypes: Type[]) => void;
 }
 
-export default function TypeSelector({ selectedTypes, onTypesUpdate }: TypeSelectorProps) {
+export default function TypeSelector({ selectedTypes, onTypesUpdate }: TypeSelectorProps): React.ReactElement {
   const isChecked = (type: Type) => {
     return (
       selectedTypes.find((candidate) => {

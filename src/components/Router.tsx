@@ -20,7 +20,7 @@ export interface RouterProps {
   isWatched: (item: Watchable) => boolean;
 }
 
-export function Router(props: RouterProps) {
+export function Router(props: RouterProps): React.ReactElement {
   const { content, onToggleBookmark, onToggleWatchStatus, isBookmarked, isWatched } = props;
   const courses = content?.courses || [];
   const videos = content?.videos || [];

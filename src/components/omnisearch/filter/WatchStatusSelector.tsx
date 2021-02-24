@@ -10,7 +10,7 @@ export default function WatchStatusSelector({
   onlyShowUnwatched,
   onlyShowWatched,
   onSelectionChange,
-}: WatchStatusSelectorProps) {
+}: WatchStatusSelectorProps): React.ReactElement {
   return (
     <nav className="panel">
       <p className="panel-heading">Watch Status</p>

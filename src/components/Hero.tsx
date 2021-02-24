@@ -49,7 +49,7 @@ export class Hero extends React.PureComponent<HeroProps, unknown> {
     }
   }
 
-  render() {
+  render(): React.ReactNode {
     const sectionClasses: string = classNames({
       hero: true,
       "is-dark": true,

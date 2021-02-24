@@ -18,7 +18,7 @@ export interface CourseSearchResultProps {
   onToggleWatchStatus: (item: Watchable) => void;
 }
 
-export function CourseSearchResult(props: CourseSearchResultProps) {
+export function CourseSearchResult(props: CourseSearchResultProps): React.ReactElement {
   const { result, isWatched, onToggleWatchStatus, onToggleBookmark, isBookmarked } = props;
   const { matchedStrings, item: course } = result;
 

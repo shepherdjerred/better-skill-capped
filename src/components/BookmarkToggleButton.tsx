@@ -10,7 +10,7 @@ export interface BookmarkButtonProps {
   onToggleBookmark: (item: Bookmarkable) => void;
 }
 
-export function ToggleBookmarkButton(props: BookmarkButtonProps) {
+export function ToggleBookmarkButton(props: BookmarkButtonProps): React.ReactElement {
   const { item, isBookmarked, onToggleBookmark } = props;
 
   return (
