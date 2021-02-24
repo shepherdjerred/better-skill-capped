@@ -2,11 +2,12 @@
 
 [![Build Status](https://travis-ci.com/shepherdjerred/better-skill-capped.svg?branch=master)](https://travis-ci.com/shepherdjerred/better-skill-capped)
 
-[Skill Capped](https://www.skill-capped.com/) has some great content, but the website has much to be desired. It doesn't have a search functionality, the video player is minimal, and figuring out what to watch next is more difficult than it should be.
+[Skill Capped](https://www.skill-capped.com/) has some great content, but the website leaves much to be desired. It doesn't have search functionality, the video player is minimal, and figuring out what to watch next is more difficult than it should be.
 
-Luckily they provide a manifest of all their video data hardcoded right into the HTML they serve! This is a small React app that renders the video data in a nice interface.
+Luckily Skill Capped provides a manifest of all their video data embeded right into the HTML they serve! This is a small React app that renders the video data in a nice interface.
 
-![Screenshot as of commit 1a351b89136f204372ef56fc27e133ad377f0dbd](https://i.imgur.com/Mr4o5sv.png)
+![Screenshot of the website at commit 9d7bb56](https://i.imgur.com/yut7ayt.png)
+![Screenshot of the website in dark mode at 9d7bb56](https://i.imgur.com/Q5P389x.png)
 
 A special thanks to [Sentry](https://sentry.io/) for sponsoring this project. Check them out!
 
