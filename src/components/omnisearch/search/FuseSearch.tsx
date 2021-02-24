@@ -13,7 +13,7 @@ export interface FuseSearchProps<T> {
 }
 
 export interface FuseSearchState<T> {
-  fuse: Fuse<T, Fuse.IFuseOptions<T>>;
+  fuse: Fuse<T>;
   matchedItems: FuseSearchResult<T>[];
 }
 
@@ -135,9 +135,9 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
   }
 }
 
-function createIndexedFuseInstance<T>(items: T[], options: Fuse.IFuseOptions<T>): Fuse<T, Fuse.IFuseOptions<T>> {
+function createIndexedFuseInstance<T>(items: T[], options: Fuse.IFuseOptions<T>): Fuse<T> {
   // This should only occur when the items or options have changed
   console.log("Building Fuse instance");
   const index = Fuse.createIndex(options.keys || [], items);
-  return new Fuse<T, Fuse.IFuseOptions<T>>(items, options, index);
+  return new Fuse<T>(items, options, index);
 }
