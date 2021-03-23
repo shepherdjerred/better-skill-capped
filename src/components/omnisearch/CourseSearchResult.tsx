@@ -16,10 +16,11 @@ export interface CourseSearchResultProps {
   isBookmarked: (item: Bookmarkable) => boolean;
   isWatched: (item: Watchable) => boolean;
   onToggleWatchStatus: (item: Watchable) => void;
+  isDownloadEnabled: boolean;
 }
 
 export function CourseSearchResult(props: CourseSearchResultProps): React.ReactElement {
-  const { result, isWatched, onToggleWatchStatus, onToggleBookmark, isBookmarked } = props;
+  const { result, isWatched, onToggleWatchStatus, onToggleBookmark, isBookmarked, isDownloadEnabled } = props;
   const { matchedStrings, item: course } = result;
 
   const videos = course.videos.map(({ video }) => {
@@ -33,6 +34,7 @@ export function CourseSearchResult(props: CourseSearchResultProps): React.ReactE
         isWatched={isWatched(video)}
         onToggleBookmark={onToggleBookmark}
         isBookmarked={isBookmarked(video)}
+        isDownloadEnabled={isDownloadEnabled}
       />
     );
   });

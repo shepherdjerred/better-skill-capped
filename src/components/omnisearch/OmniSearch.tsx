@@ -11,6 +11,7 @@ export interface OmniSearchProps {
   isBookmarked: (item: Bookmarkable) => boolean;
   onToggleBookmark: (item: Bookmarkable) => void;
   onToggleWatchStatus: (item: Watchable) => void;
+  isDownloadEnabled: boolean;
 }
 
 export function OmniSearch({
@@ -19,6 +20,7 @@ export function OmniSearch({
   isBookmarked,
   onToggleBookmark,
   onToggleWatchStatus,
+  isDownloadEnabled,
 }: OmniSearchProps): React.ReactElement {
   const fuseOptions = {
     keys: searchableFields,
@@ -43,6 +45,7 @@ export function OmniSearch({
           onToggleBookmark={onToggleBookmark}
           onToggleWatchStatus={onToggleWatchStatus}
           matchedStrings={item.matchedStrings}
+          isDownloadEnabled={isDownloadEnabled}
         />
       )}
       itemsPerPage={20}

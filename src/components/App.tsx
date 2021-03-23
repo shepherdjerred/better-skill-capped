@@ -18,6 +18,7 @@ export interface AppState {
   bookmarks: Bookmark[];
   watchStatusesDatastore?: WatchStatusDatastore;
   watchStatuses: WatchStatus[];
+  isDownloadEnabled: boolean;
 }
 
 export default class App extends React.Component<unknown, AppState> {
@@ -28,6 +29,7 @@ export default class App extends React.Component<unknown, AppState> {
       content: undefined,
       bookmarks: [],
       watchStatuses: [],
+      isDownloadEnabled: window.localStorage.getItem("download") === "true" || false,
     };
   }
 
@@ -146,6 +148,7 @@ export default class App extends React.Component<unknown, AppState> {
             onToggleWatchStatus={(item: Watchable) => this.onToggleWatchStatus(item)}
             isBookmarked={this.isBookmarked.bind(this)}
             isWatched={this.isWatched.bind(this)}
+            isDownloadEnabled={this.state.isDownloadEnabled}
           />
         </Sentry.ErrorBoundary>
       </React.Fragment>

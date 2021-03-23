@@ -16,6 +16,7 @@ export interface OmniSearchResultProps {
   isBookmarked: (item: Bookmarkable) => boolean;
   onToggleBookmark: (item: Bookmarkable) => void;
   onToggleWatchStatus: (item: Watchable) => void;
+  isDownloadEnabled: boolean;
 }
 
 export function OmniSearchResult({
@@ -25,6 +26,7 @@ export function OmniSearchResult({
   onToggleWatchStatus,
   onToggleBookmark,
   matchedStrings,
+  isDownloadEnabled,
 }: OmniSearchResultProps): React.ReactElement {
   if (isCourse(item)) {
     const result = {
@@ -40,6 +42,7 @@ export function OmniSearchResult({
         isBookmarked={(item: Bookmarkable) => isBookmarked(item)}
         onToggleWatchStatus={onToggleWatchStatus}
         isWatched={(item: Watchable) => isWatched(item)}
+        isDownloadEnabled={isDownloadEnabled}
       />
     );
   } else if (isVideo(item)) {
@@ -53,6 +56,7 @@ export function OmniSearchResult({
         onToggleBookmark={onToggleBookmark}
         onToggleWatchStatus={onToggleWatchStatus}
         matchedStrings={matchedStrings}
+        isDownloadEnabled={isDownloadEnabled}
       />
     );
   } else if (isCommentary(item)) {
@@ -66,6 +70,7 @@ export function OmniSearchResult({
         onToggleBookmark={onToggleBookmark}
         onToggleWatchStatus={onToggleWatchStatus}
         matchedStrings={matchedStrings}
+        isDownloadEnabled={isDownloadEnabled}
       />
     );
   }

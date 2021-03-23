@@ -17,10 +17,11 @@ export interface CommentarySearchResultProps {
   isWatched: boolean;
   onToggleBookmark: (item: Bookmarkable) => void;
   onToggleWatchStatus: (item: Watchable) => void;
+  isDownloadEnabled: boolean;
 }
 
 export function CommentarySearchResult(props: CommentarySearchResultProps): React.ReactElement {
-  const { commentary, matchedStrings } = props;
+  const { commentary, matchedStrings, isDownloadEnabled } = props;
   const {
     role,
     uuid,
@@ -85,12 +86,14 @@ export function CommentarySearchResult(props: CommentarySearchResultProps): Reac
             <div className="buttons">
               <ToggleBookmarkButton {...buttonProps} />
               <ToggleWatchStatusButton {...buttonProps} />
-              <a href={getStreamUrl(commentary)} className="button bookmark">
-                <span className="icon is-small">
-                  <FontAwesomeIcon icon={faCloudDownloadAlt} />
-                </span>
-                <span>Download</span>
-              </a>
+              {isDownloadEnabled && (
+                <a href={getStreamUrl(commentary)} className="button bookmark">
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={faCloudDownloadAlt} />
+                  </span>
+                  <span>Download</span>
+                </a>
+              )}
             </div>
           </div>
         </div>

@@ -17,10 +17,11 @@ export interface VideoSearchResultProps {
   onToggleBookmark: (item: Bookmarkable) => void;
   onToggleWatchStatus: (item: Watchable) => void;
   matchedStrings: string[];
+  isDownloadEnabled: boolean;
 }
 
 export function VideoSearchResult(props: VideoSearchResultProps): React.ReactElement {
-  const { video, matchedStrings } = props;
+  const { video, matchedStrings, isDownloadEnabled } = props;
   const buttonProps = {
     ...props,
     item: video,
@@ -48,12 +49,14 @@ export function VideoSearchResult(props: VideoSearchResultProps): React.ReactEle
             <div className="buttons">
               <ToggleBookmarkButton {...buttonProps} />
               <ToggleWatchStatusButton {...buttonProps} />
-              <a href={getStreamUrl(video)} className="button bookmark">
-                <span className="icon is-small">
-                  <FontAwesomeIcon icon={faCloudDownloadAlt} />
-                </span>
-                <span>Download</span>
-              </a>
+              {isDownloadEnabled && (
+                <a href={getStreamUrl(video)} className="button bookmark">
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={faCloudDownloadAlt} />
+                  </span>
+                  <span>Download</span>
+                </a>
+              )}
             </div>
           </div>
           <div className="column is-3">

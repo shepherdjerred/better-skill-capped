@@ -17,10 +17,11 @@ export interface SearchResultVideoProps {
   onToggleBookmark: (item: Bookmarkable) => void;
   isWatched: boolean;
   isBookmarked: boolean;
+  isDownloadEnabled: boolean;
 }
 
 export function CourseSearchResultVideo(props: SearchResultVideoProps): React.ReactElement {
-  const { course, video, matchedStrings, isWatched, isBookmarked } = props;
+  const { course, video, matchedStrings, isWatched, isBookmarked, isDownloadEnabled } = props;
   // TODO: use alt title from course video
   const { title } = video;
 
@@ -52,13 +53,15 @@ export function CourseSearchResultVideo(props: SearchResultVideoProps): React.Re
       >
         <FontAwesomeIcon icon={watchToggleIcon} />
       </button>
-      <a
-        href={getStreamUrl(video)}
-        className="video-watched-button tag is-small is-outlined is-inverted is-rounded"
-        title="Download video stream"
-      >
-        <FontAwesomeIcon icon={faCloudDownloadAlt} />
-      </a>
+      {isDownloadEnabled && (
+        <a
+          href={getStreamUrl(video)}
+          className="video-watched-button tag is-small is-outlined is-inverted is-rounded"
+          title="Download video stream"
+        >
+          <FontAwesomeIcon icon={faCloudDownloadAlt} />
+        </a>
+      )}
     </li>
   );
 }

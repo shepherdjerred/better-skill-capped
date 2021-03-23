@@ -18,10 +18,11 @@ export interface RouterProps {
   onToggleWatchStatus: (item: Watchable) => void;
   isBookmarked: (item: Bookmarkable) => boolean;
   isWatched: (item: Watchable) => boolean;
+  isDownloadEnabled: boolean;
 }
 
 export function Router(props: RouterProps): React.ReactElement {
-  const { content, onToggleBookmark, onToggleWatchStatus, isBookmarked, isWatched } = props;
+  const { content, onToggleBookmark, onToggleWatchStatus, isBookmarked, isWatched, isDownloadEnabled } = props;
   const courses = content?.courses || [];
   const videos = content?.videos || [];
   const commentaries = content?.commentaries || [];
@@ -48,6 +49,7 @@ export function Router(props: RouterProps): React.ReactElement {
                       onToggleWatchStatus={onToggleWatchStatus}
                       isWatched={isWatched}
                       isBookmarked={isBookmarked}
+                      isDownloadEnabled={isDownloadEnabled}
                     />
                   </Route>
                   <Route path="*">
