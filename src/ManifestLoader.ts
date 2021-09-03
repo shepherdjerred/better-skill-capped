@@ -6,15 +6,13 @@ export class ManifestLoader {
   async load(): Promise<Manifest> {
     const datastore = new LocalStorageManifestDatastore();
     if (!datastore.get() || datastore.isStale()) {
-      console.log("Fetching response...");
+      console.log("Fetching manifest...");
       const response = await axios.get("/skill-capped-manifest.json");
       const manifest = response.data as Manifest;
 
-      console.log(manifest);
       datastore.set(manifest);
     }
 
-    console.log(datastore.get());
     return datastore.get() as Manifest;
   }
 }
