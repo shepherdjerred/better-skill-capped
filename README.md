@@ -1,6 +1,6 @@
 # Better Skill Capped
 
-
+[![CI/CD](https://github.com/shepherdjerred/better-skill-capped/actions/workflows/CICD.yml/badge.svg)](https://github.com/shepherdjerred/better-skill-capped/actions/workflows/CICD.yml)
 
 [Skill Capped](https://www.skill-capped.com/) has some great content, but the website leaves much to be desired. It doesn't have search functionality, the video player is minimal, and figuring out what to watch next is more difficult than it should be.
 
