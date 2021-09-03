@@ -1,8 +1,6 @@
 import React from "react";
-import { Parser } from "../parser/Parser";
 import { Content } from "../model/Content";
 import { Router } from "./Router";
-import axios from "axios";
 import { Bookmark, Bookmarkable } from "../model/Bookmark";
 import { LocalStorageBookmarkDatastore } from "../datastore/LocalStorageBookmarkDatastore";
 import { BookmarkDatastore } from "../datastore/BookmarkDatastore";
@@ -11,6 +9,8 @@ import { Watchable, WatchStatus } from "../model/WatchStatus";
 import { LocalStorageWatchStatusDatastore } from "../datastore/LocalStorageWatchStatusDatastore";
 import * as Sentry from "@sentry/react";
 import { Color, Hero, Size } from "./Hero";
+import { ManifestLoader } from "../ManifestLoader";
+import { Parser } from "../parser/Parser";
 
 export interface AppState {
   content?: Content;
@@ -34,11 +34,10 @@ export default class App extends React.Component<unknown, AppState> {
   }
 
   async componentDidMount(): Promise<void> {
+    const manifestLoader = new ManifestLoader();
+    const manifest = await manifestLoader.load();
     const parser = new Parser();
-    const contentJson = await axios.get("/skill-capped-manifest.json");
-    const content = parser.parse(JSON.stringify(contentJson.data));
-
-    console.log(content);
+    const content = parser.parse(manifest);
 
     const bookmarkDatastore: BookmarkDatastore = new LocalStorageBookmarkDatastore(content);
     const watchStatusesDatastore: WatchStatusDatastore = new LocalStorageWatchStatusDatastore();
