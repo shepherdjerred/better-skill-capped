@@ -24,6 +24,7 @@ export interface ManifestVideo {
   uuid: string;
   tId: number;
   tSS: string;
+  cSS: string;
 }
 
 export interface ManifestCommentary {
@@ -61,6 +62,7 @@ export interface ManifestCourse {
   rDate: number;
   role: string;
   courseImage: string;
+  courseImage2: string;
 }
 
 export interface ManifestThisWeekData {

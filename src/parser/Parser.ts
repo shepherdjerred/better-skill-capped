@@ -6,6 +6,7 @@ import { Commentary } from "../model/Commentary";
 import { roleFromString } from "../model/Role";
 import { rawTitleToDisplayTitle } from "../utils/TitleUtilities";
 import { getCommentaryUrl, getCourseUrl, getVideoUrl } from "../utils/UrlUtilities";
+import { CourseVideo } from "../model/CourseVideo";
 
 export class Parser {
   parse(input: string): Content {
@@ -107,7 +108,7 @@ export class Parser {
     });
   }
 
-  getImageUrl(input: ManifestVideo): string {
+  getImageUrl(input: ManifestVideo | ManifestCommentary): string {
     if (input.tSS !== "") {
       return input.tSS.replace(
         "https://d20k8dfo6rtj2t.cloudfront.net/jpg-images/",
@@ -126,24 +127,28 @@ export class Parser {
     const videos = this.parseVideos(manifestVideos, manifestCourses, manifestCourseChapters);
 
     return manifestCourses.map(
-      (course): Course => {
+      (course: ManifestCourse): Course => {
         const releaseDate = this.parseDate(course.rDate);
         const role = roleFromString(course.role);
         const title = rawTitleToDisplayTitle(course.title);
 
-        const courseVideos = manifestCourseChapters[course.title].chapters[0].vids.map((video) => {
-          const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
-          const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
+        let courseVideos: CourseVideo[] = [];
 
-          if (videoInfo === undefined) {
-            throw new Error(`Couldn't find video ${video.toString()}`);
-          }
+        if (manifestCourseChapters[course.title]) {
+          courseVideos = manifestCourseChapters[course.title].chapters[0].vids.map((video) => {
+            const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
+            const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
 
-          return {
-            video: videoInfo,
-            altTitle,
-          };
-        });
+            if (videoInfo === undefined) {
+              throw new Error(`Couldn't find video ${video.toString()}`);
+            }
+
+            return {
+              video: videoInfo,
+              altTitle,
+            };
+          });
+        }
 
         return {
           title,
@@ -151,7 +156,7 @@ export class Parser {
           description: course.desc || undefined,
           releaseDate: releaseDate,
           role: role,
-          image: course.courseImage,
+          image: course.courseImage2,
           videos: courseVideos,
         };
       }
