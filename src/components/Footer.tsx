@@ -1,9 +1,10 @@
 import * as React from "react";
 
 export function Footer(): React.ReactElement {
-  const commit = process.env.REACT_APP_TRAVIS_COMMIT || "";
+  const commit = process.env.GIT_SHA || "";
   const commitUrl = "https://github.com/shepherdjerred/better-skill-capped/commit/" + commit;
   const releaseMessage = commit !== "" ? <a href={commitUrl}>{commit.substr(0, 7)}</a> : "unknown";
+  const showDownloadButton = !window.localStorage.getItem("download");
   return (
     <footer className="footer">
       <div className="content has-text-centered">
@@ -21,16 +22,18 @@ export function Footer(): React.ReactElement {
           the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPLv3</a>.
           <br />
           Release {releaseMessage}.
-          <br />
-          <span
-            className="button is-text"
-            onClick={() => {
-              window.localStorage.setItem("download", "true");
-              window.location.reload();
-            }}
-          >
-            Enable downloads
-          </span>
+          <br />{" "}
+          {showDownloadButton && (
+            <span
+              className="button is-text"
+              onClick={() => {
+                window.localStorage.setItem("download", "true");
+                window.location.reload();
+              }}
+            >
+              Enable downloads
+            </span>
+          )}
           <br />
         </p>
       </div>

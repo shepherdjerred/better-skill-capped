@@ -58,6 +58,8 @@ jobs:
         with:
           name: build
           path: build
+        env:
+          GIT_SHA: ${{ github.sha }}
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs:
