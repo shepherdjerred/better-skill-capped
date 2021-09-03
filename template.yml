@@ -87,13 +87,17 @@ Resources:
   DeploymentIamUser:
     Type: "AWS::IAM::User"
     Properties:
-      UserName: "travis-better-skill-capped"
+      UserName: "github-actions-better-skill-capped"
       Policies:
         - PolicyName: "s3"
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
               - Effect: "Allow"
-                Action: "s3:PutObject"
+                Action: "s3:*"
                 Resource:
                   Fn::Sub: "${Bucket.Arn}/*"
+              - Effect: "Allow"
+                Action: "s3:*"
+                Resource:
+                  Fn::Sub: "${Bucket.Arn}"
