@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 
 export interface ContainerProps {
@@ -5,12 +6,18 @@ export interface ContainerProps {
   children: React.ReactNode;
 }
 
-export function Container(props: ContainerProps): React.ReactElement {
+export function Container({ children, sidebar }: ContainerProps): React.ReactElement {
+  const mainColumnClasses: string = classNames({
+    column: true,
+    "is-three-fifths": sidebar,
+    "is-four-fifths": !sidebar,
+    "is-offset-1": !sidebar,
+  });
   return (
     <section className="section">
       <div className="columns">
-        <div className="column is-one-fifth is-offset-1">{props.sidebar}</div>
-        <div className="column is-two-fifths">{props.children}</div>
+        {sidebar && <div className="column is-one-fifth is-offset-1">{sidebar}</div>}
+        <div className={mainColumnClasses}>{children}</div>
       </div>
     </section>
   );
