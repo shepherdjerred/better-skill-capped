@@ -61,7 +61,8 @@ export default function RoleSelector({ selectedRoles, onRolesUpdate }: RoleSelec
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.ALL)} onChange={() => getNewRoles(Role.ALL)} /> All Roles
+              <input type="checkbox" checked={isChecked(Role.ALL)} onChange={() => getNewRoles(Role.ALL)} /> Not Role
+              Specific
             </label>
           </div>
         </div>

@@ -41,16 +41,16 @@ export function VideoSearchResult(props: VideoSearchResultProps): React.ReactEle
               <Highlighter searchWords={matchedStrings} textToHighlight={video.description} autoEscape={true} />
             </p>
             <div className="tags">
-              <span className="tag">{roleToString(video.role)}</span>
+              <span className="tag">Role: {roleToString(video.role)}</span>
               <span className="tag" title={video.releaseDate.toLocaleString()}>
-                {video.releaseDate.toLocaleDateString()}
+                Released: {video.releaseDate.toLocaleDateString()}
               </span>
             </div>
             <div className="buttons">
               <ToggleBookmarkButton {...buttonProps} />
               <ToggleWatchStatusButton {...buttonProps} />
               {isDownloadEnabled && (
-                <a href={getStreamUrl(video)} className="button bookmark">
+                <a href={getStreamUrl(video)} className="button is-small bookmark">
                   <span className="icon is-small">
                     <FontAwesomeIcon icon={faCloudDownloadAlt} />
                   </span>

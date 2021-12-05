@@ -61,9 +61,9 @@ export function CommentarySearchResult(props: CommentarySearchResultProps): Reac
               <Highlighter searchWords={matchedStrings} textToHighlight={description} autoEscape={true} />
             </p>
             <div className="tags">
-              <span className="tag">{roleToString(role)}</span>
+              <span className="tag">Role: {roleToString(role)}</span>
               <span className="tag" title={releaseDate.toLocaleString()}>
-                {releaseDate.toLocaleDateString()}
+                Released: {releaseDate.toLocaleDateString()}
               </span>
               <span className="tag">{staff}</span>
               <span className="tag">

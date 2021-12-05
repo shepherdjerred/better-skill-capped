@@ -29,16 +29,16 @@ export function roleFromString(input: string): Role {
 export function roleToString(role: Role): string {
   switch (role) {
     case Role.TOP:
-      return "Top lane";
+      return "Top";
     case Role.JUNGLE:
       return "Jungle";
     case Role.MID:
-      return "Mid lane";
+      return "Mid";
     case Role.ADC:
       return "ADC";
     case Role.SUPPORT:
       return "Support";
     case Role.ALL:
-      return "All lanes";
+      return "Not Role Specific";
   }
 }

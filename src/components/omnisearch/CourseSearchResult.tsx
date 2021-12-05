@@ -49,9 +49,9 @@ export function CourseSearchResult(props: CourseSearchResultProps): React.ReactE
             </h3>
             <p>{course.description}</p>
             <div className="tags">
-              <span className="tag">{roleToString(props.result.item.role)}</span>
+              <span className="tag">Role: {roleToString(props.result.item.role)}</span>
               <span className="tag" title={props.result.item.releaseDate.toLocaleString()}>
-                Posted: {props.result.item.releaseDate.toLocaleDateString()}
+                Released: {props.result.item.releaseDate.toLocaleDateString()}
               </span>
             </div>
             <div>
