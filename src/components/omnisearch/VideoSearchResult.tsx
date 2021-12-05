@@ -31,7 +31,7 @@ export function VideoSearchResult(props: VideoSearchResultProps): React.ReactEle
     <div key={video.uuid} className="box">
       <div className="box-content">
         <div className="columns is-multiline">
-          <div className="column is-9">
+          <div className="column is-7">
             <h3 className="title is-5">
               <a href={video.skillCappedUrl}>
                 <Highlighter searchWords={matchedStrings} textToHighlight={video.title} autoEscape={true} />
@@ -41,8 +41,9 @@ export function VideoSearchResult(props: VideoSearchResultProps): React.ReactEle
               <Highlighter searchWords={matchedStrings} textToHighlight={video.description} autoEscape={true} />
             </p>
             <div className="tags">
-              <span className="tag">Role: {roleToString(video.role)}</span>
-              <span className="tag" title={video.releaseDate.toLocaleString()}>
+              <span className="tag is-primary">Content Type: Video</span>
+              <span className="tag is-primary is-light">Role: {roleToString(video.role)}</span>
+              <span className="tag is-primary is-light" title={video.releaseDate.toLocaleString()}>
                 Released: {video.releaseDate.toLocaleDateString()}
               </span>
             </div>
@@ -59,7 +60,7 @@ export function VideoSearchResult(props: VideoSearchResultProps): React.ReactEle
               )}
             </div>
           </div>
-          <div className="column is-3">
+          <div className="column is-5">
             <figure className="image is-16by9">
               <img src={video.imageUrl} alt="Video thumbnail" className="thumbnail" />
             </figure>

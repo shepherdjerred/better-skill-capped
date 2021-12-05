@@ -4,6 +4,7 @@ import React from "react";
 import Search from "./search/Search";
 import OmniSearchable, { searchableFields } from "./OmniSearchable";
 import { OmniSearchResult } from "./OmniSearchResult";
+import { TipsButton } from "../TipsButton";
 
 export interface OmniSearchProps {
   items: OmniSearchable[];
@@ -33,25 +34,28 @@ export function OmniSearch({
   };
 
   return (
-    <Search
-      items={items}
-      fuseOptions={fuseOptions}
-      render={(item) => (
-        <OmniSearchResult
-          key={item.item.uuid}
-          item={item.item}
-          isWatched={isWatched}
-          isBookmarked={isBookmarked}
-          onToggleBookmark={onToggleBookmark}
-          onToggleWatchStatus={onToggleWatchStatus}
-          matchedStrings={item.matchedStrings}
-          isDownloadEnabled={isDownloadEnabled}
-        />
-      )}
-      itemsPerPage={20}
-      isBookmarked={isBookmarked}
-      isWatched={isWatched}
-      searchBarPlaceholder="Search for courses, videos, or game commentary"
-    />
+    <>
+      <TipsButton />
+      <Search
+        items={items}
+        fuseOptions={fuseOptions}
+        render={(item) => (
+          <OmniSearchResult
+            key={item.item.uuid}
+            item={item.item}
+            isWatched={isWatched}
+            isBookmarked={isBookmarked}
+            onToggleBookmark={onToggleBookmark}
+            onToggleWatchStatus={onToggleWatchStatus}
+            matchedStrings={item.matchedStrings}
+            isDownloadEnabled={isDownloadEnabled}
+          />
+        )}
+        itemsPerPage={20}
+        isBookmarked={isBookmarked}
+        isWatched={isWatched}
+        searchBarPlaceholder="Search for courses, videos, or game commentary"
+      />
+    </>
   );
 }

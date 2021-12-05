@@ -3,7 +3,6 @@ import React from "react";
 import { getStreamUrl } from "../../utils/UrlUtilities";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudDownloadAlt } from "@fortawesome/free-solid-svg-icons";
-import Highlighter from "react-highlight-words";
 import { Commentary } from "../../model/Commentary";
 import { ToggleBookmarkButton } from "../BookmarkToggleButton";
 import { ToggleWatchStatusButton } from "../ToggleWatchStatusButton";
@@ -21,16 +20,13 @@ export interface CommentarySearchResultProps {
 }
 
 export function CommentarySearchResult(props: CommentarySearchResultProps): React.ReactElement {
-  const { commentary, matchedStrings, isDownloadEnabled } = props;
+  const { commentary, isDownloadEnabled } = props;
   const {
     role,
     uuid,
     skillCappedUrl,
-    title,
-    description,
     releaseDate,
     staff,
-    matchLink,
     champion,
     opponent,
     kills,
@@ -50,34 +46,28 @@ export function CommentarySearchResult(props: CommentarySearchResultProps): Reac
     <div key={uuid} className="box">
       <div className="box-content">
         <div className="columns is-multiline">
-          <div className="column is-9">
+          <div className="column 7">
             <h3 className="title is-5">
               <a href={skillCappedUrl}>
-                <Highlighter searchWords={matchedStrings} textToHighlight={title} autoEscape={true} />
+                {champion} vs {opponent}
               </a>
             </h3>
-            <p>
-              <a href={matchLink}>Match Link</a>
-              <Highlighter searchWords={matchedStrings} textToHighlight={description} autoEscape={true} />
-            </p>
             <div className="tags">
-              <span className="tag">Role: {roleToString(role)}</span>
-              <span className="tag" title={releaseDate.toLocaleString()}>
+              <span className="tag is-primary">Content Type: Commentary</span>
+              <span className="tag is-primary is-light">Role: {roleToString(role)}</span>
+              <span className="tag is-primary is-light" title={releaseDate.toLocaleString()}>
                 Released: {releaseDate.toLocaleDateString()}
               </span>
-              <span className="tag">{staff}</span>
+              <span className="tag">Player: {staff}</span>
               <span className="tag">
-                {champion} vs {opponent}
+                K/D/A: {kills}/{deaths}/{assists}
               </span>
-              <span className="tag">
-                {kills}/{deaths}/{assists}
-              </span>
-              <span className="tag">{gameLengthInMinutes} minutes</span>
-              <span className="tag">{carry}</span>
-              <span className="tag">{type}</span>
+              <span className="tag">Game Length: {gameLengthInMinutes} minutes</span>
+              <span className="tag">Carry Amount: {carry}</span>
+              <span className="tag">Account Type: {type}</span>
             </div>
           </div>
-          <div className="column is-3">
+          <div className="column is-5">
             <figure className="image is-16by9">
               <img src={commentary.imageUrl} alt="Video thumbnail" className="thumbnail" />
             </figure>
@@ -87,7 +77,7 @@ export function CommentarySearchResult(props: CommentarySearchResultProps): Reac
               <ToggleBookmarkButton {...buttonProps} />
               <ToggleWatchStatusButton {...buttonProps} />
               {isDownloadEnabled && (
-                <a href={getStreamUrl(commentary)} className="button bookmark">
+                <a href={getStreamUrl(commentary)} className="button bookmark is-small">
                   <span className="icon is-small">
                     <FontAwesomeIcon icon={faCloudDownloadAlt} />
                   </span>

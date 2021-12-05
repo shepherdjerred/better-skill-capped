@@ -1,5 +1,5 @@
 .box-content {
-  margin: 30px;
+  margin: 0px;
 }
 
 .box-content p {
@@ -12,7 +12,7 @@
 }
 
 .bookmark {
-  margin-top: 15px;
+  margin-top: 0;
 }
 
 .video-watched-button {

@@ -43,14 +43,15 @@ export function CourseSearchResult(props: CourseSearchResultProps): React.ReactE
     <div key={course.uuid} className="box">
       <div className="box-content">
         <div className="columns is-multiline">
-          <div className="column is-9">
+          <div className="column is-7">
             <h3 className="title">
               <Highlighter searchWords={props.result.matchedStrings} textToHighlight={course.title} autoEscape={true} />
             </h3>
             <p>{course.description}</p>
             <div className="tags">
-              <span className="tag">Role: {roleToString(props.result.item.role)}</span>
-              <span className="tag" title={props.result.item.releaseDate.toLocaleString()}>
+              <span className="tag is-primary">Content Type: Course</span>
+              <span className="tag is-primary is-light">Role: {roleToString(props.result.item.role)}</span>
+              <span className="tag is-primary is-light" title={props.result.item.releaseDate.toLocaleString()}>
                 Released: {props.result.item.releaseDate.toLocaleDateString()}
               </span>
             </div>
@@ -58,7 +59,7 @@ export function CourseSearchResult(props: CourseSearchResultProps): React.ReactE
               <ol>{videos}</ol>
             </div>
           </div>
-          <div className="column is-3">
+          <div className="column is-5">
             <figure className="image">
               <img src={course.image} alt="Video thumbnail" className="thumbnail" />
             </figure>
