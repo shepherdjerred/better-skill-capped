@@ -27,7 +27,7 @@ export function ToggleBookmarkButton(props: BookmarkButtonProps): React.ReactEle
           </React.Fragment>
         );
       }}
-      classes={"is-warning"}
+      classes={"is-warning is-light"}
     />
   );
 }

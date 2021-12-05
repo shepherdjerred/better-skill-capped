@@ -5,6 +5,7 @@ import Search from "./search/Search";
 import OmniSearchable, { searchableFields } from "./OmniSearchable";
 import { OmniSearchResult } from "./OmniSearchResult";
 import { TipsButton } from "../TipsButton";
+import { TipsModal } from "../modal/TipsModal";
 
 export interface OmniSearchProps {
   items: OmniSearchable[];
@@ -13,6 +14,8 @@ export interface OmniSearchProps {
   onToggleBookmark: (item: Bookmarkable) => void;
   onToggleWatchStatus: (item: Watchable) => void;
   isDownloadEnabled: boolean;
+  onToggleTipsModal: () => void;
+  isTipsModalVisible: boolean;
 }
 
 export function OmniSearch({
@@ -22,6 +25,8 @@ export function OmniSearch({
   onToggleBookmark,
   onToggleWatchStatus,
   isDownloadEnabled,
+  onToggleTipsModal,
+  isTipsModalVisible,
 }: OmniSearchProps): React.ReactElement {
   const fuseOptions = {
     keys: searchableFields,
@@ -35,7 +40,8 @@ export function OmniSearch({
 
   return (
     <>
-      <TipsButton />
+      <TipsModal isVisible={isTipsModalVisible} onClose={onToggleTipsModal} />
+      <TipsButton onClick={onToggleTipsModal} />
       <Search
         items={items}
         fuseOptions={fuseOptions}

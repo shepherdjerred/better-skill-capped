@@ -19,6 +19,7 @@ export interface AppState {
   watchStatusesDatastore?: WatchStatusDatastore;
   watchStatuses: WatchStatus[];
   isDownloadEnabled: boolean;
+  isTipsModalVisible: boolean;
 }
 
 export default class App extends React.Component<unknown, AppState> {
@@ -30,6 +31,7 @@ export default class App extends React.Component<unknown, AppState> {
       bookmarks: [],
       watchStatuses: [],
       isDownloadEnabled: window.localStorage.getItem("download") === "true" || false,
+      isTipsModalVisible: false,
     };
   }
 
@@ -86,6 +88,14 @@ export default class App extends React.Component<unknown, AppState> {
   getWatchStatus(item: Bookmarkable, watchStatuses: WatchStatus[]): WatchStatus | undefined {
     return watchStatuses.find((watchStatus) => {
       return watchStatus.item.uuid === item.uuid;
+    });
+  }
+
+  onToggleTipsModal(): void {
+    this.setState((prevState) => {
+      return {
+        isTipsModalVisible: !prevState.isTipsModalVisible,
+      };
     });
   }
 
@@ -148,6 +158,8 @@ export default class App extends React.Component<unknown, AppState> {
             isBookmarked={this.isBookmarked.bind(this)}
             isWatched={this.isWatched.bind(this)}
             isDownloadEnabled={this.state.isDownloadEnabled}
+            isTipsModalVisible={this.state.isTipsModalVisible}
+            onToggleTipsModal={this.onToggleTipsModal.bind(this)}
           />
         </Sentry.ErrorBoundary>
       </React.Fragment>

@@ -19,6 +19,8 @@ export interface RouterProps {
   isBookmarked: (item: Bookmarkable) => boolean;
   isWatched: (item: Watchable) => boolean;
   isDownloadEnabled: boolean;
+  isTipsModalVisible: boolean;
+  onToggleTipsModal: () => void;
 }
 
 export function Router(props: RouterProps): React.ReactElement {
@@ -50,6 +52,8 @@ export function Router(props: RouterProps): React.ReactElement {
                       isWatched={isWatched}
                       isBookmarked={isBookmarked}
                       isDownloadEnabled={isDownloadEnabled}
+                      onToggleTipsModal={props.onToggleTipsModal}
+                      isTipsModalVisible={props.isTipsModalVisible}
                     />
                   </Route>
                   <Route path="*">
