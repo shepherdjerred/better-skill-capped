@@ -34,7 +34,7 @@ export class Searchbar extends React.Component<FilterBarProps, FilterBarState> {
 
   render(): React.ReactNode {
     return (
-      <section className="hero searchbar">
+      <section className="hero searchbar is-small">
         <div className="hero-body">
           <Container>
             <div className="field">

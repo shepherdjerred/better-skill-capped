@@ -37,7 +37,7 @@ export class Hero extends React.PureComponent<HeroProps, unknown> {
   getClassNameForSize(size: Size): string {
     switch (size) {
       case Size.SMALL:
-        return "";
+        return "is-small";
       case Size.MEDIUM:
         return "is-medium";
       case Size.LARGE:
