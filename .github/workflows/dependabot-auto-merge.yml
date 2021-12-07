@@ -14,7 +14,7 @@ jobs:
         id: metadata
         uses: dependabot/fetch-metadata@v1.1.1
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          github-token: "${{ secrets.ACCESS_TOKEN_GITHUB }}"
       - name: Enable auto-merge for Dependabot PRs
         if: ${{contains(steps.metadata.outputs.dependency-names, 'my-dependency') && steps.metadata.outputs.update-type == 'version-update:semver-patch'}}
         run: gh pr merge --auto --merge "$PR_URL"
