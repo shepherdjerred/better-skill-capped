@@ -54,7 +54,7 @@ jobs:
         run: npm ci
       - run: npm run build
         env:
-          REACT_APP_GIT_SHA: $GITHUB_SHA
+          REACT_APP_GIT_SHA: ${{ github.sha }}
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
