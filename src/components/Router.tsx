@@ -39,7 +39,7 @@ export function Router(props: RouterProps): React.ReactElement {
         <div className="content-wrapper">
           <BrowserRouter>
             <Sentry.ErrorBoundary
-              fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL_WITH_NAVBAR} />}
+              fallback={<Hero title="Something went wrong" color={Color.RED} size={Size.FULL} />}
               showDialog={true}
             >
               <div>
@@ -60,7 +60,7 @@ export function Router(props: RouterProps): React.ReactElement {
                     <Hero
                       title="Page Not Found"
                       subtitle="This page doesn't exist"
-                      size={Size.FULL_WITH_NAVBAR}
+                      size={Size.FULL}
                       color={Color.RED}
                     />
                   </Route>
