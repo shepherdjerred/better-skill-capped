@@ -80,10 +80,6 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
       this.setState({
         fuse: createIndexedFuseInstance(currentItems, this.props.options),
       });
-    } else {
-      console.log(
-        `No need to rebuild fuse. Same items size: ${areItemsTheSameSize.toString()}, Same items: ${areItemsTheSame.toString()}`
-      );
     }
   }
 
@@ -136,8 +132,6 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
 }
 
 function createIndexedFuseInstance<T>(items: T[], options: Fuse.IFuseOptions<T>): Fuse<T> {
-  // This should only occur when the items or options have changed
-  console.log("Building Fuse instance");
   const index = Fuse.createIndex(options.keys || [], items);
   return new Fuse<T>(items, options, index);
 }

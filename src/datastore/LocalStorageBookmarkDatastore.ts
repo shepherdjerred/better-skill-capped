@@ -51,7 +51,6 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
         };
       }
     });
-    console.debug(updatedBookmarks);
     return updatedBookmarks;
   }
 
