@@ -31,9 +31,9 @@ export class Parser {
       if (match !== undefined) {
         return [];
       } else {
-        return ({
+        return {
           ...video,
-        } as unknown) as Video;
+        } as unknown as Video;
       }
     });
   }
@@ -91,7 +91,7 @@ export class Parser {
         uuid: video.uuid,
       } as Video;
 
-      const courseUrl = getCourseUrl((match.course as unknown) as Course);
+      const courseUrl = getCourseUrl(match.course as unknown as Course);
       const videoUrl = getVideoUrl(fakeVideo, courseUrl);
 
       return {
@@ -125,79 +125,75 @@ export class Parser {
   ): Course[] {
     const videos = this.parseVideos(manifestVideos, manifestCourses, manifestCourseChapters);
 
-    return manifestCourses.map(
-      (course: ManifestCourse): Course => {
-        const releaseDate = this.parseDate(course.rDate);
-        const role = roleFromString(course.role);
-        const title = rawTitleToDisplayTitle(course.title);
+    return manifestCourses.map((course: ManifestCourse): Course => {
+      const releaseDate = this.parseDate(course.rDate);
+      const role = roleFromString(course.role);
+      const title = rawTitleToDisplayTitle(course.title);
 
-        let courseVideos: CourseVideo[] = [];
+      let courseVideos: CourseVideo[] = [];
 
-        if (manifestCourseChapters[course.title]) {
-          courseVideos = manifestCourseChapters[course.title].chapters[0].vids.map((video) => {
-            const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
-            const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
+      if (manifestCourseChapters[course.title]) {
+        courseVideos = manifestCourseChapters[course.title].chapters[0].vids.map((video) => {
+          const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
+          const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
 
-            if (videoInfo === undefined) {
-              throw new Error(`Couldn't find video ${video.toString()}`);
-            }
+          if (videoInfo === undefined) {
+            throw new Error(`Couldn't find video ${video.toString()}`);
+          }
 
-            return {
-              video: videoInfo,
-              altTitle,
-            };
-          });
-        }
-
-        return {
-          title,
-          uuid: course.uuid,
-          description: course.desc || undefined,
-          releaseDate: releaseDate,
-          role: role,
-          image: course.courseImage2,
-          videos: courseVideos,
-        };
+          return {
+            video: videoInfo,
+            altTitle,
+          };
+        });
       }
-    );
+
+      return {
+        title,
+        uuid: course.uuid,
+        description: course.desc || undefined,
+        releaseDate: releaseDate,
+        role: role,
+        image: course.courseImage2,
+        videos: courseVideos,
+      };
+    });
   }
 
   parseCommentaries(dumpCommentary: ManifestCommentary[]): Commentary[] {
-    return dumpCommentary.map(
-      (commentary): Commentary => {
-        const releaseDate = this.parseDate(commentary.rDate);
-        const role = roleFromString(commentary.role);
-        const imageUrl = this.getImageUrl(commentary);
-        const title = rawTitleToDisplayTitle(commentary.title);
+    return dumpCommentary.map((commentary): Commentary => {
+      const releaseDate = this.parseDate(commentary.rDate);
+      const role = roleFromString(commentary.role);
+      const imageUrl = this.getImageUrl(commentary);
+      const title = rawTitleToDisplayTitle(commentary.title);
 
-        const fakeCommentary = {
-          title: commentary.title,
-          uuid: commentary.uuid,
-        } as Commentary;
+      const fakeCommentary = {
+        title: commentary.title,
+        uuid: commentary.uuid,
+      } as Commentary;
 
-        const commentaryUrl = getCommentaryUrl(fakeCommentary);
+      const commentaryUrl = getCommentaryUrl(fakeCommentary);
 
-        return {
-          role,
-          title,
-          description: commentary.desc || "",
-          releaseDate,
-          durationInSeconds: commentary.durSec,
-          uuid: commentary.uuid,
-          imageUrl,
-          skillCappedUrl: commentaryUrl,
-          staff: commentary.staff,
-          matchLink: commentary.matchLink,
-          champion: commentary.yourChampion,
-          opponent: commentary.theirChampion,
-          kills: commentary.k,
-          deaths: commentary.d,
-          assists: commentary.a,
-          gameLengthInMinutes: Number.parseInt(commentary.gameTime),
-          carry: commentary.carry,
-          type: commentary.type,
-        };
-      }
-    );
+      return {
+        role,
+        title,
+        description: commentary.desc || "",
+        releaseDate,
+        durationInSeconds: commentary.durSec,
+        uuid: commentary.uuid,
+        imageUrl,
+        skillCappedUrl: commentaryUrl,
+        staff: commentary.staff,
+        matchLink: commentary.matchLink,
+        champion: commentary.yourChampion,
+        opponent: commentary.theirChampion,
+        kills: commentary.k,
+        deaths: commentary.d,
+        assists: commentary.a,
+        gameLengthInMinutes: Number.parseInt(commentary.gameTime),
+        carry: commentary.carry,
+        type: commentary.type,
+      };
+    });
   }
 }

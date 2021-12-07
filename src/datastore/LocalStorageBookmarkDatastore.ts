@@ -47,7 +47,7 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
         return {
           ...bookmark,
           item: matchedItem,
-          date: new Date((bookmark.date as unknown) as string),
+          date: new Date(bookmark.date as unknown as string),
         };
       }
     });
