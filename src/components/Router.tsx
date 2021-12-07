@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React from "react";
 import { Footer } from "./Footer";
 import "./Wrapper.css";
@@ -43,28 +43,34 @@ export function Router(props: RouterProps): React.ReactElement {
               showDialog={true}
             >
               <div>
-                <Switch>
-                  <Route exact path={["/", "/home"]}>
-                    <OmniSearch
-                      items={items}
-                      onToggleBookmark={onToggleBookmark}
-                      onToggleWatchStatus={onToggleWatchStatus}
-                      isWatched={isWatched}
-                      isBookmarked={isBookmarked}
-                      isDownloadEnabled={isDownloadEnabled}
-                      onToggleTipsModal={props.onToggleTipsModal}
-                      isTipsModalVisible={props.isTipsModalVisible}
-                    />
-                  </Route>
-                  <Route path="*">
-                    <Hero
-                      title="Page Not Found"
-                      subtitle="This page doesn't exist"
-                      size={Size.FULL}
-                      color={Color.RED}
-                    />
-                  </Route>
-                </Switch>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <OmniSearch
+                        items={items}
+                        onToggleBookmark={onToggleBookmark}
+                        onToggleWatchStatus={onToggleWatchStatus}
+                        isWatched={isWatched}
+                        isBookmarked={isBookmarked}
+                        isDownloadEnabled={isDownloadEnabled}
+                        onToggleTipsModal={props.onToggleTipsModal}
+                        isTipsModalVisible={props.isTipsModalVisible}
+                      />
+                    }
+                  />
+                  <Route
+                    path="*"
+                    element={
+                      <Hero
+                        title="Page Not Found"
+                        subtitle="This page doesn't exist"
+                        size={Size.FULL}
+                        color={Color.RED}
+                      />
+                    }
+                  />
+                </Routes>
               </div>
             </Sentry.ErrorBoundary>
           </BrowserRouter>
