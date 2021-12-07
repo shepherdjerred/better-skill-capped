@@ -72,8 +72,6 @@ jobs:
         with:
           name: build
       - uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --delete
         env:
           AWS_S3_BUCKET: "com.shepherdjerred.better-skill-capped"
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
