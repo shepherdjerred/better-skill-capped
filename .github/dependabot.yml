@@ -10,7 +10,7 @@ updates:
     reviewers:
       - shepherdjerred
   - package-ecosystem: "github-actions"
-    disrectory: "/"
+    directory: "/"
     schedule:
       interval: "daily"
     assignees:
