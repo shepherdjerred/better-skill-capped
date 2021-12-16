@@ -14,7 +14,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "promise", "import"],
   extends: [
-    "react-app",
+    // "react-app",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
