@@ -5,7 +5,8 @@ import { Manifest } from "./parser/Manifest";
 export class ManifestLoader {
   async load(): Promise<Manifest> {
     const datastore = new LocalStorageManifestDatastore();
-    if (!datastore.get() || datastore.isStale()) {
+    // TODO: add staleness check
+    if (!datastore.get()) {
       const response = await axios.get("/skill-capped-manifest.json");
       const manifest = response.data as Manifest;
 
