@@ -71,9 +71,32 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
+      - uses: altinukshini/deployment-action@releases/v1
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          target_url: https://better-skill-capped.com
+          environment: production
       - uses: jakejarvis/s3-sync-action@master
         env:
           AWS_S3_BUCKET: "com.shepherdjerred.better-skill-capped"
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
           SOURCE_DIR: .
+      - name: Update deployment status (success)
+        if: success()
+        uses: altinukshini/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: https://better-skill-capped.com
+          state: "success"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: altinukshini/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: https://better-skill-capped.com
+          state: "failure"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
