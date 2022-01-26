@@ -24,8 +24,4 @@ export class LocalStorageManifestDatastore {
   private setTime(date: Date): void {
     window.localStorage.setItem(TIMESTAMP, JSON.stringify(date.valueOf()));
   }
-
-  private getTime(): Date {
-    return new Date(window.localStorage.getItem(TIMESTAMP) as string);
-  }
 }
