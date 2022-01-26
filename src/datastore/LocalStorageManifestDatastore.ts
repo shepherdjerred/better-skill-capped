@@ -18,9 +18,7 @@ export class LocalStorageManifestDatastore {
   }
 
   isStale(): boolean {
-    const timestame = this.getTime();
-    const now = new Date();
-    return timestame.getHours() - now.getHours() > 2;
+    return true;
   }
 
   private setTime(date: Date): void {
