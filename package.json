@@ -21,7 +21,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
-    "@sentry/react": "^6.17.2",
+    "@sentry/react": "^6.17.3",
     "axios": "^0.25.0",
     "bulma": "^0.9.3",
     "bulma-prefers-dark": "^0.1.0-beta.0",
