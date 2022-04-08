@@ -31,7 +31,7 @@
     "node-sass": "^7.0.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-highlight-words": "^0.17.0",
+    "react-highlight-words": "^0.18.0",
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
