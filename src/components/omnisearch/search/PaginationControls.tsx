@@ -14,11 +14,12 @@ interface NumberedPageControlProps {
 }
 
 function NumberedPageControl({ page, isCurrent, onClick }: NumberedPageControlProps): React.ReactElement {
+  const cx = classNames.bind({});
   return (
     <li key={page}>
       <button
         onClick={onClick}
-        className={classNames({
+        className={cx({
           "pagination-link": true,
           button: true,
           "is-current": isCurrent,

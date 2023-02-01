@@ -50,7 +50,8 @@ export class Hero extends React.PureComponent<HeroProps, unknown> {
   }
 
   render(): React.ReactNode {
-    const sectionClasses: string = classNames({
+    const cx = classNames.bind({});
+    const sectionClasses: string = cx({
       hero: true,
       "is-dark": true,
       [this.getClassNameForColor(this.props.color || Color.NONE)]: true,
