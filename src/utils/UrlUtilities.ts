@@ -22,9 +22,8 @@ export function getVideoUrl(video: Video, baseUrl: string): string {
   return baseUrl + "/video/" + video.uuid;
 }
 
-export function getCourseVideoUrl(video: Video, course:Course): string {
-  return BROWSE3_URL + "/course/" +  video.uuid + "/" + course.uuid;
-
+export function getCourseVideoUrl(video: Video, course: Course): string {
+  return BROWSE3_URL + "/course/" + video.uuid + "/" + course.uuid;
 }
 
 export function getCommentaryUrl(commentary: Commentary): string {

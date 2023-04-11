@@ -11,7 +11,7 @@ import { isCourse } from "../../../model/Course";
 import { isVideo } from "../../../model/Video";
 import { Watchable } from "../../../model/WatchStatus";
 import { Bookmarkable } from "../../../model/Bookmark";
-import Banner from "../../Banner";
+import Banner, { BannerType } from "../../Banner";
 import Type, { getType } from "../../../model/Type";
 import { Role } from "../../../model/Role";
 
@@ -137,7 +137,12 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
       <>
         <Searchbar onValueUpdate={this.onQueryUpdate.bind(this)} placeholder={searchBarPlaceholder} />
         <Container sidebar={<FilterSelector filters={filters} onFiltersUpdate={this.onFiltersUpdate.bind(this)} />}>
-          <Banner>
+          <Banner type={BannerType.Info}>
+            Better Skill Capped has been updated to properly link to videos belonging to a course. Please open a{" "}
+            <a href="https://github.com/shepherdjerred/better-skill-capped/issues/new">GitHub Issue</a> if you encounter
+            any issues.
+          </Banner>
+          <Banner type={BannerType.Primary}>
             Want to receive updates about Better Skill Capped? Sign up for our{" "}
             <a href="https://betterskillcapped.substack.com/?r=er400&utm_campaign=pub&utm_medium=web&utm_source=copy">
               mailing list
