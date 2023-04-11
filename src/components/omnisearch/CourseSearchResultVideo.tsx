@@ -2,7 +2,7 @@ import { Video } from "../../model/Video";
 import { Course } from "../../model/Course";
 import Highlighter from "react-highlight-words";
 import React from "react";
-import { getCourseUrl, getStreamUrl, getVideoUrl } from "../../utils/UrlUtilities";
+import { getCourseVideoUrl, getStreamUrl } from "../../utils/UrlUtilities";
 import { Bookmarkable } from "../../model/Bookmark";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark, faCloudDownloadAlt, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -25,7 +25,7 @@ export function CourseSearchResultVideo(props: SearchResultVideoProps): React.Re
   // TODO: use alt title from course video
   const { title } = video;
 
-  const link = getVideoUrl(video, getCourseUrl(course));
+  const link = getCourseVideoUrl(video, course);
 
   const bookmarkHint = isBookmarked ? "Unbookmark" : "Bookmark";
   const watchToggleIcon = isWatched ? faEyeSlash : faEye;

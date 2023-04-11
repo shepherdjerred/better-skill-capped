@@ -18,8 +18,13 @@ export function getCourseUrl(course: Course): string {
 }
 
 // eslint-disable-next-line
-export function getVideoUrl(video: Video, _baseUrl: string): string {
-  return BROWSE3_URL + "/video/" + video.uuid;
+export function getVideoUrl(video: Video, baseUrl: string): string {
+  return baseUrl + "/video/" + video.uuid;
+}
+
+export function getCourseVideoUrl(video: Video, course:Course): string {
+  return BROWSE3_URL + "/course/" +  video.uuid + "/" + course.uuid;
+
 }
 
 export function getCommentaryUrl(commentary: Commentary): string {
