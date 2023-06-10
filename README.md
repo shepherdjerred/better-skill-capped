@@ -6,8 +6,7 @@
 
 Luckily Skill Capped provides a manifest of all their video data embeded right into the HTML they serve! This is a small React app that renders the video data in a nice interface.
 
-![Screenshot of the website at commit 9d7bb56](https://i.imgur.com/yut7ayt.png)
-![Screenshot of the website in dark mode at 9d7bb56](https://i.imgur.com/Q5P389x.png)
+![Screenshot of the website](assets/screenshot.png)
 
 A special thanks to [Sentry](https://sentry.io/) for sponsoring this project. Check them out!
 
