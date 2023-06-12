@@ -1,7 +1,8 @@
 import * as React from "react";
 
 export function Footer(): React.ReactElement {
-  const commit = process.env.REACT_APP_GIT_SHA || "";
+  // const commit = process.env.REACT_APP_GIT_SHA || "";
+  const commit = "";
   const commitUrl = "https://github.com/shepherdjerred/better-skill-capped/commit/" + commit;
   const releaseMessage = commit !== "" ? <a href={commitUrl}>{commit.substr(0, 7)}</a> : "unknown";
   return (

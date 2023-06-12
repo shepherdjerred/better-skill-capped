@@ -62,8 +62,8 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: build
-          path: build
+          name: dist
+          path: dist
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs:
@@ -77,7 +77,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: build
+          name: dist
       - uses: jakejarvis/s3-sync-action@master
         env:
           AWS_S3_BUCKET: "com.shepherdjerred.better-skill-capped"
