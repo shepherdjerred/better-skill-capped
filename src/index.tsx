@@ -1,7 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./components/App";
-import * as serviceWorker from "./serviceWorker";
 import "./bulma.sass";
 import * as Sentry from "@sentry/react";
 import { GA4React } from "ga-4-react";
@@ -30,5 +29,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-serviceWorker.register();
