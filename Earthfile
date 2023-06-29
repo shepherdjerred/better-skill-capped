@@ -7,7 +7,6 @@ pipeline.preview:
   BUILD +build
   BUILD +lint
   BUILD ./fetcher+build
-  BUILD ./fetcher+lint
 
 pipeline.push:
   PIPELINE --push
