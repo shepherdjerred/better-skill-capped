@@ -4,15 +4,53 @@ PROJECT sjerred/better-skill-capped
 pipeline.preview:
   PIPELINE
   TRIGGER pr main
-  BUILD +ci
+  BUILD +build
+  BUILD +lint
 
 pipeline.push:
   PIPELINE --push
   TRIGGER push main
-  BUILD +ci
+  BUILD +lint
+  BUILD +deploy --prod=true
   BUILD +devcontainer
 
-ci:
+node:
+  FROM node:lts
+  WORKDIR /workspace
+  RUN npm i -g npm
+
+deps:
+  FROM +node
+  COPY package*.json .
+  RUN npm ci
+  SAVE ARTIFACT package*.json AS LOCAL ./
+
+src:
+  FROM +deps
+  COPY --dir src public assets index.html .
+
+lint:
+  FROM +src
+  COPY .eslint* .gitignore .prettier* tsconfig* .
+  RUN npm run lint
+
+build:
+  FROM +src
+  RUN npm run build
+  SAVE ARTIFACT dist AS LOCAL dist
+
+deploy:
+  ARG prod=false
+  FROM +node
+  ENV NETLIFY_SITE_ID=4374825e-365d-4cb3-8117-71e1d8c0c960
+  RUN npm i -g netlify-cli
+  COPY +build/dist dist
+  RUN --push --secret NETLIFY_AUTH_TOKEN=netlify_token npx netlify-cli link
+  IF [ $prod = "true" ]
+    RUN --push --secret NETLIFY_AUTH_TOKEN=netlify_token npx netlify-cli deploy --dir=dist --prod
+  ELSE
+    RUN --push --secret NETLIFY_AUTH_TOKEN=netlify_token npx netlify-cli deploy --dir=dist
+  END
 
 devcontainer:
   FROM earthly/dind:ubuntu
