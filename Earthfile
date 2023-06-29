@@ -6,6 +6,8 @@ pipeline.preview:
   TRIGGER pr main
   BUILD +build
   BUILD +lint
+  BUILD ./fetcher+build
+  BUILD ./fetcher+lint
 
 pipeline.push:
   PIPELINE --push
@@ -13,6 +15,7 @@ pipeline.push:
   BUILD +lint
   BUILD +deploy --prod=true
   BUILD +devcontainer
+  BUILD ./fetcher+deploy
 
 node:
   FROM node:lts
