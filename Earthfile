@@ -27,7 +27,7 @@ deps:
 
 src:
   FROM +deps
-  COPY --dir src public assets index.html .
+  COPY --dir src public assets index.html tsconfig* vite.config.ts .
 
 lint:
   FROM +src

@@ -1,0 +1,20 @@
+VERSION 0.7
+PROJECT sjerred/better-skill-capped
+
+deps:
+  FROM ../+node
+  COPY package*.json .
+  RUN npm ci
+  SAVE ARTIFACT package*.json AS LOCAL ./
+
+src:
+  FROM +deps
+  COPY --dir src tsconfig.json
+
+build:
+  FROM +src
+  RUN npm run build
+
+deploy:
+  FROM +src
+  RUN npm run deploy
