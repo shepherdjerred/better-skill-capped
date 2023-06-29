@@ -9,6 +9,15 @@ updates:
       - shepherdjerred
     reviewers:
       - shepherdjerred
+  - package-ecosystem: "npm"
+    open-pull-requests-limit: 20
+    directory: "/fetcher/"
+    schedule:
+      interval: "monthly"
+    assignees:
+      - shepherdjerred
+    reviewers:
+      - shepherdjerred
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

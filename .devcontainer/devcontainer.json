@@ -9,12 +9,9 @@
   "customizations": {
     "devpod": {
       "prebuildRepository": "ghcr.io/shepherdjerred/better-skill-capped"
-	},
-	"vscode": {
-		"extensions": [
-			"esbenp.prettier-vscode",
-			"dbaeumer.vscode-eslint"
-		]
-	}
+    },
+    "vscode": {
+      "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+    }
   }
 }
