@@ -32,7 +32,7 @@ src:
 lint:
   FROM +src
   COPY .eslint* .gitignore .prettier* tsconfig* .
-  RUN npm run lint
+  RUN npm run lint:fix
 
 build:
   FROM +src

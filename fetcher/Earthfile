@@ -9,7 +9,7 @@ deps:
 
 src:
   FROM +deps
-  COPY --dir src tsconfig.json
+  COPY --dir src tsconfig.json wrangler.toml .
 
 build:
   FROM +src
@@ -17,4 +17,4 @@ build:
 
 deploy:
   FROM +src
-  RUN npm run deploy
+  RUN --push --secret CLOUDFLARE_API_TOKEN=cloudflare_api_token npm run deploy
