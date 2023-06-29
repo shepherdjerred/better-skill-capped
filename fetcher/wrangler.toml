@@ -3,7 +3,7 @@ main = "src/worker.ts"
 compatibility_date = "2023-06-29"
 
 [triggers]
-crons = ["*/10 * * * *"] # * * * * * = run every 10 minutes
+crons = ["*/15 * * * *"]
 
 r2_buckets = [
   { binding = "BUCKET", bucket_name = "better-skill-capped-manifests", preview_bucket_name = "" }
