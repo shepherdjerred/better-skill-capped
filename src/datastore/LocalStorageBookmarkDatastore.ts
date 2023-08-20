@@ -41,7 +41,7 @@ export class LocalStorageBookmarkDatastore implements BookmarkDatastore {
       }
 
       if (matchedItem === undefined) {
-        console.debug(`Couldn't find matching item for bookmark ${bookmark.toString()}`);
+        console.debug(`Couldn't find matching item for bookmark ${JSON.stringify(bookmark)}`);
         return [];
       } else {
         return {
