@@ -138,7 +138,7 @@ export class Parser {
           const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
 
           if (videoInfo === undefined) {
-            throw new Error(`Couldn't find video ${video.toString()}`);
+            throw new Error(`Couldn't find video ${JSON.stringify(video)}`);
           }
 
           return {
