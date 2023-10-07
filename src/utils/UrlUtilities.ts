@@ -3,7 +3,7 @@ import { Video } from "../model/Video";
 import { Commentary } from "../model/Commentary";
 
 const BASE_URL = "https://www.skill-capped.com/lol/";
-const BROWSE3_URL = BASE_URL + "browse3";
+const BROWSE_URL = BASE_URL + "browse";
 
 export function rawTitleToUrlTitle(rawTitle: string): string {
   return rawTitle
@@ -13,17 +13,12 @@ export function rawTitleToUrlTitle(rawTitle: string): string {
     .replace(/[!:.'%,[\]]/g, "");
 }
 
-export function getCourseUrl(course: Course): string {
-  return BROWSE3_URL + "/course/" + course.uuid;
-}
-
-// eslint-disable-next-line
-export function getVideoUrl(video: Video, baseUrl: string): string {
-  return baseUrl + "/video/" + video.uuid;
+export function getVideoUrl(video: Video): string {
+  return BROWSE_URL + "/video/" + video.uuid;
 }
 
 export function getCourseVideoUrl(video: Video, course: Course): string {
-  return BROWSE3_URL + "/course/" + video.uuid + "/" + course.uuid;
+  return BROWSE_URL + "/course/" + video.uuid + "/" + course.uuid;
 }
 
 export function getCommentaryUrl(commentary: Commentary): string {

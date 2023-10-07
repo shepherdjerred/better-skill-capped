@@ -5,7 +5,7 @@ import { Course } from "../model/Course";
 import { Commentary } from "../model/Commentary";
 import { roleFromString } from "../model/Role";
 import { rawTitleToDisplayTitle } from "../utils/TitleUtilities";
-import { getCommentaryUrl, getCourseUrl, getVideoUrl } from "../utils/UrlUtilities";
+import { getCommentaryUrl, getVideoUrl } from "../utils/UrlUtilities";
 import { CourseVideo } from "../model/CourseVideo";
 
 export class Parser {
@@ -91,8 +91,7 @@ export class Parser {
         uuid: video.uuid,
       } as Video;
 
-      const courseUrl = getCourseUrl(match.course as unknown as Course);
-      const videoUrl = getVideoUrl(fakeVideo, courseUrl);
+      const videoUrl = getVideoUrl(fakeVideo);
 
       return {
         role,
