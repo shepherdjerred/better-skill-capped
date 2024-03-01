@@ -10,7 +10,7 @@
     "@cloudflare/workers-types": "^4.20240222.0",
     "@tsconfig/node-lts": "^20.1.1",
     "@tsconfig/recommended": "^1.0.3",
-    "@tsconfig/strictest": "^2.0.2",
+    "@tsconfig/strictest": "^2.0.3",
     "typescript": "^5.3.3",
     "wrangler": "^3.26.0"
   },
