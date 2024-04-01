@@ -19,9 +19,9 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@sentry/react": "^7.107.0",
+    "@sentry/react": "^7.109.0",
     "axios": "^1.6.8",
-    "bulma": "^0.9.4",
+    "bulma": "^1.0.0",
     "bulma-prefers-dark": "^0.1.0-beta.1",
     "classnames": "^2.5.1",
     "fuse.js": "^7.0.0",
@@ -32,7 +32,7 @@
     "react-highlight-words": "^0.20.0",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.3",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.3"
   },
   "devDependencies": {
     "@types/node": "^20.12.2",
