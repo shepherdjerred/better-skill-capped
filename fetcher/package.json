@@ -15,6 +15,6 @@
     "wrangler": "^3.55.0"
   },
   "dependencies": {
-    "firebase": "^10.12.0"
+    "firebase": "^10.12.1"
   }
 }
