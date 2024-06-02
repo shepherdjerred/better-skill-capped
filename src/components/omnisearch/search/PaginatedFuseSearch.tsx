@@ -1,12 +1,12 @@
 import React from "react";
 import PaginationControls from "./PaginationControls";
 import { FuseSearch, FuseSearchResult } from "./FuseSearch";
-import Fuse from "fuse.js";
+import { IFuseOptions } from "fuse.js";
 
 export interface PaginatedFuseSearchProps<T> {
   query: string;
   items: T[];
-  fuseOptions: Fuse.IFuseOptions<T>;
+  fuseOptions: IFuseOptions<T>;
   render: (items: FuseSearchResult<T>) => React.ReactNode;
   itemsPerPage: number;
 }
@@ -31,7 +31,7 @@ export default class PaginatedFuseSearch<T> extends React.PureComponent<
 
   componentDidUpdate(
     prevProps: Readonly<PaginatedFuseSearchProps<T>>,
-    prevState: Readonly<PaginatedFuseSearchState<T>>
+    prevState: Readonly<PaginatedFuseSearchState<T>>,
   ): void {
     if (prevProps.query !== this.props.query) {
       this.setState((state) => {

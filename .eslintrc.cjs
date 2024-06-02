@@ -12,6 +12,7 @@ module.exports = {
       version: "detect",
     },
   },
+
   plugins: ["@typescript-eslint", "promise", "import"],
   extends: [
     // "react-app",

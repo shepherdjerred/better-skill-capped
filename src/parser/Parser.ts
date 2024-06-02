@@ -41,7 +41,7 @@ export class Parser {
   matchVideoToCourse(
     video: ManifestVideo,
     courses: ManifestCourse[],
-    chapters: ManifestCourseChapters
+    chapters: ManifestCourseChapters,
   ): { video: string; course: ManifestCourse } | undefined {
     let courseTitle: string | null = null;
     for (const [key, value] of Object.entries(chapters)) {
@@ -110,7 +110,7 @@ export class Parser {
     if (input.tSS !== "") {
       return input.tSS.replace(
         "https://d20k8dfo6rtj2t.cloudfront.net/jpg-images/",
-        "https://ik.imagekit.io/skillcapped/customss/jpg-images/"
+        "https://ik.imagekit.io/skillcapped/customss/jpg-images/",
       );
     } else {
       return `https://ik.imagekit.io/skillcapped/thumbnails/${input.uuid}/thumbnails/thumbnail_${input.tId}.jpg`;
@@ -120,7 +120,7 @@ export class Parser {
   parseCourses(
     manifestVideos: ManifestVideo[],
     manifestCourses: ManifestCourse[],
-    manifestCourseChapters: ManifestCourseChapters
+    manifestCourseChapters: ManifestCourseChapters,
   ): Course[] {
     const videos = this.parseVideos(manifestVideos, manifestCourses, manifestCourseChapters);
 

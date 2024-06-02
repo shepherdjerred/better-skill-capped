@@ -85,9 +85,9 @@ export interface ManifestCourseChapters {
           {
             uuid: string;
             altTitle?: string;
-          }
+          },
         ];
-      }
+      },
     ];
   };
 }

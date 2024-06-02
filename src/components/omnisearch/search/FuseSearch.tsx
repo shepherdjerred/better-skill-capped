@@ -1,4 +1,4 @@
-import Fuse from "fuse.js";
+import * as Fuse from "fuse.js";
 import React from "react";
 
 // Crisp abstractions are nice, but using Fuse's types is easier :)
@@ -13,7 +13,7 @@ export interface FuseSearchProps<T> {
 }
 
 export interface FuseSearchState<T> {
-  fuse: Fuse<T>;
+  fuse: Fuse.default<T>;
   matchedItems: FuseSearchResult<T>[];
 }
 
@@ -131,7 +131,7 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
   }
 }
 
-function createIndexedFuseInstance<T>(items: T[], options: Fuse.IFuseOptions<T>): Fuse<T> {
-  const index = Fuse.createIndex(options.keys || [], items);
-  return new Fuse<T>(items, options, index);
+function createIndexedFuseInstance<T>(items: T[], options: Fuse.IFuseOptions<T>): Fuse.default<T> {
+  const index = Fuse.default.createIndex(options.keys || [], items);
+  return new Fuse.default<T>(items, options, index);
 }

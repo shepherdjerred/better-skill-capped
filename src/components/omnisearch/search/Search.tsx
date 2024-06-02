@@ -1,7 +1,7 @@
 import React from "react";
 import { Searchbar } from "./Searchbar";
 import PaginatedFuseSearch from "./PaginatedFuseSearch";
-import Fuse from "fuse.js";
+import { IFuseOptions } from "fuse.js";
 import { FuseSearchResult } from "./FuseSearch";
 import { Container } from "../../Container";
 import FilterSelector from "../filter/FilterSelector";
@@ -17,7 +17,7 @@ import { Role } from "../../../model/Role";
 
 export interface SearchProps<T> {
   items: T[];
-  fuseOptions: Fuse.IFuseOptions<T>;
+  fuseOptions: IFuseOptions<T>;
   render: (items: FuseSearchResult<T>) => React.ReactNode;
   itemsPerPage: number;
   searchBarPlaceholder: string;
