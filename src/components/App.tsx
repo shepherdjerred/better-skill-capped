@@ -35,7 +35,8 @@ export default class App extends React.Component<unknown, AppState> {
     };
   }
 
-  async componentDidMount(): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  async componentDidMount(): Promise<undefined> {
     const manifestLoader = new ManifestLoader();
     const manifest = await manifestLoader.load();
     const parser = new Parser();

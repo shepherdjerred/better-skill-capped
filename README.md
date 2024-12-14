@@ -13,5 +13,3 @@ Luckily Skill Capped provides a manifest of all their video data embeded right i
 A special thanks to [Sentry](https://sentry.io/) for sponsoring this project. Check them out!
 
 [![Sentry Logo](https://i.imgur.com/6do6yJx.png)](https://sentry.io/)
-
-
