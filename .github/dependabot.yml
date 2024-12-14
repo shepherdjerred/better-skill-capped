@@ -17,6 +17,9 @@ updates:
     ignore:
       - dependency-name: "bulma"
       - dependency-name: "eslint"
+      - dependency-name: "react"
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "npm"
     open-pull-requests-limit: 20
     directory: "/fetcher/"
