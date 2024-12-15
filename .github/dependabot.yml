@@ -5,8 +5,6 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    assignees:
-      - shepherdjerred
     reviewers:
       - shepherdjerred
     groups:
@@ -25,8 +23,6 @@ updates:
     directory: "/fetcher/"
     schedule:
       interval: "weekly"
-    assignees:
-      - shepherdjerred
     reviewers:
       - shepherdjerred
     groups:
@@ -38,7 +34,5 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    assignees:
-      - shepherdjerred
     reviewers:
       - shepherdjerred
