@@ -7,7 +7,7 @@
     "deploy": "wrangler deploy src/worker.ts"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241224.0",
+    "@cloudflare/workers-types": "^4.20241230.0",
     "@tsconfig/node-lts": "^22.0.1",
     "@tsconfig/recommended": "^1.0.8",
     "@tsconfig/strictest": "^2.0.5",
