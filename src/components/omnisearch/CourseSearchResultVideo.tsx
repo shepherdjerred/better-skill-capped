@@ -5,7 +5,7 @@ import React from "react";
 import { getCourseVideoUrl, getStreamUrl } from "../../utils/UrlUtilities";
 import { Bookmarkable } from "../../model/Bookmark";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark, faCloudDownloadAlt, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faCloudDownloadAlt, faEye, faEyeSlash, faCopy } from "@fortawesome/free-solid-svg-icons";
 import { Watchable } from "../../model/WatchStatus";
 import classNames from "classnames";
 
@@ -31,6 +31,12 @@ export function CourseSearchResultVideo(props: SearchResultVideoProps): React.Re
   const watchToggleIcon = isWatched ? faEyeSlash : faEye;
   const watchToggleHint = isWatched ? "Mark as unwatched" : "Watch as watched";
   const textStyle = isWatched ? "has-text-grey-lighter" : "";
+  const copyLinkIcon = faCopy;
+  const copyLinkHint = "Copy link to clipboard";
+
+  const onCopyLink = () => {
+    void navigator.clipboard.writeText(link);
+  };
 
   return (
     <li>
@@ -52,6 +58,13 @@ export function CourseSearchResultVideo(props: SearchResultVideoProps): React.Re
         title={watchToggleHint}
       >
         <FontAwesomeIcon icon={watchToggleIcon} />
+      </button>
+      <button
+        onClick={onCopyLink}
+        className="video-watched-button tag is-small is-outlined is-inverted is-rounded"
+        title={copyLinkHint}
+      >
+        <FontAwesomeIcon icon={copyLinkIcon} />
       </button>
       {isDownloadEnabled && (
         <a
