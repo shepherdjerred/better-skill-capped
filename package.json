@@ -40,8 +40,8 @@
     "@types/react-dom": "^18.0.0",
     "@types/react-highlight-words": "^0.20.0",
     "@types/react-router-dom": "^5.3.3",
-    "@typescript-eslint/eslint-plugin": "^8.26.0",
-    "@typescript-eslint/parser": "^8.26.0",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^10.1.1",
@@ -49,10 +49,10 @@
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-react": "^7.37.4",
     "husky": "^9.1.7",
-    "lint-staged": "^15.4.3",
+    "lint-staged": "^15.5.0",
     "prettier": "^3.5.3",
     "sass": "^1.85.1",
-    "vite": "^6.2.1"
+    "vite": "^6.2.2"
   },
   "browserslist": {
     "production": [
