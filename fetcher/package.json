@@ -7,12 +7,12 @@
     "deploy": "wrangler deploy src/worker.ts"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250505.0",
+    "@cloudflare/workers-types": "^4.20250510.0",
     "@tsconfig/node-lts": "^22.0.1",
     "@tsconfig/recommended": "^1.0.8",
     "@tsconfig/strictest": "^2.0.5",
     "typescript": "^5.8.3",
-    "wrangler": "^4.14.1"
+    "wrangler": "^4.14.4"
   },
   "dependencies": {
     "firebase": "^11.7.1"
