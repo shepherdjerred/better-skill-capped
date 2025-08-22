@@ -19,7 +19,7 @@
     "@fortawesome/fontawesome-free": "^7.0.0",
     "@fortawesome/fontawesome-svg-core": "^7.0.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
-    "@fortawesome/react-fontawesome": "^0.2.3",
+    "@fortawesome/react-fontawesome": "^3.0.0",
     "@sentry/react": "^10.5.0",
     "axios": "^1.11.0",
     "bulma": "^0.9.4",
