@@ -12,7 +12,7 @@
     "@tsconfig/recommended": "^1.0.10",
     "@tsconfig/strictest": "^2.0.6",
     "typescript": "^5.9.3",
-    "wrangler": "^4.42.2"
+    "wrangler": "^4.43.0"
   },
   "dependencies": {
     "firebase": "^12.4.0"
