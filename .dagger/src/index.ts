@@ -63,7 +63,7 @@ export class BetterSkillCapped {
 
     await withTiming("linting", async () => {
       const container = await this.deps(source);
-      await container.withExec(["npm", "run", "lint:fix"]);
+      await container.withExec(["npm", "run", "lint:fix"]).sync();
     });
 
     return "✅ Linting completed successfully";
@@ -116,9 +116,9 @@ export class BetterSkillCapped {
 
     await withTiming("netlify deployment", async () => {
       if (prod) {
-        await container.withExec(["npx", "netlify-cli", "deploy", "--dir=dist", "--prod"]);
+        await container.withExec(["npx", "netlify-cli", "deploy", "--dir=dist", "--prod"]).sync();
       } else {
-        await container.withExec(["npx", "netlify-cli", "deploy", "--dir=dist"]);
+        await container.withExec(["npx", "netlify-cli", "deploy", "--dir=dist"]).sync();
       }
     });
 
@@ -156,7 +156,7 @@ export class BetterSkillCapped {
 
     await withTiming("fetcher build", async () => {
       const container = await this.fetcherDeps(source);
-      await container.withExec(["npm", "run", "build"]);
+      await container.withExec(["npm", "run", "build"]).sync();
     });
 
     return "✅ Fetcher build completed successfully";
@@ -178,7 +178,7 @@ export class BetterSkillCapped {
 
     await withTiming("fetcher deployment", async () => {
       const container = await this.fetcherDeps(source);
-      await container.withSecretVariable("CLOUDFLARE_API_TOKEN", cloudflareToken).withExec(["npm", "run", "deploy"]);
+      await container.withSecretVariable("CLOUDFLARE_API_TOKEN", cloudflareToken).withExec(["npm", "run", "deploy"]).sync();
     });
 
     return "✅ Fetcher deployment completed successfully";
