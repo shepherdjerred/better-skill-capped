@@ -24,10 +24,10 @@ async function withTiming<T>(operation: string, fn: () => Promise<T>): Promise<T
 }
 
 /**
- * Get a Node.js container with npm
+ * Get a container with bun
  */
-function getNodeContainer(): Container {
-  return dag.container().from("node:lts").withWorkdir("/workspace").withExec(["npm", "i", "-g", "npm"]);
+function getBunContainer(): Container {
+  return dag.container().from("oven/bun:latest").withWorkdir("/workspace");
 }
 
 @object()
@@ -45,7 +45,7 @@ export class BetterSkillCapped {
   ): Promise<Container> {
     logWithTimestamp("📦 Installing main app dependencies");
 
-    return getNodeContainer().withMountedDirectory("/workspace", source).withExec(["npm", "ci"]);
+    return getBunContainer().withMountedDirectory("/workspace", source).withExec(["bun", "install", "--frozen-lockfile"]);
   }
 
   /**
@@ -63,7 +63,7 @@ export class BetterSkillCapped {
 
     await withTiming("linting", async () => {
       const container = await this.deps(source);
-      await container.withExec(["npm", "run", "lint:fix"]).sync();
+      await container.withExec(["bun", "run", "lint:fix"]).sync();
     });
 
     return "✅ Linting completed successfully";
@@ -84,14 +84,15 @@ export class BetterSkillCapped {
 
     const buildResult = await withTiming("building", async () => {
       const container = await this.deps(source);
-      return container.withExec(["npm", "run", "build"]);
+      await container.withExec(["bun", "run", "build"]).sync();
+      return container;
     });
 
     return buildResult.directory("/workspace/dist");
   }
 
   /**
-   * Deploy the main application to Netlify
+   * Deploy the main application to Cloudflare Pages
    */
   @func()
   async deploy(
@@ -101,25 +102,24 @@ export class BetterSkillCapped {
     })
     source: Directory,
     @argument() prod: boolean = false,
-    netlifyToken: Secret,
+    cloudflareToken: Secret,
+    buildDir?: Directory,
   ): Promise<string> {
-    logWithTimestamp(`🚀 Deploying to Netlify (${prod ? "production" : "preview"})`);
+    logWithTimestamp(`🚀 Deploying to Cloudflare Pages (${prod ? "production" : "preview"})`);
 
-    const dist = await this.build(source);
-    const siteId = "4374825e-365d-4cb3-8117-71e1d8c0c960";
+    const dist = buildDir ?? (await this.build(source));
 
-    const container = getNodeContainer()
-      .withExec(["npm", "i", "-g", "netlify-cli"])
+    const container = getBunContainer()
+      .withExec(["bun", "add", "-g", "wrangler"])
       .withMountedDirectory("/workspace/dist", dist)
-      .withSecretVariable("NETLIFY_AUTH_TOKEN", netlifyToken)
-      .withEnvVariable("NETLIFY_SITE_ID", siteId);
+      .withSecretVariable("CLOUDFLARE_API_TOKEN", cloudflareToken)
+      .withWorkdir("/workspace");
 
-    await withTiming("netlify deployment", async () => {
-      if (prod) {
-        await container.withExec(["npx", "netlify-cli", "deploy", "--dir=dist", "--prod"]).sync();
-      } else {
-        await container.withExec(["npx", "netlify-cli", "deploy", "--dir=dist"]).sync();
-      }
+    await withTiming("cloudflare pages deployment", async () => {
+      const deployCmd = prod
+        ? ["bunx", "wrangler", "pages", "deploy", "dist", "--branch=main"]
+        : ["bunx", "wrangler", "pages", "deploy", "dist"];
+      await container.withExec(deployCmd).sync();
     });
 
     return `✅ Deployment completed successfully (${prod ? "production" : "preview"})`;
@@ -138,7 +138,7 @@ export class BetterSkillCapped {
   ): Promise<Container> {
     logWithTimestamp("📦 Installing fetcher dependencies");
 
-    return getNodeContainer().withMountedDirectory("/workspace", source).withExec(["npm", "ci"]);
+    return getBunContainer().withMountedDirectory("/workspace", source).withExec(["bun", "install", "--frozen-lockfile"]);
   }
 
   /**
@@ -156,7 +156,7 @@ export class BetterSkillCapped {
 
     await withTiming("fetcher build", async () => {
       const container = await this.fetcherDeps(source);
-      await container.withExec(["npm", "run", "build"]).sync();
+      await container.withExec(["bun", "run", "build"]).sync();
     });
 
     return "✅ Fetcher build completed successfully";
@@ -178,7 +178,7 @@ export class BetterSkillCapped {
 
     await withTiming("fetcher deployment", async () => {
       const container = await this.fetcherDeps(source);
-      await container.withSecretVariable("CLOUDFLARE_API_TOKEN", cloudflareToken).withExec(["npm", "run", "deploy"]).sync();
+      await container.withSecretVariable("CLOUDFLARE_API_TOKEN", cloudflareToken).withExec(["bun", "run", "deploy"]).sync();
     });
 
     return "✅ Fetcher deployment completed successfully";
@@ -195,7 +195,6 @@ export class BetterSkillCapped {
     })
     source: Directory,
     @argument() prod: boolean = false,
-    netlifyToken?: Secret,
     cloudflareToken?: Secret,
   ): Promise<string> {
     logWithTimestamp(`🚀 Running CI pipeline (${prod ? "production" : "preview"})`);
@@ -212,10 +211,14 @@ export class BetterSkillCapped {
 
     logWithTimestamp("✅ Build and lint completed successfully");
 
-    // Deploy if we're in production and have tokens
-    if (prod && netlifyToken && cloudflareToken) {
+    // Deploy if we're in production and have token
+    if (prod) {
+      if (!cloudflareToken) {
+        throw new Error("cloudflareToken is required for production deployments");
+      }
+
       await Promise.all([
-        withTiming("main deploy", () => this.deploy(mainSource, prod, netlifyToken)),
+        withTiming("main deploy", () => this.deploy(mainSource, prod, cloudflareToken, buildResult)),
         withTiming("fetcher deploy", () => this.fetcherDeploy(fetcherSource, cloudflareToken)),
       ]);
 

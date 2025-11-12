@@ -6,10 +6,10 @@
   "scripts": {
     "start": "vite serve --host",
     "build": "vite build",
-    "lint+build": "npm run lint && npm run build",
-    "lint:fix+build": "npm run lint:fix && npm run build",
-    "lint": "npm run eslint && npm run prettier",
-    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "lint+build": "bun run lint && bun run build",
+    "lint:fix+build": "bun run lint:fix && bun run build",
+    "lint": "bun run eslint && bun run prettier",
+    "lint:fix": "bun run eslint:fix && bun run prettier:fix",
     "eslint": "eslint \"src/**/*.{js,ts,tsx}\" --color",
     "eslint:fix": "eslint \"*/**/*.{js,ts,tsx}\" --fix --color",
     "prettier": "prettier --check .",
@@ -78,7 +78,6 @@
     ]
   },
   "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "bun": ">=1.0.0"
   }
 }
