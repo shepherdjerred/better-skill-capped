@@ -129,24 +129,20 @@ export class Parser {
       const role = roleFromString(course.role);
       const title = rawTitleToDisplayTitle(course.title);
 
-      let courseVideos: CourseVideo[] = [];
-
       const courseChapters = manifestCourseChapters[course.title];
-      if (courseChapters) {
-        courseVideos = courseChapters.chapters[0].vids.map((video) => {
-          const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
-          const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
+      const courseVideos: CourseVideo[] = courseChapters.chapters[0].vids.map((video) => {
+        const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
+        const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
 
-          if (videoInfo === undefined) {
-            throw new Error(`Couldn't find video ${JSON.stringify(video)}`);
-          }
+        if (videoInfo === undefined) {
+          throw new Error(`Couldn't find video ${JSON.stringify(video)}`);
+        }
 
-          return {
-            video: videoInfo,
-            altTitle,
-          };
-        });
-      }
+        return {
+          video: videoInfo,
+          altTitle,
+        };
+      });
 
       return {
         title,
