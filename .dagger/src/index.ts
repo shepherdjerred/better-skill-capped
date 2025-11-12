@@ -211,20 +211,27 @@ export class BetterSkillCapped {
 
     logWithTimestamp("✅ Build and lint completed successfully");
 
-    // Deploy if we're in production and have token
-    if (prod) {
-      if (!cloudflareToken) {
-        throw new Error("cloudflareToken is required for production deployments");
-      }
+    // Deploy if we have a token (production or preview)
+    if (!cloudflareToken) {
+      throw new Error("cloudflareToken is required for deployments");
+    }
 
+    if (prod) {
+      // Production deployment: deploy to main branch
       await Promise.all([
         withTiming("main deploy", () => this.deploy(mainSource, prod, cloudflareToken, buildResult)),
         withTiming("fetcher deploy", () => this.fetcherDeploy(fetcherSource, cloudflareToken)),
       ]);
 
-      return "✅ CI pipeline completed successfully with deployments";
-    }
+      return "✅ CI pipeline completed successfully with production deployments";
+    } else {
+      // Preview deployment: deploy as preview (no --branch flag creates preview)
+      await Promise.all([
+        withTiming("main deploy (preview)", () => this.deploy(mainSource, prod, cloudflareToken, buildResult)),
+        // Note: fetcher doesn't support preview deployments, skip for previews
+      ]);
 
-    return "✅ CI pipeline completed successfully";
+      return "✅ CI pipeline completed successfully with preview deployments";
+    }
   }
 }
