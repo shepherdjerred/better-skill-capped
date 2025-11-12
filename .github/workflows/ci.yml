@@ -7,7 +7,7 @@ on:
 
 jobs:
   dagger-ci:
-    runs-on: [homelab-runner-set]
+    runs-on: [better-skill-capped-runner-set]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
