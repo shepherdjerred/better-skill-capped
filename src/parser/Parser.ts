@@ -113,7 +113,7 @@ export class Parser {
         "https://ik.imagekit.io/skillcapped/customss/jpg-images/",
       );
     } else {
-      return `https://ik.imagekit.io/skillcapped/thumbnails/${input.uuid}/thumbnails/thumbnail_${input.tId}.jpg`;
+      return `https://ik.imagekit.io/skillcapped/thumbnails/${input.uuid}/thumbnails/thumbnail_${String(input.tId)}.jpg`;
     }
   }
 
@@ -129,23 +129,20 @@ export class Parser {
       const role = roleFromString(course.role);
       const title = rawTitleToDisplayTitle(course.title);
 
-      let courseVideos: CourseVideo[] = [];
+      const courseChapters = manifestCourseChapters[course.title];
+      const courseVideos: CourseVideo[] = courseChapters.chapters[0].vids.map((video) => {
+        const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
+        const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
 
-      if (manifestCourseChapters[course.title]) {
-        courseVideos = manifestCourseChapters[course.title].chapters[0].vids.map((video) => {
-          const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
-          const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
+        if (videoInfo === undefined) {
+          throw new Error(`Couldn't find video ${JSON.stringify(video)}`);
+        }
 
-          if (videoInfo === undefined) {
-            throw new Error(`Couldn't find video ${JSON.stringify(video)}`);
-          }
-
-          return {
-            video: videoInfo,
-            altTitle,
-          };
-        });
-      }
+        return {
+          video: videoInfo,
+          altTitle,
+        };
+      });
 
       return {
         title,

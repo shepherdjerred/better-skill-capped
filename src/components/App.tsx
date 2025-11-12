@@ -82,7 +82,7 @@ export default class App extends React.Component<unknown, AppState> {
     });
 
     this.setState({
-      watchStatuses: watchStatusesDatastore?.get() || [],
+      watchStatuses: watchStatusesDatastore?.get() ?? [],
     });
   }
 
@@ -117,7 +117,7 @@ export default class App extends React.Component<unknown, AppState> {
       });
     }
     this.setState({
-      bookmarks: bookmarkDatastore?.get() || [],
+      bookmarks: bookmarkDatastore?.get() ?? [],
     });
   }
 

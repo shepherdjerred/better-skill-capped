@@ -1,7 +1,4 @@
 export function rawTitleToDisplayTitle(rawTitle: string): string {
-  if (rawTitle == null) {
-    return "";
-  }
   const title = rawTitle.replace(/\$/g, "").replace(/{[a-zA-Z]*}/, "");
   return toTitleCase(title);
 }
@@ -10,9 +7,9 @@ function toTitleCase(input: string): string {
   input = input.toLowerCase();
   const words = input.split(" ");
   const results = [];
-  for (let i = 0; i < words.length; i++) {
-    const letter = words[i].charAt(0).toUpperCase();
-    results.push(letter + words[i].slice(1));
+  for (const word of words) {
+    const letter = word.charAt(0).toUpperCase();
+    results.push(letter + word.slice(1));
   }
   return results.join(" ");
 }
