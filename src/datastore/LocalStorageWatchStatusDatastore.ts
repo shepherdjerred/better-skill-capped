@@ -11,7 +11,7 @@ export class LocalStorageWatchStatusDatastore implements WatchStatusDatastore {
   }
 
   get(): WatchStatus[] {
-    return JSON.parse(window.localStorage.getItem(IDENTIFIER) || "[]") as WatchStatus[];
+    return JSON.parse(window.localStorage.getItem(IDENTIFIER) ?? "[]") as WatchStatus[];
   }
 
   remove(watchStatus: WatchStatus): void {

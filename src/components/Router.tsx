@@ -25,9 +25,9 @@ export interface RouterProps {
 
 export function Router(props: RouterProps): React.ReactElement {
   const { content, onToggleBookmark, onToggleWatchStatus, isBookmarked, isWatched, isDownloadEnabled } = props;
-  const courses = content?.courses || [];
-  const videos = content?.videos || [];
-  const commentaries = content?.commentaries || [];
+  const courses = content?.courses ?? [];
+  const videos = content?.videos ?? [];
+  const commentaries = content?.commentaries ?? [];
   let items: OmniSearchable[] = [];
   items = items
     .concat(courses, videos, commentaries)
