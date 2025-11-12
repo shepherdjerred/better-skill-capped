@@ -113,7 +113,7 @@ export class Parser {
         "https://ik.imagekit.io/skillcapped/customss/jpg-images/",
       );
     } else {
-      return `https://ik.imagekit.io/skillcapped/thumbnails/${input.uuid}/thumbnails/thumbnail_${input.tId}.jpg`;
+      return `https://ik.imagekit.io/skillcapped/thumbnails/${input.uuid}/thumbnails/thumbnail_${String(input.tId)}.jpg`;
     }
   }
 
@@ -131,8 +131,9 @@ export class Parser {
 
       let courseVideos: CourseVideo[] = [];
 
-      if (manifestCourseChapters[course.title]) {
-        courseVideos = manifestCourseChapters[course.title].chapters[0].vids.map((video) => {
+      const courseChapters = manifestCourseChapters[course.title];
+      if (courseChapters !== undefined) {
+        courseVideos = courseChapters.chapters[0].vids.map((video) => {
           const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
           const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
 

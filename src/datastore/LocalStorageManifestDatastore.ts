@@ -10,8 +10,9 @@ export class LocalStorageManifestDatastore {
   }
 
   get(): Manifest | undefined {
-    if (window.localStorage.getItem(IDENTIFIER)) {
-      return JSON.parse(window.localStorage.getItem(IDENTIFIER) as string) as Manifest;
+    const stored = window.localStorage.getItem(IDENTIFIER);
+    if (stored) {
+      return JSON.parse(stored) as Manifest;
     } else {
       return undefined;
     }

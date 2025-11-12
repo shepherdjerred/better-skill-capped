@@ -11,7 +11,7 @@ ga4react.initialize().then(
   (ga4: GA4ReactResolveInterface) => {
     ga4.pageview(window.location);
   },
-  (err) => {
+  (err: unknown) => {
     console.error(err);
   },
 );
@@ -22,7 +22,10 @@ Sentry.init({
   // environment: process.env.NODE_ENV,
 });
 
-const container = document.getElementById("root") as HTMLElement;
+const container = document.getElementById("root");
+if (!container) {
+  throw new Error("Root element not found");
+}
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
