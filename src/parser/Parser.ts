@@ -132,7 +132,7 @@ export class Parser {
       let courseVideos: CourseVideo[] = [];
 
       const courseChapters = manifestCourseChapters[course.title];
-      if (courseChapters !== undefined) {
+      if (courseChapters) {
         courseVideos = courseChapters.chapters[0].vids.map((video) => {
           const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
           const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;

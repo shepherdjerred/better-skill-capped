@@ -13,9 +13,7 @@ export enum BannerType {
 export default function Banner({ children, type }: BannerProps): React.ReactElement {
   if (type === BannerType.Info) {
     return <div className="notification is-info">{children}</div>;
-  }
-  if (type === BannerType.Primary) {
+  } else {
     return <div className="notification is-primary">{children}</div>;
   }
-  return <div className="notification">{children}</div>;
 }
