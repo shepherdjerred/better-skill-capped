@@ -84,8 +84,7 @@ export class BetterSkillCapped {
 
     const buildResult = await withTiming("building", async () => {
       const container = await this.deps(source);
-      await container.withExec(["bun", "run", "build"]).sync();
-      return container;
+      return container.withExec(["bun", "run", "build"]).sync();
     });
 
     return buildResult.directory("/workspace/dist");
