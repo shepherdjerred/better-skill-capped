@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "better-skill-capped-fetcher",
@@ -8,7 +9,7 @@
       },
       "devDependencies": {
         "@cloudflare/workers-types": "^4.20251014.0",
-        "@tsconfig/node-lts": "^22.0.2",
+        "@tsconfig/node-lts": "^24.0.0",
         "@tsconfig/recommended": "^1.0.11",
         "@tsconfig/strictest": "^2.0.7",
         "typescript": "^5.9.3",
@@ -253,7 +254,7 @@
 
     "@speed-highlight/core": ["@speed-highlight/core@1.2.12", "", {}, "sha512-uilwrK0Ygyri5dToHYdZSjcvpS2ZwX0w5aSt3GCEN9hrjxWCoeV4Z2DTXuxjwbntaLQIEEAlCeNQss5SoHvAEA=="],
 
-    "@tsconfig/node-lts": ["@tsconfig/node-lts@22.0.2", "", {}, "sha512-Kgq5yXTvnUnvlhob0xJpOH4na9PWtuFhHSf94MpDwnENWgiFeJKDNANQV2MT1WpXZYkK2WSWfVYKhVkR7bc8TA=="],
+    "@tsconfig/node-lts": ["@tsconfig/node-lts@24.0.0", "", {}, "sha512-8mSTqWwCd6aQpvxSrpQlMoA9RiUZSs7bYhL5qsLXIIaN9HQaINeoydrRu/Y7/fws4bvfuyhs0BRnW9/NI8tySg=="],
 
     "@tsconfig/recommended": ["@tsconfig/recommended@1.0.12", "", {}, "sha512-S4HA/QRT24s5O42t/G+nYI2V88K6RGPKCodImparTnlBGb3MPfq8D7gkM7lL7yNQ1zbTAdBNfcwqsCbTjceNpA=="],
 
