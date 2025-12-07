@@ -42,7 +42,7 @@ export class BetterSkillCapped {
       defaultPath: ".",
     })
     source: Directory,
-  ): Promise<Container> {
+  ): Container {
     logWithTimestamp("📦 Installing main app dependencies");
 
     return getBunContainer()
@@ -64,7 +64,7 @@ export class BetterSkillCapped {
     logWithTimestamp("🔍 Linting main application");
 
     await withTiming("linting", async () => {
-      const container = await this.deps(source);
+      const container = this.deps(source);
       await container.withExec(["bun", "run", "lint:fix"]).sync();
     });
 
@@ -85,7 +85,7 @@ export class BetterSkillCapped {
     logWithTimestamp("🏗️ Building main application");
 
     const buildResult = await withTiming("building", async () => {
-      const container = await this.deps(source);
+      const container = this.deps(source);
       return container.withExec(["bun", "run", "build"]).sync();
     });
 
@@ -160,7 +160,7 @@ export class BetterSkillCapped {
       defaultPath: "fetcher",
     })
     source: Directory,
-  ): Promise<Container> {
+  ): Container {
     logWithTimestamp("📦 Installing fetcher dependencies");
 
     return getBunContainer()
@@ -182,7 +182,7 @@ export class BetterSkillCapped {
     logWithTimestamp("🏗️ Building fetcher worker");
 
     await withTiming("fetcher build", async () => {
-      const container = await this.fetcherDeps(source);
+      const container = this.fetcherDeps(source);
       await container.withExec(["bun", "run", "build"]).sync();
     });
 
@@ -204,7 +204,7 @@ export class BetterSkillCapped {
     logWithTimestamp("🚀 Deploying fetcher to Cloudflare");
 
     const output = await withTiming("fetcher deployment", async () => {
-      const container = await this.fetcherDeps(source);
+      const container = this.fetcherDeps(source);
       const deployContainer = container
         .withSecretVariable("CLOUDFLARE_API_TOKEN", cloudflareToken)
         .withExec(["bun", "run", "deploy"]);

@@ -5,20 +5,20 @@
   "scripts": {
     "build": "echo 'Dagger module ready'",
     "test": "echo 'No tests configured for Dagger module'",
-    "type-check": "bun tsc --noEmit",
+    "type-check": "bunx tsc --noEmit -p tsconfig.check.json",
     "lint": "bunx eslint src",
     "format": "bunx prettier --check src",
     "format:write": "bunx prettier --write src",
-    "typecheck": "bunx tsc --noEmit"
+    "typecheck": "bunx tsc --noEmit -p tsconfig.check.json"
   },
   "dependencies": {
-    "typescript": "^5.5.4"
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.30.1",
-    "eslint": "^9.0.0",
-    "prettier": "^3.0.0",
-    "typescript-eslint": "^8.35.1"
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "prettier": "^3.7.4",
+    "typescript-eslint": "^8.48.1"
   },
   "dagger": {}
 }

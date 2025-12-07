@@ -28,7 +28,12 @@
       "mcp__playwright__browser_wait_for",
       "Bash(timeout 5 npm run start:*)",
       "Bash(npm outdated:*)",
-      "Bash(npm update:*)"
+      "Bash(npm update:*)",
+      "Bash(npx npm-check-updates:*)",
+      "Bash(bun install:*)",
+      "Bash(bun run typecheck:*)",
+      "Bash(bun run lint:*)",
+      "Bash(bun run format:*)"
     ],
     "deny": [],
     "ask": []
