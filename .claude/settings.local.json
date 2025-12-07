@@ -33,7 +33,9 @@
       "Bash(bun install:*)",
       "Bash(bun run typecheck:*)",
       "Bash(bun run lint:*)",
-      "Bash(bun run format:*)"
+      "Bash(bun run format:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
