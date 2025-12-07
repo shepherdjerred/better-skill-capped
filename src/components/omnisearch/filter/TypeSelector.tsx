@@ -34,14 +34,23 @@ export default function TypeSelector({ selectedTypes, onTypesUpdate }: TypeSelec
         <div className="control">
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" onChange={() => getNewTypes(Type.VIDEO)} checked={isChecked(Type.VIDEO)} /> Video
+              <input
+                type="checkbox"
+                onChange={() => {
+                  getNewTypes(Type.VIDEO);
+                }}
+                checked={isChecked(Type.VIDEO)}
+              />{" "}
+              Video
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
               <input
                 type="checkbox"
-                onChange={() => getNewTypes(Type.COMMENTARY)}
+                onChange={() => {
+                  getNewTypes(Type.COMMENTARY);
+                }}
                 checked={isChecked(Type.COMMENTARY)}
               />{" "}
               Commentary
@@ -49,7 +58,13 @@ export default function TypeSelector({ selectedTypes, onTypesUpdate }: TypeSelec
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" onChange={() => getNewTypes(Type.COURSE)} checked={isChecked(Type.COURSE)} />{" "}
+              <input
+                type="checkbox"
+                onChange={() => {
+                  getNewTypes(Type.COURSE);
+                }}
+                checked={isChecked(Type.COURSE)}
+              />{" "}
               Course
             </label>
           </div>

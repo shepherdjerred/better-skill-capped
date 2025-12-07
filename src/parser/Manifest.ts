@@ -29,7 +29,7 @@ export interface ManifestVideo {
 
 export interface ManifestCommentary {
   role: string;
-  title: string;
+  title?: string;
   desc: string;
   rDate: number;
   durSec: number;
@@ -76,17 +76,20 @@ export interface ManifestThisWeekData {
   courseName: string;
 }
 
-export type ManifestCourseChapters = Record<string, | {
-        chapters: [
-          {
-            title: string;
-            vids: [
-              {
-                uuid: string;
-                altTitle?: string;
-              },
-            ];
-          },
-        ];
-      }
-    | undefined>;
+export type ManifestCourseChapters = Record<
+  string,
+  | {
+      chapters: [
+        {
+          title: string;
+          vids: [
+            {
+              uuid: string;
+              altTitle?: string;
+            },
+          ];
+        },
+      ];
+    }
+  | undefined
+>;

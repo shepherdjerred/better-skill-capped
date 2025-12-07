@@ -54,7 +54,14 @@ export default function PaginationControls({
   if (totalToShow < lastPage) {
     for (let i = 1; i <= firstToShow; i++) {
       numberedControls.push(
-        <NumberedPageControl key={i} page={i} isCurrent={i === currentPage} onClick={() => onPageChange(i)} />,
+        <NumberedPageControl
+          key={i}
+          page={i}
+          isCurrent={i === currentPage}
+          onClick={() => {
+            onPageChange(i);
+          }}
+        />,
       );
     }
 
@@ -64,7 +71,9 @@ export default function PaginationControls({
           key={nextPage}
           page={nextPage}
           isCurrent={nextPage === currentPage}
-          onClick={() => onPageChange(nextPage)}
+          onClick={() => {
+            onPageChange(nextPage);
+          }}
         />,
       );
     }
@@ -83,7 +92,14 @@ export default function PaginationControls({
           continue;
         }
         numberedControls.push(
-          <NumberedPageControl key={i} page={i} isCurrent={i === currentPage} onClick={() => onPageChange(i)} />,
+          <NumberedPageControl
+            key={i}
+            page={i}
+            isCurrent={i === currentPage}
+            onClick={() => {
+              onPageChange(i);
+            }}
+          />,
         );
       }
 
@@ -102,42 +118,80 @@ export default function PaginationControls({
           key={previousPage}
           page={previousPage}
           isCurrent={previousPage === currentPage}
-          onClick={() => onPageChange(previousPage)}
+          onClick={() => {
+            onPageChange(previousPage);
+          }}
         />,
       );
     }
 
     for (let i = lastPage - lastToShow + 1; i <= lastPage; i++) {
       numberedControls.push(
-        <NumberedPageControl key={i} page={i} isCurrent={i === currentPage} onClick={() => onPageChange(i)} />,
+        <NumberedPageControl
+          key={i}
+          page={i}
+          isCurrent={i === currentPage}
+          onClick={() => {
+            onPageChange(i);
+          }}
+        />,
       );
     }
   } else {
     for (let i = 1; i < lastPage + 1; i++) {
       numberedControls.push(
-        <NumberedPageControl key={i} page={i} isCurrent={i === currentPage} onClick={() => onPageChange(i)} />,
+        <NumberedPageControl
+          key={i}
+          page={i}
+          isCurrent={i === currentPage}
+          onClick={() => {
+            onPageChange(i);
+          }}
+        />,
       );
     }
   }
 
   const previousButton =
     firstPage === currentPage ? (
-      <button className="pagination-previous button" disabled onClick={() => onPageChange(previousPage)}>
+      <button
+        className="pagination-previous button"
+        disabled
+        onClick={() => {
+          onPageChange(previousPage);
+        }}
+      >
         Previous
       </button>
     ) : (
-      <button className="pagination-previous button" onClick={() => onPageChange(previousPage)}>
+      <button
+        className="pagination-previous button"
+        onClick={() => {
+          onPageChange(previousPage);
+        }}
+      >
         Previous
       </button>
     );
 
   const nextButton =
     lastPage === currentPage ? (
-      <button className="pagination-next button" disabled onClick={() => onPageChange(nextPage)}>
+      <button
+        className="pagination-next button"
+        disabled
+        onClick={() => {
+          onPageChange(nextPage);
+        }}
+      >
         Next page
       </button>
     ) : (
-      <button className="pagination-next button" onClick={() => onPageChange(nextPage)}>
+      <button
+        className="pagination-next button"
+        onClick={() => {
+          onPageChange(nextPage);
+        }}
+      >
         Next page
       </button>
     );

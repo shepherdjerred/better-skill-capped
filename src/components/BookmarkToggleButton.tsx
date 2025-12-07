@@ -16,7 +16,9 @@ export function ToggleBookmarkButton(props: BookmarkButtonProps): React.ReactEle
   return (
     <ToggleButton
       status={isBookmarked}
-      onToggle={() => onToggleBookmark(item)}
+      onToggle={() => {
+        onToggleBookmark(item);
+      }}
       buttonText={(status) => {
         return (
           <React.Fragment>

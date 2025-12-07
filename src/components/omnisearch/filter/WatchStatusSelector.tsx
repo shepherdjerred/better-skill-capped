@@ -21,7 +21,9 @@ export default function WatchStatusSelector({
               <input
                 type="checkbox"
                 checked={onlyShowUnwatched}
-                onChange={() => onSelectionChange(!onlyShowUnwatched, onlyShowWatched)}
+                onChange={() => {
+                  onSelectionChange(!onlyShowUnwatched, onlyShowWatched);
+                }}
               />{" "}
               Only show unwatched
             </label>
@@ -31,7 +33,9 @@ export default function WatchStatusSelector({
               <input
                 type="checkbox"
                 checked={onlyShowWatched}
-                onChange={() => onSelectionChange(onlyShowUnwatched, !onlyShowWatched)}
+                onChange={() => {
+                  onSelectionChange(onlyShowUnwatched, !onlyShowWatched);
+                }}
               />{" "}
               Only show watched
             </label>

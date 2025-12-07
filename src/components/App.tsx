@@ -153,9 +153,13 @@ export default class App extends React.Component<unknown, AppState> {
           <Router
             content={this.state.content}
             bookmarks={this.state.bookmarks}
-            onToggleBookmark={(item: Bookmarkable) => this.onToggleBookmark(item)}
+            onToggleBookmark={(item: Bookmarkable) => {
+              this.onToggleBookmark(item);
+            }}
             watchStatuses={this.state.watchStatuses}
-            onToggleWatchStatus={(item: Watchable) => this.onToggleWatchStatus(item)}
+            onToggleWatchStatus={(item: Watchable) => {
+              this.onToggleWatchStatus(item);
+            }}
             isBookmarked={this.isBookmarked.bind(this)}
             isWatched={this.isWatched.bind(this)}
             isDownloadEnabled={this.state.isDownloadEnabled}

@@ -38,7 +38,9 @@ export function CourseSearchResultVideo(props: SearchResultVideoProps): React.Re
         <Highlighter searchWords={matchedStrings} textToHighlight={title} autoEscape={true} />
       </a>{" "}
       <button
-        onClick={() => props.onToggleBookmark(video)}
+        onClick={() => {
+          props.onToggleBookmark(video);
+        }}
         className={classNames("video-watched-button tag is-small is-outlined is-inverted is-rounded", {
           "is-warning": isBookmarked,
         })}
@@ -47,7 +49,9 @@ export function CourseSearchResultVideo(props: SearchResultVideoProps): React.Re
         <FontAwesomeIcon icon={faBookmark} />
       </button>
       <button
-        onClick={() => props.onToggleWatchStatus(video)}
+        onClick={() => {
+          props.onToggleWatchStatus(video);
+        }}
         className="video-watched-button tag is-small is-outlined is-inverted is-rounded"
         title={watchToggleHint}
       >

@@ -21,7 +21,9 @@ export default function BookmarkStatusSelector({
               <input
                 type="checkbox"
                 checked={onlyShowBookmarked}
-                onChange={() => onSelectionChange(!onlyShowBookmarked, onlyShowUnbookmarked)}
+                onChange={() => {
+                  onSelectionChange(!onlyShowBookmarked, onlyShowUnbookmarked);
+                }}
               />{" "}
               Only show bookmarked
             </label>
@@ -31,7 +33,9 @@ export default function BookmarkStatusSelector({
               <input
                 type="checkbox"
                 checked={onlyShowUnbookmarked}
-                onChange={() => onSelectionChange(onlyShowBookmarked, !onlyShowUnbookmarked)}
+                onChange={() => {
+                  onSelectionChange(onlyShowBookmarked, !onlyShowUnbookmarked);
+                }}
               />{" "}
               Only show unbookmarked
             </label>

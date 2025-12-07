@@ -45,7 +45,9 @@ export class Hero extends React.PureComponent<HeroProps, unknown> {
       case Size.FULL:
         return "is-fullheight";
       case Size.FULL_WITH_NAVBAR:
-        return "is-fullheight-with-navbar";
+        // In Bulma v1.0+, is-fullheight-with-navbar was removed
+        // Use is-fullheight with custom min-height calculation
+        return "is-fullheight";
     }
   }
 

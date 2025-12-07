@@ -17,7 +17,9 @@ export function ToggleWatchStatusButton(props: ToggleWatchStatusButtonProps): Re
   return (
     <ToggleButton
       status={isWatched}
-      onToggle={() => onToggleWatchStatus(item)}
+      onToggle={() => {
+        onToggleWatchStatus(item);
+      }}
       buttonText={(status) => {
         return (
           <React.Fragment>

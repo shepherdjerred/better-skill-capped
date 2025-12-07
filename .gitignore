@@ -26,3 +26,5 @@ yarn-error.log*
 .idea
 .aws-sam
 bin/
+
+.playwright-mcp

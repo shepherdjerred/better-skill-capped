@@ -38,7 +38,9 @@ export function OmniSearchResult({
       <CourseSearchResult
         key={item.uuid}
         result={result}
-        onToggleBookmark={() => onToggleBookmark(item)}
+        onToggleBookmark={() => {
+          onToggleBookmark(item);
+        }}
         isBookmarked={(item: Bookmarkable) => isBookmarked(item)}
         onToggleWatchStatus={onToggleWatchStatus}
         isWatched={(item: Watchable) => isWatched(item)}

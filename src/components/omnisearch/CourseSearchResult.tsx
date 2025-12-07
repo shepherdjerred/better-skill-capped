@@ -61,7 +61,17 @@ export function CourseSearchResult(props: CourseSearchResultProps): React.ReactE
           </div>
           <div className="column is-5">
             <figure className="image">
-              <img src={course.image} alt="Video thumbnail" className="thumbnail" />
+              <img
+                src={course.image}
+                alt="Video thumbnail"
+                className="thumbnail"
+                onError={(e) => {
+                  // Fallback to first video's thumbnail if course image fails
+                  if (course.videos.length > 0) {
+                    e.currentTarget.src = course.videos[0].video.imageUrl;
+                  }
+                }}
+              />
             </figure>
           </div>
           <div className="column is-12">

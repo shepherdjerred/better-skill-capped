@@ -137,17 +137,9 @@ export default class Search<T> extends React.PureComponent<SearchProps<T>, Searc
       <>
         <Searchbar onValueUpdate={this.onQueryUpdate.bind(this)} placeholder={searchBarPlaceholder} />
         <Container sidebar={<FilterSelector filters={filters} onFiltersUpdate={this.onFiltersUpdate.bind(this)} />}>
-          <Banner type={BannerType.Info}>
-            Better Skill Capped has been updated to properly link to videos belonging to a course. Please open a{" "}
-            <a href="https://github.com/shepherdjerred/better-skill-capped/issues/new">GitHub Issue</a> if you encounter
-            any issues.
-          </Banner>
-          <Banner type={BannerType.Primary}>
-            Want to receive updates about Better Skill Capped? Sign up for our{" "}
-            <a href="https://betterskillcapped.substack.com/?r=er400&utm_campaign=pub&utm_medium=web&utm_source=copy">
-              mailing list
-            </a>
-            !
+          <Banner type={BannerType.Warning}>
+            Check out <a href="https://scout-for-lol.com/">Scout</a> - a Discord bot that notifies you when friends
+            finish League matches with detailed post-match reports!
           </Banner>
           <PaginatedFuseSearch
             query={query}

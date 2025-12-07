@@ -36,7 +36,7 @@ export class BetterSkillCapped {
    * Install dependencies for the main app
    */
   @func()
-  async deps(
+  deps(
     @argument({
       ignore: ["node_modules", "dist", "build", ".cache", "*.log", ".env*", "!.env.example", ".dagger", "fetcher"],
       defaultPath: ".",
@@ -45,7 +45,9 @@ export class BetterSkillCapped {
   ): Promise<Container> {
     logWithTimestamp("📦 Installing main app dependencies");
 
-    return getBunContainer().withMountedDirectory("/workspace", source).withExec(["bun", "install", "--frozen-lockfile"]);
+    return getBunContainer()
+      .withMountedDirectory("/workspace", source)
+      .withExec(["bun", "install", "--frozen-lockfile"]);
   }
 
   /**
@@ -152,7 +154,7 @@ export class BetterSkillCapped {
    * Install dependencies for the fetcher
    */
   @func()
-  async fetcherDeps(
+  fetcherDeps(
     @argument({
       ignore: ["node_modules", "dist", "build", ".cache", "*.log", ".env*", "!.env.example", ".dagger"],
       defaultPath: "fetcher",
@@ -161,7 +163,9 @@ export class BetterSkillCapped {
   ): Promise<Container> {
     logWithTimestamp("📦 Installing fetcher dependencies");
 
-    return getBunContainer().withMountedDirectory("/workspace", source).withExec(["bun", "install", "--frozen-lockfile"]);
+    return getBunContainer()
+      .withMountedDirectory("/workspace", source)
+      .withExec(["bun", "install", "--frozen-lockfile"]);
   }
 
   /**
@@ -260,7 +264,7 @@ export class BetterSkillCapped {
       // Production deployment: deploy both main and fetcher
       await Promise.all([
         withTiming("main deploy", () =>
-          this.deploy(mainSource, projectName, branch, gitSha, cloudflareAccountId, cloudflareToken, buildResult)
+          this.deploy(mainSource, projectName, branch, gitSha, cloudflareAccountId, cloudflareToken, buildResult),
         ),
         withTiming("fetcher deploy", () => this.fetcherDeploy(fetcherSource, cloudflareToken)),
       ]);
@@ -269,7 +273,7 @@ export class BetterSkillCapped {
     } else {
       // Preview deployment: deploy only main app (fetcher doesn't support preview)
       await withTiming("main deploy (preview)", () =>
-        this.deploy(mainSource, projectName, branch, gitSha, cloudflareAccountId, cloudflareToken, buildResult)
+        this.deploy(mainSource, projectName, branch, gitSha, cloudflareAccountId, cloudflareToken, buildResult),
       );
 
       return "✅ CI pipeline completed successfully with preview deployment";

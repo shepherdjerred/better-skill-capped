@@ -104,6 +104,9 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
             });
           })
           .flat()
+          // Filter out short matches (less than 4 chars) to avoid highlighting scattered letters
+          .filter((str) => str.length >= 4)
+          // Remove duplicates
           .filter((value, index, self) => self.indexOf(value) === index);
 
         return {

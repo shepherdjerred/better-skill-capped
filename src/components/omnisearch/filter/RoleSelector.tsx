@@ -34,35 +34,74 @@ export default function RoleSelector({ selectedRoles, onRolesUpdate }: RoleSelec
         <div className="control">
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.TOP)} onChange={() => getNewRoles(Role.TOP)} /> Top
+              <input
+                type="checkbox"
+                checked={isChecked(Role.TOP)}
+                onChange={() => {
+                  getNewRoles(Role.TOP);
+                }}
+              />{" "}
+              Top
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.JUNGLE)} onChange={() => getNewRoles(Role.JUNGLE)} />{" "}
+              <input
+                type="checkbox"
+                checked={isChecked(Role.JUNGLE)}
+                onChange={() => {
+                  getNewRoles(Role.JUNGLE);
+                }}
+              />{" "}
               Jungle
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.MID)} onChange={() => getNewRoles(Role.MID)} /> Mid
+              <input
+                type="checkbox"
+                checked={isChecked(Role.MID)}
+                onChange={() => {
+                  getNewRoles(Role.MID);
+                }}
+              />{" "}
+              Mid
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.ADC)} onChange={() => getNewRoles(Role.ADC)} /> ADC
+              <input
+                type="checkbox"
+                checked={isChecked(Role.ADC)}
+                onChange={() => {
+                  getNewRoles(Role.ADC);
+                }}
+              />{" "}
+              ADC
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.SUPPORT)} onChange={() => getNewRoles(Role.SUPPORT)} />{" "}
+              <input
+                type="checkbox"
+                checked={isChecked(Role.SUPPORT)}
+                onChange={() => {
+                  getNewRoles(Role.SUPPORT);
+                }}
+              />{" "}
               Support
             </label>
           </div>
           <div className="field">
             <label className="checkbox">
-              <input type="checkbox" checked={isChecked(Role.ALL)} onChange={() => getNewRoles(Role.ALL)} /> Not Role
-              Specific
+              <input
+                type="checkbox"
+                checked={isChecked(Role.ALL)}
+                onChange={() => {
+                  getNewRoles(Role.ALL);
+                }}
+              />{" "}
+              Not Role Specific
             </label>
           </div>
         </div>
