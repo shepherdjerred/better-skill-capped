@@ -11,7 +11,7 @@
         "@fortawesome/react-fontawesome": "^3.1.0",
         "@sentry/react": "^10.23.0",
         "axios": "^1.13.2",
-        "bulma": "^0.9.4",
+        "bulma": "^1.0.0",
         "bulma-prefers-dark": "^0.1.0-beta.1",
         "classnames": "^2.5.1",
         "fuse.js": "^7.1.0",
@@ -379,7 +379,7 @@
 
     "browserslist": ["browserslist@4.28.0", "", { "dependencies": { "baseline-browser-mapping": "^2.8.25", "caniuse-lite": "^1.0.30001754", "electron-to-chromium": "^1.5.249", "node-releases": "^2.0.27", "update-browserslist-db": "^1.1.4" }, "bin": { "browserslist": "cli.js" } }, "sha512-tbydkR/CxfMwelN0vwdP/pLkDwyAASZ+VfWm4EOwlB6SWhx1sYnWLqo8N5j0rAzPfzfRaxt0mM/4wPU/Su84RQ=="],
 
-    "bulma": ["bulma@0.9.4", "", {}, "sha512-86FlT5+1GrsgKbPLRRY7cGDg8fsJiP/jzTqXXVqiUZZ2aZT8uemEOHlU1CDU+TxklPEZ11HZNNWclRBBecP4CQ=="],
+    "bulma": ["bulma@1.0.4", "", {}, "sha512-Ffb6YGXDiZYX3cqvSbHWqQ8+LkX6tVoTcZuVB3lm93sbAVXlO0D6QlOTMnV6g18gILpAXqkG2z9hf9z4hCjz2g=="],
 
     "bulma-prefers-dark": ["bulma-prefers-dark@0.1.0-beta.1", "", {}, "sha512-ti4sKxIIrTAvGtsYc9Rk66SUZSH/j63EU1hApQijQVlKFF0qBLGSb8E16HhI83KJaIeYP4aAHQv2tj0ara831A=="],
 

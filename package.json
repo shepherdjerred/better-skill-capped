@@ -23,7 +23,7 @@
     "@fortawesome/react-fontawesome": "^3.1.0",
     "@sentry/react": "^10.23.0",
     "axios": "^1.13.2",
-    "bulma": "^0.9.4",
+    "bulma": "^1.0.0",
     "bulma-prefers-dark": "^0.1.0-beta.1",
     "classnames": "^2.5.1",
     "fuse.js": "^7.1.0",
