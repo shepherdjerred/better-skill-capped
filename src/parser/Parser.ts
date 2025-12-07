@@ -113,7 +113,7 @@ export class Parser {
         "https://ik.imagekit.io/skillcapped/customss/jpg-images/",
       );
     } else {
-      return `https://ik.imagekit.io/skillcapped/thumbnails/${input.uuid}/thumbnails/thumbnail_${input.tId}.jpg`;
+      return `https://ik.imagekit.io/skillcapped/thumbnails/${input.uuid}/thumbnails/thumbnail_${String(input.tId)}.jpg`;
     }
   }
 
@@ -124,15 +124,15 @@ export class Parser {
   ): Course[] {
     const videos = this.parseVideos(manifestVideos, manifestCourses, manifestCourseChapters);
 
-    return manifestCourses.map((course: ManifestCourse): Course => {
-      const releaseDate = this.parseDate(course.rDate);
-      const role = roleFromString(course.role);
-      const title = rawTitleToDisplayTitle(course.title);
+    return manifestCourses
+      .filter((course) => manifestCourseChapters[course.title]?.chapters !== undefined)
+      .map((course: ManifestCourse): Course => {
+        const releaseDate = this.parseDate(course.rDate);
+        const role = roleFromString(course.role);
+        const title = rawTitleToDisplayTitle(course.title);
 
-      let courseVideos: CourseVideo[] = [];
-
-      if (manifestCourseChapters[course.title]) {
-        courseVideos = manifestCourseChapters[course.title].chapters[0].vids.map((video) => {
+        const courseChapters = manifestCourseChapters[course.title];
+        const courseVideos: CourseVideo[] = courseChapters.chapters[0].vids.map((video) => {
           const videoInfo = videos.find((candidate) => candidate.uuid === video.uuid);
           const altTitle = video.altTitle !== undefined ? rawTitleToDisplayTitle(video.altTitle) : undefined;
 
@@ -145,18 +145,17 @@ export class Parser {
             altTitle,
           };
         });
-      }
 
-      return {
-        title,
-        uuid: course.uuid,
-        description: course.desc || undefined,
-        releaseDate: releaseDate,
-        role: role,
-        image: course.courseImage2,
-        videos: courseVideos,
-      };
-    });
+        return {
+          title,
+          uuid: course.uuid,
+          description: course.desc || undefined,
+          releaseDate: releaseDate,
+          role: role,
+          image: course.courseImage2,
+          videos: courseVideos,
+        };
+      });
   }
 
   parseCommentaries(dumpCommentary: ManifestCommentary[]): Commentary[] {

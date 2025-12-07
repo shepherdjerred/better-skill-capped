@@ -24,7 +24,7 @@ function NumberedPageControl({ page, isCurrent, onClick }: NumberedPageControlPr
           button: true,
           "is-current": isCurrent,
         })}
-        aria-label={`Page ${page}`}
+        aria-label={`Page ${String(page)}`}
         aria-current="page"
       >
         {page}

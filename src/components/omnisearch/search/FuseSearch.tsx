@@ -88,16 +88,16 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
     const { query } = this.props;
 
     if (query !== undefined && query !== "") {
-      const fuseResults = fuse.search(query || "");
+      const fuseResults = fuse.search(query);
 
       return fuseResults.map((result) => {
         const { item, matches } = result;
-        const matchedStrings = (matches || [])
+        const matchedStrings = (matches ?? [])
           .map((match) => {
             const { indices, value } = match;
             return indices.map((index) => {
               if (value !== undefined) {
-                return value.substr(index[0], index[1] + 1);
+                return value.substring(index[0], index[1] + 1);
               } else {
                 return "";
               }
@@ -132,6 +132,6 @@ export class FuseSearch<T> extends React.PureComponent<FuseSearchProps<T>, FuseS
 }
 
 function createIndexedFuseInstance<T>(items: T[], options: Fuse.IFuseOptions<T>): Fuse.default<T> {
-  const index = Fuse.default.createIndex(options.keys || [], items);
+  const index = Fuse.default.createIndex(options.keys ?? [], items);
   return new Fuse.default<T>(items, options, index);
 }

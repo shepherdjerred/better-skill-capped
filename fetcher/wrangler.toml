@@ -8,4 +8,4 @@ crons = ["*/15 * * * *"]
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "better-skill-capped-manifests"
-preview_bucket_name = ""
+preview_bucket_name = "better-skill-capped-manifests"
