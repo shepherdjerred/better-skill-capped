@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "prepare": "husky",
     "start": "vite serve --host",
     "build": "vite build",
     "lint+build": "bun run lint && bun run build",
@@ -65,11 +66,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [

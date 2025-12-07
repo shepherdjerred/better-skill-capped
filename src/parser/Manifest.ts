@@ -76,18 +76,17 @@ export interface ManifestThisWeekData {
   courseName: string;
 }
 
-export interface ManifestCourseChapters {
-  [key: string]: {
-    chapters: [
-      {
-        title: string;
-        vids: [
+export type ManifestCourseChapters = Record<string, | {
+        chapters: [
           {
-            uuid: string;
-            altTitle?: string;
+            title: string;
+            vids: [
+              {
+                uuid: string;
+                altTitle?: string;
+              },
+            ];
           },
         ];
-      },
-    ];
-  };
-}
+      }
+    | undefined>;
