@@ -1,27 +1,5 @@
 import { func, argument, Directory, object, Secret, Container, dag } from "@dagger.io/dagger";
-
-// Helper function to log with timestamp
-function logWithTimestamp(message: string): void {
-  console.log(`[${new Date().toISOString()}] ${message}`);
-}
-
-// Helper function to measure execution time
-async function withTiming<T>(operation: string, fn: () => Promise<T>): Promise<T> {
-  const start = Date.now();
-  logWithTimestamp(`Starting ${operation}...`);
-  try {
-    const result = await fn();
-    const duration = Date.now() - start;
-    logWithTimestamp(`✅ ${operation} completed in ${duration.toString()}ms`);
-    return result;
-  } catch (error) {
-    const duration = Date.now() - start;
-    logWithTimestamp(
-      `❌ ${operation} failed after ${duration.toString()}ms: ${error instanceof Error ? error.message : String(error)}`,
-    );
-    throw error;
-  }
-}
+import { logWithTimestamp, withTiming } from "@shepherdjerred/dagger-utils/utils";
 
 /**
  * Get a container with bun
