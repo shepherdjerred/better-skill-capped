@@ -26,9 +26,9 @@ jobs:
         with:
           export-env: true
         env:
-          DAGGER_CLOUD_TOKEN: op://v64ocnykdqju4ui6j6pua56xw4/kjzy27cw4ialemerahutnxis3a/DAGGER_CLOUD_TOKEN
-          CLOUDFLARE_ACCOUNT_ID: op://v64ocnykdqju4ui6j6pua56xw4/kjzy27cw4ialemerahutnxis3a/CLOUDFLARE_ACCOUNT_ID
-          CLOUDFLARE_API_TOKEN: op://v64ocnykdqju4ui6j6pua56xw4/kjzy27cw4ialemerahutnxis3a/CLOUDFLARE_API_TOKEN
+          DAGGER_CLOUD_TOKEN: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/DAGGER_CLOUD_TOKEN
+          CLOUDFLARE_ACCOUNT_ID: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/CLOUDFLARE_ACCOUNT_ID
+          CLOUDFLARE_API_TOKEN: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/CLOUDFLARE_API_TOKEN
 
       - name: Extract kubectl version
         id: kubectl-version
