@@ -97,7 +97,7 @@ export class BetterSkillCapped {
   }
 
   /**
-   * Deploy the main application to Netlify
+   * Deploy the main application to Cloudflare Pages
    */
   @func()
   async deploy(
@@ -106,29 +106,52 @@ export class BetterSkillCapped {
       defaultPath: ".",
     })
     source: Directory,
-    @argument() prod: boolean = false,
-    netlifyToken: Secret,
+    projectName: string,
+    branch: string,
+    gitSha: string,
+    cloudflareAccountId: Secret,
+    cloudflareToken: Secret,
+    buildDir?: Directory,
   ): Promise<string> {
-    logWithTimestamp(`🚀 Deploying to Netlify (${prod ? "production" : "preview"})`);
+    logWithTimestamp(`🚀 Deploying to Cloudflare Pages (branch: ${branch})`);
 
-    const dist = await this.build(source);
-    const siteId = "4374825e-365d-4cb3-8117-71e1d8c0c960";
+    const dist = buildDir ?? (await this.build(source));
 
-    const container = getBunContainer()
-      .withExec(["bun", "install", "-g", "netlify-cli"])
-      .withMountedDirectory("/workspace/dist", dist)
-      .withSecretVariable("NETLIFY_AUTH_TOKEN", netlifyToken)
-      .withEnvVariable("NETLIFY_SITE_ID", siteId);
+    const container = dag
+      .container()
+      .from("node:lts-slim")
+      .withDirectory("/workspace/dist", dist)
+      .withSecretVariable("CLOUDFLARE_ACCOUNT_ID", cloudflareAccountId)
+      .withSecretVariable("CLOUDFLARE_API_TOKEN", cloudflareToken);
 
-    await withTiming("netlify deployment", async () => {
-      if (prod) {
-        await container.withExec(["bunx", "netlify-cli", "deploy", "--dir=dist", "--prod"]);
-      } else {
-        await container.withExec(["bunx", "netlify-cli", "deploy", "--dir=dist"]);
+    const output = await withTiming("cloudflare pages deployment", async () => {
+      const deployContainer = container.withExec([
+        "npx",
+        "wrangler@latest",
+        "pages",
+        "deploy",
+        "/workspace/dist",
+        `--project-name=${projectName}`,
+        `--branch=${branch}`,
+        `--commit-hash=${gitSha}`,
+      ]);
+
+      const [stdout, stderr] = await Promise.all([
+        deployContainer.stdout().catch(() => ""),
+        deployContainer.stderr().catch(() => ""),
+      ]);
+
+      logWithTimestamp(`📤 Deployment stdout:\n${stdout}`);
+      if (stderr) {
+        logWithTimestamp(`📤 Deployment stderr:\n${stderr}`);
       }
+
+      await deployContainer.sync();
+
+      return stdout;
     });
 
-    return `✅ Deployment completed successfully (${prod ? "production" : "preview"})`;
+    return `✅ Deployment completed successfully (branch: ${branch})\n${output}`;
   }
 
   /**
@@ -200,17 +223,19 @@ export class BetterSkillCapped {
       defaultPath: ".",
     })
     source: Directory,
-    @argument() prod: boolean = false,
-    netlifyToken?: Secret,
-    cloudflareToken?: Secret,
+    projectName: string,
+    branch: string,
+    gitSha: string,
+    cloudflareAccountId: Secret,
+    cloudflareToken: Secret,
   ): Promise<string> {
-    logWithTimestamp(`🚀 Running CI pipeline (${prod ? "production" : "preview"})`);
+    logWithTimestamp(`🚀 Running CI pipeline (branch: ${branch})`);
 
     const mainSource = source.withoutDirectory("fetcher");
     const fetcherSource = source.directory("fetcher");
 
     // Run lint and build in parallel
-    const [lintResult, buildResult, fetcherBuildResult] = await Promise.all([
+    const [_lintResult, buildResult, _fetcherBuildResult] = await Promise.all([
       withTiming("main lint", () => this.lint(mainSource)),
       withTiming("main build", () => this.build(mainSource)),
       withTiming("fetcher build", () => this.fetcherBuild(fetcherSource)),
@@ -218,16 +243,26 @@ export class BetterSkillCapped {
 
     logWithTimestamp("✅ Build and lint completed successfully");
 
-    // Deploy if we're in production and have tokens
-    if (prod && netlifyToken && cloudflareToken) {
+    // Deploy both main app and fetcher
+    const isProduction = branch === "main";
+
+    if (isProduction) {
+      // Production deployment: deploy both main and fetcher
       await Promise.all([
-        withTiming("main deploy", () => this.deploy(mainSource, prod, netlifyToken)),
+        withTiming("main deploy", () =>
+          this.deploy(mainSource, projectName, branch, gitSha, cloudflareAccountId, cloudflareToken, buildResult),
+        ),
         withTiming("fetcher deploy", () => this.fetcherDeploy(fetcherSource, cloudflareToken)),
       ]);
 
-      return "✅ CI pipeline completed successfully with deployments";
-    }
+      return "✅ CI pipeline completed successfully with production deployments";
+    } else {
+      // Preview deployment: deploy only main app (fetcher doesn't support preview)
+      await withTiming("main deploy (preview)", () =>
+        this.deploy(mainSource, projectName, branch, gitSha, cloudflareAccountId, cloudflareToken, buildResult),
+      );
 
-    return "✅ CI pipeline completed successfully";
+      return "✅ CI pipeline completed successfully with preview deployment";
+    }
   }
 }
