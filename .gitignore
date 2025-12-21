@@ -28,3 +28,4 @@ yarn-error.log*
 bin/
 
 .playwright-mcp
+.claude/settings.local.json
