@@ -75,25 +75,13 @@ jobs:
           cd .dagger
           bun install --frozen-lockfile
 
-      - name: Run Dagger CI pipeline (production)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          dagger call ci \
-            --source=. \
-            --project-name=better-skill-capped \
-            --branch=main \
-            --git-sha=${{ github.sha }} \
-            --cloudflare-account-id=env:CLOUDFLARE_ACCOUNT_ID \
-            --cloudflare-token=env:CLOUDFLARE_API_TOKEN
-
-      - name: Run Dagger CI pipeline (preview)
-        if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'
+      - name: Run Dagger CI pipeline
         run: |
           BRANCH_NAME=${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
           dagger call ci \
             --source=. \
             --project-name=better-skill-capped \
-            --branch=$BRANCH_NAME \
+            --branch="$BRANCH_NAME" \
             --git-sha=${{ github.sha }} \
             --cloudflare-account-id=env:CLOUDFLARE_ACCOUNT_ID \
             --cloudflare-token=env:CLOUDFLARE_API_TOKEN
