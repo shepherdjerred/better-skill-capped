@@ -214,6 +214,105 @@ export class BetterSkillCapped {
   }
 
   /**
+   * Build a container with the frontend
+   */
+  @func()
+  async buildContainer(
+    @argument({
+      ignore: ["node_modules", "dist", "build", ".cache", "*.log", ".env*", "!.env.example", ".dagger", "fetcher"],
+      defaultPath: ".",
+    })
+    source: Directory,
+  ): Promise<Container> {
+    logWithTimestamp("🐳 Building frontend container");
+
+    const dist = await this.build(source);
+
+    const container = dag
+      .container()
+      .from("nginx:alpine")
+      .withDirectory("/usr/share/nginx/html", dist)
+      .withExposedPort(80);
+
+    logWithTimestamp("✅ Frontend container built successfully");
+    return container;
+  }
+
+  /**
+   * Publish the frontend container to GHCR
+   */
+  @func()
+  async publishFrontend(
+    @argument({
+      ignore: ["node_modules", "dist", "build", ".cache", "*.log", ".env*", "!.env.example", ".dagger", "fetcher"],
+      defaultPath: ".",
+    })
+    source: Directory,
+    @argument() imageName: string,
+    @argument() ghcrUsername: string,
+    ghcrPassword: Secret,
+  ): Promise<string> {
+    logWithTimestamp(`📦 Publishing frontend to ${imageName}`);
+
+    const container = await this.buildContainer(source);
+
+    const publishedRef = await withTiming("publish frontend to GHCR", async () => {
+      return container.withRegistryAuth("ghcr.io", ghcrUsername, ghcrPassword).publish(imageName);
+    });
+
+    logWithTimestamp(`✅ Frontend published: ${publishedRef}`);
+    return publishedRef;
+  }
+
+  /**
+   * Build a container for the fetcher CronJob
+   */
+  @func()
+  async buildFetcherContainer(
+    @argument({
+      ignore: ["node_modules", "dist", "build", ".cache", "*.log", ".env*", "!.env.example", ".dagger"],
+      defaultPath: "fetcher",
+    })
+    source: Directory,
+  ): Promise<Container> {
+    logWithTimestamp("🐳 Building fetcher container");
+
+    const container = getBunContainer()
+      .withMountedDirectory("/workspace", source)
+      .withExec(["bun", "install", "--frozen-lockfile"])
+      .withEntrypoint(["bun", "run", "src/index.ts"]);
+
+    logWithTimestamp("✅ Fetcher container built successfully");
+    return container;
+  }
+
+  /**
+   * Publish the fetcher container to GHCR
+   */
+  @func()
+  async publishFetcher(
+    @argument({
+      ignore: ["node_modules", "dist", "build", ".cache", "*.log", ".env*", "!.env.example", ".dagger"],
+      defaultPath: "fetcher",
+    })
+    source: Directory,
+    @argument() imageName: string,
+    @argument() ghcrUsername: string,
+    ghcrPassword: Secret,
+  ): Promise<string> {
+    logWithTimestamp(`📦 Publishing fetcher to ${imageName}`);
+
+    const container = await this.buildFetcherContainer(source);
+
+    const publishedRef = await withTiming("publish fetcher to GHCR", async () => {
+      return container.withRegistryAuth("ghcr.io", ghcrUsername, ghcrPassword).publish(imageName);
+    });
+
+    logWithTimestamp(`✅ Fetcher published: ${publishedRef}`);
+    return publishedRef;
+  }
+
+  /**
    * Run the complete CI pipeline
    */
   @func()
