@@ -27,7 +27,6 @@ jobs:
           export-env: true
         env:
           DAGGER_CLOUD_TOKEN: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/DAGGER_CLOUD_TOKEN
-          GHCR_PASSWORD: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/GHCR_PASSWORD
           GH_TOKEN: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/GH_TOKEN
 
       - name: Extract kubectl version
@@ -91,7 +90,7 @@ jobs:
             --version="1.0.${{ github.run_number }}" \
             --branch="$BRANCH_NAME" \
             --ghcr-username="${{ github.actor }}" \
-            --ghcr-password=env:GHCR_PASSWORD \
+            --ghcr-password=env:GH_TOKEN \
             --gh-token=env:GH_TOKEN
 
 permissions:
