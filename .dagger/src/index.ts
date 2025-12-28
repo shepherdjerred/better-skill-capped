@@ -1,4 +1,5 @@
 import { func, argument, Directory, object, Secret, Container, dag } from "@dagger.io/dagger";
+import { updateHomelabVersion } from "@shepherdjerred/dagger-utils/src/containers/homelab";
 
 // Helper function to log with timestamp
 function logWithTimestamp(message: string): void {
@@ -97,61 +98,35 @@ export class BetterSkillCapped {
   }
 
   /**
-   * Deploy the main application to Cloudflare Pages
+   * Deploy to Kubernetes by updating homelab versions and creating a PR
    */
   @func()
-  async deploy(
-    @argument({
-      ignore: ["node_modules", "dist", "build", ".cache", "*.log", ".env*", "!.env.example", ".dagger", "fetcher"],
-      defaultPath: ".",
-    })
-    source: Directory,
-    projectName: string,
-    branch: string,
-    gitSha: string,
-    cloudflareAccountId: Secret,
-    cloudflareToken: Secret,
-    buildDir?: Directory,
-  ): Promise<string> {
-    logWithTimestamp(`🚀 Deploying to Cloudflare Pages (branch: ${branch})`);
+  async deploy(@argument() version: string, ghToken?: Secret): Promise<string> {
+    logWithTimestamp(`🚀 Deploying version ${version} to Kubernetes`);
 
-    const dist = buildDir ?? (await this.build(source));
+    if (!ghToken) {
+      logWithTimestamp("⚠️ No GitHub token provided - deployment skipped");
+      return "Deployment skipped (no GitHub token provided)";
+    }
 
-    const container = dag
-      .container()
-      .from("node:lts-slim")
-      .withDirectory("/workspace/dist", dist)
-      .withSecretVariable("CLOUDFLARE_ACCOUNT_ID", cloudflareAccountId)
-      .withSecretVariable("CLOUDFLARE_API_TOKEN", cloudflareToken);
-
-    const output = await withTiming("cloudflare pages deployment", async () => {
-      const deployContainer = container.withExec([
-        "npx",
-        "wrangler@latest",
-        "pages",
-        "deploy",
-        "/workspace/dist",
-        `--project-name=${projectName}`,
-        `--branch=${branch}`,
-        `--commit-hash=${gitSha}`,
+    // Update both frontend and fetcher versions in homelab
+    await withTiming("update homelab versions", async () => {
+      await Promise.all([
+        updateHomelabVersion({
+          ghToken,
+          appName: "better-skill-capped",
+          version,
+        }),
+        updateHomelabVersion({
+          ghToken,
+          appName: "better-skill-capped-fetcher",
+          version,
+        }),
       ]);
-
-      const [stdout, stderr] = await Promise.all([
-        deployContainer.stdout().catch(() => ""),
-        deployContainer.stderr().catch(() => ""),
-      ]);
-
-      logWithTimestamp(`📤 Deployment stdout:\n${stdout}`);
-      if (stderr) {
-        logWithTimestamp(`📤 Deployment stderr:\n${stderr}`);
-      }
-
-      await deployContainer.sync();
-
-      return stdout;
     });
 
-    return `✅ Deployment completed successfully (branch: ${branch})\n${output}`;
+    logWithTimestamp(`✅ Deployment PR created for version ${version}`);
+    return `✅ Deployment completed - PR created for version ${version}`;
   }
 
   /**
@@ -189,28 +164,6 @@ export class BetterSkillCapped {
     });
 
     return "✅ Fetcher build completed successfully";
-  }
-
-  /**
-   * Deploy the fetcher worker to Cloudflare
-   */
-  @func()
-  async fetcherDeploy(
-    @argument({
-      ignore: ["node_modules", "dist", "build", ".cache", "*.log", ".env*", "!.env.example", ".dagger"],
-      defaultPath: "fetcher",
-    })
-    source: Directory,
-    cloudflareToken: Secret,
-  ): Promise<string> {
-    logWithTimestamp("🚀 Deploying fetcher to Cloudflare");
-
-    await withTiming("fetcher deployment", async () => {
-      const container = await this.fetcherDeps(source);
-      await container.withSecretVariable("CLOUDFLARE_API_TOKEN", cloudflareToken).withExec(["bun", "run", "deploy"]);
-    });
-
-    return "✅ Fetcher deployment completed successfully";
   }
 
   /**
@@ -322,19 +275,19 @@ export class BetterSkillCapped {
       defaultPath: ".",
     })
     source: Directory,
-    projectName: string,
-    branch: string,
-    gitSha: string,
-    cloudflareAccountId: Secret,
-    cloudflareToken: Secret,
+    @argument() version: string,
+    @argument() branch: string,
+    ghcrUsername?: string,
+    ghcrPassword?: Secret,
+    ghToken?: Secret,
   ): Promise<string> {
-    logWithTimestamp(`🚀 Running CI pipeline (branch: ${branch})`);
+    logWithTimestamp(`🚀 Running CI pipeline for version ${version} (branch: ${branch})`);
 
     const mainSource = source.withoutDirectory("fetcher");
     const fetcherSource = source.directory("fetcher");
 
     // Run lint and build in parallel
-    const [_lintResult, buildResult, _fetcherBuildResult] = await Promise.all([
+    const [_lintResult, _buildResult, _fetcherBuildResult] = await Promise.all([
       withTiming("main lint", () => this.lint(mainSource)),
       withTiming("main build", () => this.build(mainSource)),
       withTiming("fetcher build", () => this.fetcherBuild(fetcherSource)),
@@ -342,26 +295,36 @@ export class BetterSkillCapped {
 
     logWithTimestamp("✅ Build and lint completed successfully");
 
-    // Deploy both main app and fetcher
     const isProduction = branch === "main";
 
-    if (isProduction) {
-      // Production deployment: deploy both main and fetcher
-      await Promise.all([
-        withTiming("main deploy", () =>
-          this.deploy(mainSource, projectName, branch, gitSha, cloudflareAccountId, cloudflareToken, buildResult),
-        ),
-        withTiming("fetcher deploy", () => this.fetcherDeploy(fetcherSource, cloudflareToken)),
-      ]);
-
-      return "✅ CI pipeline completed successfully with production deployments";
-    } else {
-      // Preview deployment: deploy only main app (fetcher doesn't support preview)
-      await withTiming("main deploy (preview)", () =>
-        this.deploy(mainSource, projectName, branch, gitSha, cloudflareAccountId, cloudflareToken, buildResult),
-      );
-
-      return "✅ CI pipeline completed successfully with preview deployment";
+    if (!isProduction) {
+      return "✅ CI pipeline completed successfully (checks only, no deployment)";
     }
+
+    // Production: publish images and deploy
+    if (!ghcrUsername || !ghcrPassword) {
+      logWithTimestamp("⚠️ GHCR credentials not provided - skipping publish");
+      return "✅ CI pipeline completed (no GHCR credentials for publish)";
+    }
+
+    // Publish both frontend and fetcher images
+    const frontendImage = "ghcr.io/shepherdjerred/better-skill-capped";
+    const fetcherImage = "ghcr.io/shepherdjerred/better-skill-capped-fetcher";
+
+    await withTiming("publish images", async () => {
+      await Promise.all([
+        this.publishFrontend(mainSource, `${frontendImage}:${version}`, ghcrUsername, ghcrPassword),
+        this.publishFrontend(mainSource, `${frontendImage}:latest`, ghcrUsername, ghcrPassword),
+        this.publishFetcher(fetcherSource, `${fetcherImage}:${version}`, ghcrUsername, ghcrPassword),
+        this.publishFetcher(fetcherSource, `${fetcherImage}:latest`, ghcrUsername, ghcrPassword),
+      ]);
+    });
+
+    logWithTimestamp("✅ Images published to GHCR");
+
+    // Deploy to Kubernetes via homelab PR
+    await withTiming("deploy to kubernetes", () => this.deploy(version, ghToken));
+
+    return "✅ CI pipeline completed successfully with production deployment";
   }
 }

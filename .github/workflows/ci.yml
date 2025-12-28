@@ -27,8 +27,8 @@ jobs:
           export-env: true
         env:
           DAGGER_CLOUD_TOKEN: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/DAGGER_CLOUD_TOKEN
-          CLOUDFLARE_ACCOUNT_ID: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/CLOUDFLARE_ACCOUNT_ID
-          CLOUDFLARE_API_TOKEN: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/CLOUDFLARE_API_TOKEN
+          GHCR_PASSWORD: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/GHCR_PASSWORD
+          GH_TOKEN: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/GH_TOKEN
 
       - name: Extract kubectl version
         id: kubectl-version
@@ -80,7 +80,6 @@ jobs:
           HEAD_REF: ${{ github.head_ref }}
           REF_NAME: ${{ github.ref_name }}
           EVENT_NAME: ${{ github.event_name }}
-          GIT_SHA: ${{ github.sha }}
         run: |
           if [ "$EVENT_NAME" == "pull_request" ]; then
             BRANCH_NAME="$HEAD_REF"
@@ -89,11 +88,11 @@ jobs:
           fi
           dagger call ci \
             --source=. \
-            --project-name=better-skill-capped \
+            --version="1.0.${{ github.run_number }}" \
             --branch="$BRANCH_NAME" \
-            --git-sha="$GIT_SHA" \
-            --cloudflare-account-id=env:CLOUDFLARE_ACCOUNT_ID \
-            --cloudflare-token=env:CLOUDFLARE_API_TOKEN
+            --ghcr-username="${{ github.actor }}" \
+            --ghcr-password=env:GHCR_PASSWORD \
+            --gh-token=env:GH_TOKEN
 
 permissions:
   contents: read
