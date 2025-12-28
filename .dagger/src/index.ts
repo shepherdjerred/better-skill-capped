@@ -1,5 +1,5 @@
 import { func, argument, Directory, object, Secret, Container, dag } from "@dagger.io/dagger";
-import { updateHomelabVersion } from "@shepherdjerred/dagger-utils/src/containers/homelab";
+import { updateHomelabVersion } from "@shepherdjerred/dagger-utils/containers";
 
 // Helper function to log with timestamp
 function logWithTimestamp(message: string): void {
