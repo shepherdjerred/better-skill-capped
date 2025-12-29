@@ -231,7 +231,7 @@ export class BetterSkillCapped {
     logWithTimestamp("🐳 Building fetcher container");
 
     const container = getBunContainer()
-      .withMountedDirectory("/workspace", source)
+      .withDirectory("/workspace", source)
       .withExec(["bun", "install", "--frozen-lockfile"])
       .withEntrypoint(["bun", "run", "src/index.ts"]);
 
