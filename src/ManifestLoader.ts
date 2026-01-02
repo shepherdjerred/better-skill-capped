@@ -7,7 +7,7 @@ export class ManifestLoader {
     const datastore = new LocalStorageManifestDatastore();
     const cached = datastore.get();
     if (!cached || datastore.isStale()) {
-      const response = await axios.get("https://manifest.better-skill-capped.com/manifest.json");
+      const response = await axios.get("/data/manifest.json");
       const manifest = response.data as Manifest;
 
       datastore.set(manifest);

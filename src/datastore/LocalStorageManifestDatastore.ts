@@ -19,7 +19,13 @@ export class LocalStorageManifestDatastore {
   }
 
   isStale(): boolean {
-    return true;
+    const timestamp = window.localStorage.getItem(TIMESTAMP);
+    if (!timestamp) {
+      return true;
+    }
+    const storedTime = JSON.parse(timestamp) as number;
+    const fifteenMinutes = 15 * 60 * 1000;
+    return Date.now() - storedTime > fifteenMinutes;
   }
 
   private setTime(date: Date): void {
