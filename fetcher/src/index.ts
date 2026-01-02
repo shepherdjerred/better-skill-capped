@@ -4,7 +4,7 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 
 async function main() {
-  const outputPath = process.env.OUTPUT_PATH ?? "/data/manifest.json";
+  const outputPath = Bun.env["OUTPUT_PATH"] ?? "/data/manifest.json";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAgHWuN2OEx5R827dHlKO9HsOuBwZ017n0",
@@ -18,9 +18,13 @@ async function main() {
   const app = initializeApp(firebaseConfig);
 
   const db = getFirestore(app);
-  const docRef = await doc(db, "content-location/lol-content-location");
+  const docRef = doc(db, "content-location/lol-content-location");
   const docSnap = await getDoc(docRef);
-  const url: string = docSnap.data()?.["dumpUrl"];
+  const data = docSnap.data() as { dumpUrl: string } | undefined;
+  const url = data?.dumpUrl;
+  if (!url) {
+    throw new Error("dumpUrl not found in Firestore document");
+  }
 
   console.log(`Found manifest URL: ${url}`);
   const jsonResponse = await fetch(url);
@@ -34,7 +38,7 @@ async function main() {
   console.log(`Manifest saved to ${outputPath}`);
 }
 
-main().catch((error) => {
+main().catch((error: unknown) => {
   console.error("Failed to fetch manifest:", error);
   process.exit(1);
 });
