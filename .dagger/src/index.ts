@@ -1,5 +1,5 @@
 import { func, argument, Directory, object, Secret, Container, dag } from "@dagger.io/dagger";
-import { updateHomelabVersion } from "@shepherdjerred/dagger-utils/containers";
+import { updateHomelabVersion, syncToS3 } from "@shepherdjerred/dagger-utils/containers";
 
 // Helper function to log with timestamp
 function logWithTimestamp(message: string): void {
@@ -98,35 +98,29 @@ export class BetterSkillCapped {
   }
 
   /**
-   * Deploy to Kubernetes by updating homelab versions and creating a PR
+   * Deploy fetcher to Kubernetes by updating homelab version and creating a PR
+   * Note: Frontend is now deployed to S3, not Kubernetes
    */
   @func()
   async deploy(@argument() version: string, ghToken?: Secret): Promise<string> {
-    logWithTimestamp(`🚀 Deploying version ${version} to Kubernetes`);
+    logWithTimestamp(`🚀 Deploying fetcher version ${version} to Kubernetes`);
 
     if (!ghToken) {
       logWithTimestamp("⚠️ No GitHub token provided - deployment skipped");
       return "Deployment skipped (no GitHub token provided)";
     }
 
-    // Update both frontend and fetcher versions in homelab
-    await withTiming("update homelab versions", async () => {
-      await Promise.all([
-        updateHomelabVersion({
-          ghToken,
-          appName: "better-skill-capped",
-          version,
-        }),
-        updateHomelabVersion({
-          ghToken,
-          appName: "better-skill-capped-fetcher",
-          version,
-        }),
-      ]);
+    // Update only fetcher version in homelab (frontend uses S3 now)
+    await withTiming("update homelab version", async () => {
+      await updateHomelabVersion({
+        ghToken,
+        appName: "better-skill-capped-fetcher",
+        version,
+      });
     });
 
-    logWithTimestamp(`✅ Deployment PR created for version ${version}`);
-    return `✅ Deployment completed - PR created for version ${version}`;
+    logWithTimestamp(`✅ Fetcher deployment PR created for version ${version}`);
+    return `✅ Fetcher deployment completed - PR created for version ${version}`;
   }
 
   /**
@@ -167,54 +161,34 @@ export class BetterSkillCapped {
   }
 
   /**
-   * Build a container with the frontend
+   * Deploy frontend to S3 (SeaweedFS)
    */
   @func()
-  async buildContainer(
+  async deployFrontendToS3(
     @argument({
       ignore: ["node_modules", "dist", "build", ".cache", "*.log", ".env*", "!.env.example", ".dagger", "fetcher"],
       defaultPath: ".",
     })
     source: Directory,
-  ): Promise<Container> {
-    logWithTimestamp("🐳 Building frontend container");
+    @argument() s3AccessKeyId: Secret,
+    @argument() s3SecretAccessKey: Secret,
+  ): Promise<string> {
+    logWithTimestamp("🚀 Deploying frontend to S3");
 
     const dist = await this.build(source);
 
-    const container = dag
-      .container()
-      .from("nginx:alpine")
-      .withDirectory("/usr/share/nginx/html", dist)
-      .withExposedPort(80);
-
-    logWithTimestamp("✅ Frontend container built successfully");
-    return container;
-  }
-
-  /**
-   * Publish the frontend container to GHCR
-   */
-  @func()
-  async publishFrontend(
-    @argument({
-      ignore: ["node_modules", "dist", "build", ".cache", "*.log", ".env*", "!.env.example", ".dagger", "fetcher"],
-      defaultPath: ".",
-    })
-    source: Directory,
-    @argument() imageName: string,
-    @argument() ghcrUsername: string,
-    ghcrPassword: Secret,
-  ): Promise<string> {
-    logWithTimestamp(`📦 Publishing frontend to ${imageName}`);
-
-    const container = await this.buildContainer(source);
-
-    const publishedRef = await withTiming("publish frontend to GHCR", async () => {
-      return container.withRegistryAuth("ghcr.io", ghcrUsername, ghcrPassword).publish(imageName);
+    const syncOutput = await syncToS3({
+      sourceDir: dist,
+      bucketName: "better-skill-capped",
+      endpointUrl: "http://seaweedfs-s3.seaweedfs.svc.cluster.local:8333",
+      accessKeyId: s3AccessKeyId,
+      secretAccessKey: s3SecretAccessKey,
+      region: "us-east-1",
+      deleteRemoved: true,
     });
 
-    logWithTimestamp(`✅ Frontend published: ${publishedRef}`);
-    return publishedRef;
+    logWithTimestamp("✅ Frontend deployed to S3 successfully");
+    return syncOutput;
   }
 
   /**
@@ -280,6 +254,8 @@ export class BetterSkillCapped {
     ghcrUsername?: string,
     ghcrPassword?: Secret,
     ghToken?: Secret,
+    s3AccessKeyId?: Secret,
+    s3SecretAccessKey?: Secret,
   ): Promise<string> {
     logWithTimestamp(`🚀 Running CI pipeline for version ${version} (branch: ${branch})`);
 
@@ -301,29 +277,42 @@ export class BetterSkillCapped {
       return "✅ CI pipeline completed successfully (checks only, no deployment)";
     }
 
-    // Production: publish images and deploy
-    if (!ghcrUsername || !ghcrPassword) {
-      logWithTimestamp("⚠️ GHCR credentials not provided - skipping publish");
-      return "✅ CI pipeline completed (no GHCR credentials for publish)";
+    // Production: deploy frontend to S3 and publish fetcher image
+    if (!s3AccessKeyId || !s3SecretAccessKey) {
+      logWithTimestamp("⚠️ S3 credentials not provided - skipping frontend deployment");
+    } else {
+      await withTiming("deploy frontend to S3", async () => {
+        await this.deployFrontendToS3(mainSource, s3AccessKeyId, s3SecretAccessKey);
+      });
+      logWithTimestamp("✅ Frontend deployed to S3");
     }
 
-    // Publish both frontend and fetcher images
-    const frontendImage = "ghcr.io/shepherdjerred/better-skill-capped";
-    const fetcherImage = "ghcr.io/shepherdjerred/better-skill-capped-fetcher";
+    if (!ghcrUsername || !ghcrPassword) {
+      logWithTimestamp("⚠️ GHCR credentials not provided - skipping fetcher publish");
+    } else {
+      // Publish fetcher image
+      const fetcherImage = "ghcr.io/shepherdjerred/better-skill-capped-fetcher";
 
-    await withTiming("publish images", async () => {
-      await Promise.all([
-        this.publishFrontend(mainSource, `${frontendImage}:${version}`, ghcrUsername, ghcrPassword),
-        this.publishFrontend(mainSource, `${frontendImage}:latest`, ghcrUsername, ghcrPassword),
-        this.publishFetcher(fetcherSource, `${fetcherImage}:${version}`, ghcrUsername, ghcrPassword),
-        this.publishFetcher(fetcherSource, `${fetcherImage}:latest`, ghcrUsername, ghcrPassword),
-      ]);
-    });
+      await withTiming("publish fetcher image", async () => {
+        await Promise.all([
+          this.publishFetcher(fetcherSource, `${fetcherImage}:${version}`, ghcrUsername, ghcrPassword),
+          this.publishFetcher(fetcherSource, `${fetcherImage}:latest`, ghcrUsername, ghcrPassword),
+        ]);
+      });
 
-    logWithTimestamp("✅ Images published to GHCR");
+      logWithTimestamp("✅ Fetcher image published to GHCR");
+    }
 
-    // Deploy to Kubernetes via homelab PR
-    await withTiming("deploy to kubernetes", () => this.deploy(version, ghToken));
+    // Deploy fetcher to Kubernetes via homelab PR (only fetcher now)
+    if (ghToken && ghcrUsername && ghcrPassword) {
+      await withTiming("deploy fetcher to kubernetes", async () => {
+        await updateHomelabVersion({
+          ghToken,
+          appName: "better-skill-capped-fetcher",
+          version,
+        });
+      });
+    }
 
     return "✅ CI pipeline completed successfully with production deployment";
   }
