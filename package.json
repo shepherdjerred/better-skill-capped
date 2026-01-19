@@ -26,7 +26,6 @@
     "bulma": "^1.0.4",
     "classnames": "^2.5.1",
     "fuse.js": "^7.1.0",
-    "ga-4-react": "^0.1.281",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-highlight-words": "^0.21.0",
