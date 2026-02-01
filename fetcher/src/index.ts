@@ -1,3 +1,10 @@
+import * as Sentry from "@sentry/node";
+
+Sentry.init({
+  dsn: Bun.env["SENTRY_DSN"] ?? "https://34fcb766ca0f49499b001635c5cc5cb2@bugsink.sjer.red/3",
+  environment: Bun.env.NODE_ENV ?? "production",
+});
+
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc } from "firebase/firestore/lite";
 import { writeFileSync, mkdirSync } from "node:fs";
@@ -183,5 +190,6 @@ async function main() {
 
 main().catch((error: unknown) => {
   console.error("Failed to fetch manifest:", error);
+  Sentry.captureException(error);
   process.exit(1);
 });

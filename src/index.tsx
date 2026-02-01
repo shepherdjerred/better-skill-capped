@@ -17,7 +17,7 @@ setupTheme();
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", setupTheme);
 
 Sentry.init({
-  dsn: "https://7822525c2ffb4c61a436c1dfdfa14be8@o92742.ingest.sentry.io/5364733",
+  dsn: "https://34fcb766ca0f49499b001635c5cc5cb2@bugsink.sjer.red/3",
   // release: process.env.REACT_APP_TRAVIS_COMMIT,
   // environment: process.env.NODE_ENV,
 });
