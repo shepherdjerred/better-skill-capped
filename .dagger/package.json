@@ -12,7 +12,7 @@
     "typecheck": "bunx tsc --noEmit -p tsconfig.check.json"
   },
   "dependencies": {
-    "@shepherdjerred/dagger-utils": "^0.7.0",
+    "@shepherdjerred/dagger-utils": "^0.8.0",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
